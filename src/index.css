@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Graduate&family=Montserrat:wght@500;600;700&display=swap');
 *,
 ::after,
 ::before {
@@ -10,14 +11,21 @@
 
 :root {
   --blue: #1e90ff;
+  --clr-button: #ececec;
+  --clr-button-hover: #e2dede;
 }
 
 /* koodissa kutsutaan esim background: var(--blue) */
 
+.flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Montserrat', 'sans-serif';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

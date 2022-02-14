@@ -1,5 +1,5 @@
 import Etusivu from './Etusivu';
 import MatkakohteetSivu from './MatkakohteetSivu';
-import MatkakohdeSivu from './MatkakohdeSivu';
+import MatkakohdeIDSivu from './MatkakohdeIDSivu';
 
-export { Etusivu, MatkakohteetSivu, MatkakohdeSivu };
+export { Etusivu, MatkakohteetSivu, MatkakohdeIDSivu };
