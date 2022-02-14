@@ -1,4 +1,7 @@
 import logo from './logo.svg';
+// riittää importti vaan './pages' koska tulee index filestä
+//muuten pitäisi olla esim import Etusivu from './pages/Etusivu';
+import { Etusivu, MatkakohteetSivu, MatkakohdeSivu } from './pages';
 import './App.css';
 
 function App() {
