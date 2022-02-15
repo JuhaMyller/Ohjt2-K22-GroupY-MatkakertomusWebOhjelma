@@ -10,7 +10,12 @@
 /* Esimerkki :rootin käytöstä */
 
 :root {
+  --font-extra-small: 0.85rem;
+  --font-small: 1rem;
+  --font-medium: 1.5rem;
+  --font-big: 2rem;
   --blue: #1e90ff;
+  --clr-grey: #eeeaea;
   --clr-button: #ececec;
   --clr-button-hover: #e2dede;
 }
@@ -25,6 +30,7 @@
 }
 
 body {
+  font-size: 14px;
   font-family: -apple-system, BlinkMacSystemFont, 'Montserrat', 'sans-serif';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

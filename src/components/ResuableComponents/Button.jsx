@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const Button = ({ children, type, onClick, disabled, styles }) => {
@@ -16,8 +17,17 @@ const Button = ({ children, type, onClick, disabled, styles }) => {
   );
 };
 
+Button.propTypes = {
+  children: PropTypes.node.isRequired,
+  onClick: PropTypes.func.isRequired,
+  disabled: PropTypes.bool,
+  type: PropTypes.oneOf(['button', 'submit', 'reset']),
+  styles: PropTypes.object,
+};
+
 const Wrapper = styled.div`
   button {
+    font-size: var(--font-small);
     font-family: inherit;
     padding: 10px 15px;
     background: var(--clr-button);
