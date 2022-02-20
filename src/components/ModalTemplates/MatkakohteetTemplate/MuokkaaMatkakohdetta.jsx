@@ -29,7 +29,7 @@ const MuokkaaMatkakohdetta = ({ mkohteet }) => {
   };
 
   return (
-    <Wrapper>
+    <Wrapper style={edit ? { margin: '10px' } : { padding: '20px' }}>
       {!edit && (
         <div className="MuokkaaMatkaContainer">
           <div className="grid-layout">
@@ -142,7 +142,6 @@ const MuokkaaMatkakohdetta = ({ mkohteet }) => {
 };
 
 const Wrapper = styled.div`
-  padding: 20px;
   .input-50-container {
     display: flex;
     flex-wrap: wrap;
