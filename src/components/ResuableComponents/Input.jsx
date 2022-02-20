@@ -30,9 +30,10 @@ Input.propTypes = {
 
 const Wrapper = styled.div`
   input {
-    font-size: var(--font-medium);
+    width: 100%;
+    font-size: var(--font-small);
     font-family: inherit;
-    padding: 5px 15px;
+    padding: 10px 15px;
     border-radius: 5px;
     border: none;
     background: var(--clr-grey);

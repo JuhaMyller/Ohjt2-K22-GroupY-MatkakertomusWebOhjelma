@@ -19,7 +19,7 @@ const Button = ({ children, type, onClick, disabled, styles }) => {
 
 Button.propTypes = {
   children: PropTypes.node.isRequired,
-  onClick: PropTypes.func.isRequired,
+  onClick: PropTypes.func,
   disabled: PropTypes.bool,
   type: PropTypes.oneOf(['button', 'submit', 'reset']),
   styles: PropTypes.object,
@@ -27,6 +27,7 @@ Button.propTypes = {
 
 const Wrapper = styled.div`
   button {
+    cursor: pointer;
     font-size: var(--font-small);
     font-family: inherit;
     padding: 10px 15px;

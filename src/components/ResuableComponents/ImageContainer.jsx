@@ -2,59 +2,69 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-const ImageContainer = ({ imgArr, mainImg = 0 }) => {
+const ImageContainer = ({ imgUrls = [], mainImg = 0 }) => {
   const [imgIndex, setImgIndex] = useState(mainImg);
 
   return (
     <Wrapper>
       <div className="main-img">
-        <img src={imgArr[imgIndex]} alt="ei toimi" />
+        {imgUrls.length > 0 && <img src={imgUrls[imgIndex]} alt="ei toimi" />}
       </div>
-      <div className="small-imgs-container">
-        {imgArr.map((img, index) => {
-          return (
-            <div
-              onClick={() => setImgIndex(index)}
-              key={index}
-              className="small-img"
-            >
-              <img
-                style={index === imgIndex ? { opacity: 0.65 } : null}
-                src={img}
-                alt=""
-              />
-            </div>
-          );
-        })}
-      </div>
+      {imgUrls.length > 1 && (
+        <div className="small-imgs-container">
+          {imgUrls.map((img, index) => {
+            return (
+              <div
+                onClick={() => setImgIndex(index)}
+                key={index}
+                className="small-img"
+              >
+                <img
+                  style={index === imgIndex ? { opacity: 0.65 } : null}
+                  src={img}
+                  alt=""
+                />
+              </div>
+            );
+          })}
+        </div>
+      )}
     </Wrapper>
   );
 };
 
 ImageContainer.propTypes = {
-  imgArr: PropTypes.array.isRequired,
+  imgUrls: PropTypes.array.isRequired,
+  mainImg: PropTypes.number,
 };
 
 const Wrapper = styled.div`
-  width: 350px;
-  max-height: 350px;
-  max-width: 90%;
+  min-width: 250px;
+  max-width: 400px;
+  width: 90%;
+  user-select: none;
   img {
+    transition: opacity 0.5s linear;
     width: 100%;
     height: 100%;
-    aspect-ratio: 1/1;
     object-fit: cover;
     object-position: center;
   }
   .main-img {
-    width: 100%;
-    height: 100%;
+    min-width: 250px;
+    aspect-ratio: 1/1;
     overflow: hidden;
-    background-color: var(--clr-grey);
+    background-color: inherit;
+    border: 2px solid #777;
+    border-radius: 5px;
+    img {
+      object-fit: contain;
+      border-radius: 5px;
+    }
   }
   .small-imgs-container {
     margin-top: 10px;
-    height: 50px;
+    min-height: 50px;
     width: 100%;
     gap: 10px;
     display: grid;
@@ -63,12 +73,13 @@ const Wrapper = styled.div`
     place-items: center;
   }
   .small-img {
-    background: red;
     width: 100%;
-    height: 50px;
+    height: 49px;
+    background-color: red;
     cursor: pointer;
     :hover {
       transform: scale(1.1);
+      box-shadow: 3px 2px 2px black;
     }
   }
   @media only screen and (max-width: 350px) {
