@@ -6,6 +6,7 @@ import {
   MatkakohdeIDSivu,
   LisaaTarinaSivu,
 } from './pages';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 //Esimerkkinä App.js
 import { useModalContext } from './components/ResuableComponents/Modal/ModalContext';
@@ -15,8 +16,7 @@ import Button from './components/ResuableComponents/Button';
 function App() {
   const { openModal } = useModalContext();
   return (
-    <>
-      <LisaaTarinaSivu />
+    <Router>
       <Button
         onClick={() =>
           openModal({
@@ -27,7 +27,13 @@ function App() {
       >
         Avaa
       </Button>
-    </>
+      <Routes>
+        <Route index element={<Etusivu />} />
+        <Route exact path="matkakohteet" element={<MatkakohteetSivu />} />
+        <Route exact path="matkakohteet/:id" element={<MatkakohdeIDSivu />} />
+        <Route exact path="lisaatarina" element={<LisaaTarinaSivu />} />
+      </Routes>
+    </Router>
   );
 }
 

@@ -32,6 +32,7 @@ const Wrapper = styled.div`
     margin-top: 50px;
   }
   .file-label {
+    cursor: pointer;
     font-size: var(--font-small);
     font-family: inherit;
     padding: 5px 15px;
