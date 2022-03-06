@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import Kohdekortti from "../MatkakohteetSivu/Kohdekortti";
+import Kohdekortti from "../components/MatkakohteetSivu/Kohdekortti";
+import Input from "../components/ResuableComponents/Input";
 
 const MatkakohteetSivu = () => {
   function KohdeLista() {
@@ -15,11 +16,7 @@ const MatkakohteetSivu = () => {
 
       <body>
         <div>
-          <input type="text" className="searchBar" placeholder="Hae kohteita">
-            <button className="SearchButton" onClick={() => handleFetch()}>
-              Hae
-            </button>
-          </input>
+          <Input />
         </div>
         <table></table>
       </body>
