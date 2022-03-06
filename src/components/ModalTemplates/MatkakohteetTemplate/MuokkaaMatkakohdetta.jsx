@@ -22,7 +22,6 @@ const MuokkaaMatkakohdetta = ({ mkohteet }) => {
     setPaikkakunta(kohde.kaupunki);
     setKuvaus(kohde.kuvaus);
   };
-  console.log(matkakohde);
   const handleSubmit = (e) => {
     e.preventDefault();
     setEdit(false);
