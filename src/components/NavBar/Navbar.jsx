@@ -1,10 +1,11 @@
 import React, { useRef, useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const Navbar = () => {
-  const submenu = useRef(null);
   const [show, setShow] = useState(false);
+  const submenu = useRef(null);
+  const location = useLocation();
 
   const displaySubMenu = (e) => {
     if (!submenu?.current) return;
@@ -23,13 +24,21 @@ const Navbar = () => {
         <div className="logoContainer"></div>
         <div className="linksContainer">
           <ul>
-            <li>
+            <li className={location.pathname === '/' ? 'underline' : ''}>
               <Link to="/">Etusivu</Link>
             </li>
-            <li>
+            <li
+              className={
+                location.pathname === '/matkakohteet' ? 'underline' : ''
+              }
+            >
               <Link to="matkakohteet">Matkakohteet</Link>
             </li>
-            <li>
+            <li
+              className={
+                location.pathname === '/porukanmatkat' ? 'underline' : ''
+              }
+            >
               <Link to="porukanmatkat">Porukan Matkat</Link>
             </li>
             <li>
@@ -98,6 +107,19 @@ const Wrapper = styled.nav`
       li:not(:last-child) {
         margin-right: 20px;
       }
+    }
+  }
+
+  .underline {
+    position: relative;
+    ::after {
+      content: '';
+      border-bottom: 3px solid #d33939;
+      width: calc(100% + 5px);
+      transform: translateX(-2px);
+      margin-top: 3px;
+      display: block;
+      position: absolute;
     }
   }
 
