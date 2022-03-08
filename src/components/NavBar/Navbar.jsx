@@ -83,6 +83,7 @@ const Wrapper = styled.nav`
     color: inherit;
     font-size: inherit;
     font-family: inherit;
+    cursor: pointer;
   }
   .NavContainer {
     margin: auto;
