@@ -6,6 +6,8 @@ import {
   MatkakohdeIDSivu,
   LisaaTarinaSivu,
 } from './pages';
+import Navbar from './components/NavBar/Navbar';
+
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 //Esimerkkinä App.js
@@ -17,16 +19,7 @@ function App() {
   const { openModal } = useModalContext();
   return (
     <Router>
-      <Button
-        onClick={() =>
-          openModal({
-            title: 'Muokkaa matkakohteita',
-            template: <MatkakohteetTemplate />,
-          })
-        }
-      >
-        Avaa
-      </Button>
+      <Navbar />
       <Routes>
         <Route index element={<Etusivu />} />
         <Route exact path="matkakohteet" element={<MatkakohteetSivu />} />
