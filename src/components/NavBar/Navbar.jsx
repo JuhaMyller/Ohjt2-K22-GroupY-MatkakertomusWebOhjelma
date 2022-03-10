@@ -2,6 +2,8 @@ import React, { useRef, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Link, useLocation } from 'react-router-dom';
 
+
+
 const Navbar = () => {
   const [show, setShow] = useState(false);
   const submenu = useRef(null);
@@ -68,6 +70,7 @@ const Navbar = () => {
           </li>
         </ul>
       </div>
+     
     </Wrapper>
   );
 };
