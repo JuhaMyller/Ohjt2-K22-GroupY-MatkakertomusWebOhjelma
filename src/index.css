@@ -47,31 +47,3 @@ a {
   text-decoration: none;
   color: inherit;
 }
-
-
-
-/* Navbarin linkit */
-.link , #basic-nav-dropdown {
-  text-decoration:solid;
-  color: white;
-  border: none;
-}
-.droplink {
-  text-decoration: none;
-  color: black;
-}
-/*  */
-.etusivutxt {
-  color: white;
-  display: flex;
-  justify-content: end;
-  padding-top: 30vh;
-  padding-right: 10vw;
-}
-
-@media screen and (max-width: 600px) {
-  .etusivutxt {
-    text-align: center;
-    padding-top: 20vh;
-  } 
-}

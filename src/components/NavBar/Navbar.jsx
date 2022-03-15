@@ -2,16 +2,13 @@ import React, { useRef, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Link, useLocation } from 'react-router-dom';
 
-
-
 const Navbar = () => {
   const [show, setShow] = useState(false);
   const submenu = useRef(null);
   const location = useLocation();
 
   const displaySubMenu = (e) => {
-    if (!submenu?.current) return;
-    if (show) return setShow(false);
+    if (!submenu?.current || show) return;
     const btnRect = e.target.getBoundingClientRect();
     const center = (btnRect.left + btnRect.right) / 2;
     const top = btnRect.bottom + 10;
@@ -21,30 +18,36 @@ const Navbar = () => {
   };
 
   return (
-    <Wrapper>
+    <Wrapper onMouseLeave={() => setShow(false)}>
       <div className="NavContainer">
         <div className="logoContainer"></div>
         <div className="linksContainer">
           <ul>
-            <li className={location.pathname === '/' ? 'underline' : ''}>
+            <li
+              className={location.pathname === '/' ? 'underline' : 'link-hover'}
+            >
               <Link to="/">Etusivu</Link>
             </li>
             <li
               className={
-                location.pathname === '/matkakohteet' ? 'underline' : ''
+                location.pathname === '/matkakohteet'
+                  ? 'underline'
+                  : 'link-hover'
               }
             >
               <Link to="matkakohteet">Matkakohteet</Link>
             </li>
             <li
               className={
-                location.pathname === '/porukanmatkat' ? 'underline' : ''
+                location.pathname === '/porukanmatkat'
+                  ? 'underline'
+                  : 'link-hover'
               }
             >
               <Link to="porukanmatkat">Porukan Matkat</Link>
             </li>
             <li>
-              <button onClick={displaySubMenu}>Marek</button>
+              <button onMouseOver={displaySubMenu}>Marek</button>
             </li>
           </ul>
         </div>
@@ -70,13 +73,12 @@ const Navbar = () => {
           </li>
         </ul>
       </div>
-     
     </Wrapper>
   );
 };
 
 const Wrapper = styled.nav`
-  width: 100vw;
+  width: 100%;
   height: 70px;
   background: #fa7171;
   position: relative;
@@ -115,6 +117,18 @@ const Wrapper = styled.nav`
   }
 
   .underline {
+    position: relative;
+    ::after {
+      content: '';
+      border-bottom: 3px solid #d33939;
+      width: calc(100% + 5px);
+      transform: translateX(-2px);
+      margin-top: 3px;
+      display: block;
+      position: absolute;
+    }
+  }
+  .link-hover:hover {
     position: relative;
     ::after {
       content: '';

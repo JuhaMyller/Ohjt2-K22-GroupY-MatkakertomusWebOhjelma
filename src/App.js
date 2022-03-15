@@ -14,13 +14,12 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useModalContext } from './components/ResuableComponents/Modal/ModalContext';
 import MatkakohteetTemplate from './components/ModalTemplates/MatkakohteetTemplate/MatkakohteetTemplate';
 import Button from './components/ResuableComponents/Button';
-import { NavBar2 } from './components/NavBar/Navbar2';
 
 function App() {
   const { openModal } = useModalContext();
   return (
     <Router>
-      <NavBar2/>
+      <Navbar />
       <Routes>
         <Route index element={<Etusivu />} />
         <Route exact path="matkakohteet" element={<MatkakohteetSivu />} />
