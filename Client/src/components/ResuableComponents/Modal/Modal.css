@@ -1,0 +1,89 @@
+/* width */
+::-webkit-scrollbar {
+  width: 8px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+.backdrop {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+.modal {
+  overflow: auto;
+  max-height: 90vh;
+  padding: 5px;
+  min-width: 250px;
+  max-width: 90%;
+  background: white;
+  border-radius: 4px;
+  animation: modalOpen 0.5s;
+}
+.titleAndClosebtn {
+  min-height: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.withTitle {
+  min-height: 50px;
+  border-bottom: 1px solid gray;
+}
+.title h2 {
+  font-size: 24px;
+  font-weight: 400;
+  margin-left: 10px;
+  font-family: inherit;
+  padding: 5px;
+}
+.closeBtn {
+  cursor: pointer;
+  margin-left: 20px;
+  margin-right: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  border-radius: 50%;
+  background: inherit;
+}
+.closeModal {
+  animation: modalClose 0.3s;
+}
+
+@keyframes modalOpen {
+  0% {
+    transform: scale3d(0, 0, 0);
+  }
+  90% {
+    transform: scale3d(1, 1, 1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes modalClose {
+  0% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale3d(0, 0, 0);
+  }
+}
