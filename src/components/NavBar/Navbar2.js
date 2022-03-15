@@ -9,7 +9,7 @@ function NavBar2() {
     return (
         <>
             <Wrapper>
-                <Navbar expand="md">
+                <Navbar expand="md" className='navcontainer'>
                     <Container>
                         <Navbar.Brand className='img'><img src={navlogo}></img></Navbar.Brand>
                         <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -40,8 +40,6 @@ function NavBar2() {
 }
 
 const Wrapper = styled.nav`
-margin: 0px;
-padding: 0px;
 background: #fa7171;
 `;
 

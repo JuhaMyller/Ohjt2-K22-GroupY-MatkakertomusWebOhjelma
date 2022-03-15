@@ -20,7 +20,7 @@ function App() {
   const { openModal } = useModalContext();
   return (
     <Router>
-      <NavBar2 />
+      <NavBar2/>
       <Routes>
         <Route index element={<Etusivu />} />
         <Route exact path="matkakohteet" element={<MatkakohteetSivu />} />
