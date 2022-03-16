@@ -6,7 +6,7 @@ import {
   MatkakohdeIDSivu,
   LisaaTarinaSivu,
 } from './pages';
-import Navbar from './components/NavBar/Navbar';
+import { NavBar2 } from './components/NavBar/Navbar2';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
@@ -19,7 +19,7 @@ function App() {
   const { openModal } = useModalContext();
   return (
     <Router>
-      <Navbar />
+      <NavBar2 />
       <Routes>
         <Route index element={<Etusivu />} />
         <Route exact path="matkakohteet" element={<MatkakohteetSivu />} />
