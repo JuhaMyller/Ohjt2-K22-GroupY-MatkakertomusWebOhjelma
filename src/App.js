@@ -6,6 +6,9 @@ import {
   MatkakohdeIDSivu,
   LisaaTarinaSivu,
 } from './pages';
+import Navbar from './components/NavBar/Navbar';
+
+//!!Bootsrap on poissa käytöstä
 import { NavBar2 } from './components/NavBar/Navbar2';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
@@ -19,7 +22,7 @@ function App() {
   const { openModal } = useModalContext();
   return (
     <Router>
-      <NavBar2 />
+      <Navbar />
       <Routes>
         <Route index element={<Etusivu />} />
         <Route exact path="matkakohteet" element={<MatkakohteetSivu />} />
