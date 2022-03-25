@@ -6,12 +6,15 @@ import "./Kohdekortti.css";
 
 const Kohdekortti = ({ img, maa, tarinat, kohde }) => {
   return (
-    <article className="kohdekortti">
-      <img className="kuva_kohdekortti" src={img} alt="" />
-      <h1>{kohde}</h1>
-      <h4>{maa}</h4>
-      <h5>Tarinoita {tarinat}</h5>
-    </article>
+    <div className="kohdekortti" style={{ backgroundImage: `url(${img})` }}>
+      <div className="kohdekortti_kohde_maa">
+        <h1>{kohde}</h1>
+        <h4>{maa}</h4>
+      </div>
+      <div className="kohdekortti_tarinat">
+        <p>Tarinoita {tarinat}</p>
+      </div>
+    </div>
   );
 };
 

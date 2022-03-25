@@ -1,9 +1,9 @@
-import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
-// import 'bootstrap/dist/css/bootstrap.min.css';
-import navlogo from './navlogo.png';
-import { Link, useLocation } from 'react-router-dom';
-import styled from 'styled-components';
-import { useEffect, useState } from 'react';
+import { Navbar, Nav, Container, NavDropdown } from "react-bootstrap";
+//import "bootstrap/dist/css/bootstrap.min.css";
+import navlogo from "./navlogo.png";
+import { Link, useLocation } from "react-router-dom";
+import styled from "styled-components";
+import { useEffect, useState } from "react";
 
 function NavBar2() {
   const [isLogged, setIsLogged] = useState(false);

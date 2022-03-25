@@ -1,3 +1,44 @@
 .kohdekortti {
-  padding: 10px;
+  background-size: cover;
+  width: 100%;
+  aspect-ratio: 3/2;
+  border-radius: 10px;
+  color: white;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.kohdekortti_lista {
+  width: 90%;
+  margin: auto;
+  margin-top: 50px;
+  grid-template-columns: repeat(4, 1fr);
+  display: grid;
+  grid-gap: 10px;
+  text-transform: capitalize;
+}
+.kohdekortti_tarinat {
+  background: rgba(0, 0, 0, 0.7);
+  width: 100%;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 0px;
+  padding: 7px 0;
+}
+.kohdekortti_tarinat p {
+  font-size: var(--font-extra-small);
+}
+.kohdekortti_kohde_maa {
+  background: rgba(0, 0, 0, 0.6);
+  width: 100%;
+  padding: 7px 0;
+}
+.kohdekortti_kohde_maa h1 {
+  font-size: var(--font-small);
+  font-weight: 500;
+}
+.kohdekortti_kohde_maa h4 {
+  font-size: var(--font-extra-small);
+  font-weight: 500;
 }
