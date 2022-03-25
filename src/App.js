@@ -5,15 +5,15 @@ import {
   MatkakohteetSivu,
   MatkakohdeIDSivu,
   LisaaTarinaSivu,
-} from './pages';
-import Navbar from './components/NavBar/Navbar';
+} from "./pages";
+import Navbar from "./components/NavBar/Navbar";
 
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 //Esimerkkinä App.js
-import { useModalContext } from './components/ResuableComponents/Modal/ModalContext';
-import MatkakohteetTemplate from './components/ModalTemplates/MatkakohteetTemplate/MatkakohteetTemplate';
-import Button from './components/ResuableComponents/Button';
+import { useModalContext } from "./components/ResuableComponents/Modal/ModalContext";
+import MatkakohteetTemplate from "./components/ModalTemplates/MatkakohteetTemplate/MatkakohteetTemplate";
+import Button from "./components/ResuableComponents/Button";
 
 function App() {
   const { openModal } = useModalContext();
