@@ -8,6 +8,9 @@ import {
 } from "./pages";
 import Navbar from "./components/NavBar/Navbar";
 
+//!!Bootsrap on poissa käytöstä
+import { NavBar2 } from "./components/NavBar/Navbar2";
+
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 //Esimerkkinä App.js
