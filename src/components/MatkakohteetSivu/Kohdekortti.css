@@ -14,7 +14,7 @@
   margin-top: 50px;
   grid-template-columns: repeat(4, 1fr);
   display: grid;
-  grid-gap: 10px;
+  grid-gap: 25px;
   text-transform: capitalize;
 }
 .kohdekortti_tarinat {
@@ -42,6 +42,9 @@
   font-size: var(--font-extra-small);
   font-weight: 500;
 }
+.kohdekortti:hover {
+  width: 105%;
+}
 
 @media screen and (max-width: 981px) {
   .kohdekortti_lista {
@@ -49,7 +52,7 @@
     margin: auto;
     margin-top: 50px;
     grid-template-columns: 30% 30% 30%;
-    grid-gap: 10px;
+    grid-gap: 25px;
     text-transform: capitalize;
   }
 }
@@ -59,7 +62,7 @@
     margin: auto;
     margin-top: 50px;
     grid-template-columns: 47.5% 47.5%;
-    grid-gap: 10px;
+    grid-gap: 25px;
     text-transform: capitalize;
   }
 }
@@ -68,7 +71,7 @@
     grid-template-columns: repeat(1, 1fr);
     margin: auto;
     margin-top: 50px;
-    grid-gap: 10px;
+    grid-gap: 25px;
     text-transform: capitalize;
   }
 }

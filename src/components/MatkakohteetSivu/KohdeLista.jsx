@@ -4,6 +4,7 @@ import img from "./KorttiKuva.jpg";
 import "./Kohdekortti.css";
 import Kohdekortti from "./Kohdekortti";
 import Input from "../ResuableComponents/Input";
+import Button from "../ResuableComponents/Button";
 
 const KohdeLista = () => {
   const mkohteet = [
@@ -60,8 +61,7 @@ const KohdeLista = () => {
   const [responseData, setResponseData] = useState(mkohteet);
   const [query, setQuery] = useState("");
 
-  const filter = (e) => {
-    setEtsi(e.target.value);
+  const filter = () => {
     if (etsi !== "") {
       const results = mkohteet.filter((matkakohde) => {
         return matkakohde.kohde.toLowerCase().startsWith(etsi.toLowerCase());
@@ -76,22 +76,36 @@ const KohdeLista = () => {
   const getMatkakohteet = () => {};
 
   return (
-    <>
+    <div>
       <div>
         <div className="input-container">
           <Input
-            className="search"
+            className="etsi"
             type={"search"}
-            id="search"
+            id="etsi"
             value={etsi}
-            onChange={filter}
-            placeholder="Search"
+            onChange={setEtsi}
+            placeholder="Etsi"
             styles={{
-              height: "50px",
+              marginTop: "10px",
+              marginBottom: "10px",
+              float: "left",
               width: "50%",
-              marginLeft: "25%",
+              marginLeft: "20%",
             }}
           />
+          <Button
+            styles={{
+              marginLeft: "2px",
+              float: "left",
+              marginTop: "10px",
+              marginBottom: "10px",
+            }}
+            onClick={filter}
+            className="button"
+          >
+            Etsi
+          </Button>
         </div>
       </div>
       <div>
@@ -113,7 +127,7 @@ const KohdeLista = () => {
           )}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
