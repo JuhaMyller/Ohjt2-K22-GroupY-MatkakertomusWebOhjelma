@@ -57,14 +57,33 @@ const KohdeLista = () => {
     },
   ];
   const [etsi, setEtsi] = useState("");
+  const [responseData, setResponseData] = useState(mkohteet);
+
+  const filter = (e) => {
+    const keyword = e.target.value;
+    if (keyword !== "") {
+      const results = mkohteet.filter((matkakohde) => {
+        return matkakohde.kohde.toLowerCase.startsWith(keyword.toLowerCase());
+      });
+      setResponseData(results);
+    } else {
+      setResponseData(mkohteet);
+    }
+    setEtsi(keyword);
+  };
+
+  const getMatkakohteet = () => {};
+
   return (
     <>
       <div>
         <div className="input-container">
           <Input
+            className="search"
+            type={"search"}
             id="search"
             value={etsi}
-            onChange={setEtsi}
+            onChange={filter}
             placeholder="Search"
             styles={{
               height: "50px",
@@ -75,9 +94,9 @@ const KohdeLista = () => {
         </div>
       </div>
       <div>
-        <section className="kohdekortti_lista">
-          {mkohteet.map((matkakohde) => {
-            return (
+        <div className="kohdekortti_lista">
+          {responseData && responseData.length > 0 ? (
+            responseData.map((matkakohde) => (
               <Kohdekortti
                 img={matkakohde.img}
                 kohde={matkakohde.kohde.toUpperCase()}
@@ -87,9 +106,11 @@ const KohdeLista = () => {
                 id={matkakohde.id}
                 key={matkakohde.id}
               ></Kohdekortti>
-            );
-          })}
-        </section>
+            ))
+          ) : (
+            <h1>Haulla ei löytynyt mitään</h1>
+          )}
+        </div>
       </div>
     </>
   );
