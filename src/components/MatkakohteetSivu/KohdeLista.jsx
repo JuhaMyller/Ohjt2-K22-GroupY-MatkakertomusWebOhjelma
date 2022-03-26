@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import img from "./KorttiKuva.jpg";
 import "./Kohdekortti.css";
@@ -56,19 +56,23 @@ const KohdeLista = () => {
       id: 5,
     },
   ];
-
-  const placeHolder = "Search";
-
+  const [etsi, setEtsi] = useState("");
   return (
     <>
       <div>
-        <Input
-          style={{}}
-          value={{}}
-          onChange={{}}
-          id={{}}
-          placeholder={{ placeHolder }}
-        />
+        <div className="input-container">
+          <Input
+            id="search"
+            value={etsi}
+            onChange={setEtsi}
+            placeholder="Search"
+            styles={{
+              height: "50px",
+              width: "50%",
+              marginLeft: "25%",
+            }}
+          />
+        </div>
       </div>
       <div>
         <section className="kohdekortti_lista">
