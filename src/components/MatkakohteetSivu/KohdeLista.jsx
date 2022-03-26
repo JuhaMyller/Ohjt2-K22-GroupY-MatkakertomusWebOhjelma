@@ -3,6 +3,7 @@ import styled from "styled-components";
 import img from "./KorttiKuva.jpg";
 import "./Kohdekortti.css";
 import Kohdekortti from "./Kohdekortti";
+import Input from "../ResuableComponents/Input";
 
 const KohdeLista = () => {
   const mkohteet = [
@@ -56,24 +57,37 @@ const KohdeLista = () => {
     },
   ];
 
+  const placeHolder = "Search";
+
   return (
-    <div>
-      <section className="kohdekortti_lista">
-        {mkohteet.map((matkakohde) => {
-          return (
-            <Kohdekortti
-              img={matkakohde.img}
-              kohde={matkakohde.kohde.toUpperCase()}
-              maa={matkakohde.maa}
-              kaupunki={matkakohde.kaupunki}
-              tarinat={matkakohde.tarinat}
-              id={matkakohde.id}
-              key={matkakohde.id}
-            ></Kohdekortti>
-          );
-        })}
-      </section>
-    </div>
+    <>
+      <div>
+        <Input
+          style={{}}
+          value={{}}
+          onChange={{}}
+          id={{}}
+          placeholder={{ placeHolder }}
+        />
+      </div>
+      <div>
+        <section className="kohdekortti_lista">
+          {mkohteet.map((matkakohde) => {
+            return (
+              <Kohdekortti
+                img={matkakohde.img}
+                kohde={matkakohde.kohde.toUpperCase()}
+                maa={matkakohde.maa}
+                kaupunki={matkakohde.kaupunki}
+                tarinat={matkakohde.tarinat}
+                id={matkakohde.id}
+                key={matkakohde.id}
+              ></Kohdekortti>
+            );
+          })}
+        </section>
+      </div>
+    </>
   );
 };
 

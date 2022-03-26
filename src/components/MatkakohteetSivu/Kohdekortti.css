@@ -42,3 +42,33 @@
   font-size: var(--font-extra-small);
   font-weight: 500;
 }
+
+@media screen and (max-width: 981px) {
+  .kohdekortti_lista {
+    grid-template-columns: repeat(3, 1fr);
+    margin: auto;
+    margin-top: 50px;
+    grid-template-columns: 30% 30% 30%;
+    grid-gap: 10px;
+    text-transform: capitalize;
+  }
+}
+@media screen and (max-width: 768px) {
+  .kohdekortti_lista {
+    grid-template-columns: repeat(2, 1fr);
+    margin: auto;
+    margin-top: 50px;
+    grid-template-columns: 47.5% 47.5%;
+    grid-gap: 10px;
+    text-transform: capitalize;
+  }
+}
+@media screen and (max-width: 600px) {
+  .kohdekortti_lista {
+    grid-template-columns: repeat(1, 1fr);
+    margin: auto;
+    margin-top: 50px;
+    grid-gap: 10px;
+    text-transform: capitalize;
+  }
+}
