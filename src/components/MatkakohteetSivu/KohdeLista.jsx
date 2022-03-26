@@ -81,7 +81,7 @@ const KohdeLista = () => {
         <div className="input-container">
           <Input
             className="etsi"
-            type={"search"}
+            type="text"
             id="etsi"
             value={etsi}
             onChange={setEtsi}

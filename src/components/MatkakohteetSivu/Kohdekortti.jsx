@@ -15,7 +15,7 @@ import "./Kohdekortti.css";
 
 const Kohdekortti = ({ img, maa, tarinat, kohde }) => {
   return (
-    <Link to="">
+    <Link to="matkakohteet/:id">
       <div className="kohdekortti" style={{ backgroundImage: `url(${img})` }}>
         <div className="kohdekortti_kohde_maa">
           <h1>{kohde}</h1>
