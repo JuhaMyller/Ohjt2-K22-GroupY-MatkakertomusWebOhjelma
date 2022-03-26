@@ -58,18 +58,19 @@ const KohdeLista = () => {
   ];
   const [etsi, setEtsi] = useState("");
   const [responseData, setResponseData] = useState(mkohteet);
+  const [query, setQuery] = useState("");
 
   const filter = (e) => {
-    const keyword = e.target.value;
-    if (keyword !== "") {
+    setEtsi(e.target.value);
+    if (etsi !== "") {
       const results = mkohteet.filter((matkakohde) => {
-        return matkakohde.kohde.toLowerCase.startsWith(keyword.toLowerCase());
+        return matkakohde.kohde.toLowerCase().startsWith(etsi.toLowerCase());
       });
       setResponseData(results);
     } else {
       setResponseData(mkohteet);
     }
-    setEtsi(keyword);
+    setEtsi(etsi);
   };
 
   const getMatkakohteet = () => {};
