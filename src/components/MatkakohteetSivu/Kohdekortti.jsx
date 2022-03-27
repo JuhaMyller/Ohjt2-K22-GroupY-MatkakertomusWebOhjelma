@@ -2,15 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import ImageContainer from "../ResuableComponents/ImageContainer";
-import {
-  Link,
-  useLocation,
-  useNavigate,
-  NavLink,
-  Routes,
-  Route,
-  BrowserRouter as Router,
-} from "react-router-dom";
+import { Link, BrowserRouter as Router } from "react-router-dom";
 import "./Kohdekortti.css";
 
 const Kohdekortti = ({ img, maa, tarinat, kohde }) => {

@@ -7,6 +7,7 @@
   text-align: center;
   position: relative;
   overflow: hidden;
+  transition: all 0.2s ease-out;
 }
 .kohdekortti_lista {
   width: 90%;
@@ -43,7 +44,7 @@
   font-weight: 500;
 }
 .kohdekortti:hover {
-  width: 105%;
+  width: 95%;
 }
 
 @media screen and (max-width: 981px) {
@@ -69,6 +70,7 @@
 @media screen and (max-width: 600px) {
   .kohdekortti_lista {
     grid-template-columns: repeat(1, 1fr);
+    max-width: 80%;
     margin: auto;
     margin-top: 50px;
     grid-gap: 25px;
