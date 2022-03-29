@@ -1,79 +1,45 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import img from "./KorttiKuva.jpg";
 import "./Kohdekortti.css";
 import Kohdekortti from "./Kohdekortti";
 import Input from "../ResuableComponents/Input";
 import Button from "../ResuableComponents/Button";
+import axios from "../Axios/Axios";
 
 const KohdeLista = () => {
-  const mkohteet = [
-    {
-      img: img,
-      kohde: "ruka",
-      maa: "suomi",
-      kaupunki: "Kuopio",
-      tarinat: 0,
-      id: 0,
-    },
-    {
-      img: img,
-      kohde: "levi",
-      maa: "suomi",
-      kaupunki: "Kuopio",
-      tarinat: 10,
-      id: 1,
-    },
-    {
-      img: img,
-      kohde: "kuusamo",
-      maa: "suomi",
-      kaupunki: "Kuopio",
-      tarinat: 7,
-      id: 2,
-    },
-    {
-      img: img,
-      kohde: "Tampere",
-      maa: "suomi",
-      kaupunki: "Kuopio",
-      tarinat: 0,
-      id: 3,
-    },
-    {
-      img: img,
-      kohde: "ranta-aho",
-      maa: "suomi",
-      kaupunki: "Kuopio",
-      tarinat: 1,
-      id: 4,
-    },
-    {
-      img: img,
-      kohde: "perkele",
-      maa: "suomi",
-      kaupunki: "Kuopio",
-      tarinat: 0,
-      id: 5,
-    },
-  ];
+  const [mkohteet, setMkohteet] = useState([]);
   const [etsi, setEtsi] = useState("");
-  const [responseData, setResponseData] = useState(mkohteet);
-  const [query, setQuery] = useState("");
+  const [filteredData, setFilteredData] = useState([]);
+
+  const getMatkakohteet = async () => {
+    const response = await axios.get("/api/matkakohde/matkakohteet");
+    setMkohteet(response.data.matkakohteet);
+    setFilteredData(response.data.matkakohteet);
+    console.log(response.data);
+  };
+
+  useEffect(() => {
+    getMatkakohteet();
+  }, []);
+  console.log(mkohteet);
+
+  useEffect(() => {
+    getMatkakohteet();
+  }, []);
 
   const filter = () => {
     if (etsi !== "") {
       const results = mkohteet.filter((matkakohde) => {
-        return matkakohde.kohde.toLowerCase().startsWith(etsi.toLowerCase());
+        return matkakohde.kohdenimi
+          .toLowerCase()
+          .startsWith(etsi.toLowerCase());
       });
-      setResponseData(results);
+      setFilteredData(results);
     } else {
-      setResponseData(mkohteet);
+      setFilteredData(mkohteet);
     }
     setEtsi(etsi);
   };
-
-  const getMatkakohteet = () => {};
 
   return (
     <div>
@@ -110,20 +76,18 @@ const KohdeLista = () => {
       </div>
       <div>
         <div className="kohdekortti_lista">
-          {responseData && responseData.length > 0 ? (
-            responseData.map((matkakohde) => (
+          {filteredData && filteredData.length > 0 ? (
+            filteredData.map((matkakohde) => (
               <Kohdekortti
-                img={matkakohde.img}
-                kohde={matkakohde.kohde.toUpperCase()}
+                kuva={"http://16.170.35.60:8080/img/" + matkakohde.kuva}
+                kohdenimi={matkakohde.kohdenimi.toUpperCase()}
                 maa={matkakohde.maa}
-                kaupunki={matkakohde.kaupunki}
-                tarinat={matkakohde.tarinat}
-                id={matkakohde.id}
-                key={matkakohde.id}
+                id={matkakohde._id}
+                key={matkakohde._id}
               ></Kohdekortti>
             ))
           ) : (
-            <h1>Haulla ei löytynyt mitään</h1>
+            <h2>Haulla ei löytynyt mitään</h2>
           )}
         </div>
       </div>
