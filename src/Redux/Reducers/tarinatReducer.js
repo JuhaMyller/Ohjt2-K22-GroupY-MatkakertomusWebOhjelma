@@ -1,4 +1,4 @@
-import { ADD_TARINA, DELETE_TARINA } from "./tarinatActionTypes";
+import { ADD_TARINA, DELETE_TARINA } from '../Actions/tarinatActions';
 
 const initialState = {
   Tarinat: [],

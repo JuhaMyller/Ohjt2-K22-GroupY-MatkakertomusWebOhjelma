@@ -4,12 +4,16 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import ModalProvider from './components/ResuableComponents/Modal/ModalContext';
+import { Provider } from 'react-redux';
+import store from './Redux/Store';
 
 ReactDOM.render(
   <React.StrictMode>
-    <ModalProvider>
-      <App />
-    </ModalProvider>
+    <Provider store={store}>
+      <ModalProvider>
+        <App />
+      </ModalProvider>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );

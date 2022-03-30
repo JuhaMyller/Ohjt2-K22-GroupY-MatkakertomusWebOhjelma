@@ -4,9 +4,9 @@ import Button from '../../ResuableComponents/Button';
 import Input from '../../ResuableComponents/Input';
 
 const PoistaMatkakohde = ({ mkohteet }) => {
-  const [matkakohteet, setMatkakohteet] = useState(() => {
-    return mkohteet.filter((kohde) => kohde.tarinat === 0);
-  });
+  const [matkakohteet, setMatkakohteet] = useState(mkohteet);
+
+  console.log(matkakohteet);
 
   const PoistaMatkakohde = (event, id) => {
     event.preventDefault();
@@ -30,9 +30,9 @@ const PoistaMatkakohde = ({ mkohteet }) => {
             return (
               <div key={kohde.id} className="PoistaMatkaCard">
                 <div className="grid-layout">
-                  <h3>{kohde.kohde}</h3>
+                  <h3>{kohde.kohdenimi}</h3>
                   <div className="displayNone">
-                    <h3>{kohde.kaupunki}</h3>
+                    <h3>{kohde.paikkakunta}</h3>
                   </div>
                   <div className="displayNone">
                     <h3>{kohde.maa}</h3>

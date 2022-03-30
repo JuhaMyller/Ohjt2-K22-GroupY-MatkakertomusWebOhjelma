@@ -1,3 +1,7 @@
+import {
+  ADD_MATKAKOHDE,
+  DELETE_MATKAKOHDE,
+} from '../Actions/matkakohdeActions';
 const initialState = {
   Matkakohteet: [],
 };

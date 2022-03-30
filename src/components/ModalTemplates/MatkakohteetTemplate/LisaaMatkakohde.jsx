@@ -1,3 +1,5 @@
+import axios from '../../../api/Axios';
+
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import Button from '../../ResuableComponents/Button';
@@ -12,9 +14,17 @@ const LisaaMatkakohde = () => {
 
   //matkakohde, maa, kohdenimi, paikkakunta
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(e);
+    const formData = new FormData();
+    formData.append('kohdenimi', matkakohde);
+    formData.append('maa', maa);
+    formData.append('paikkakunta', paikkakunta);
+    formData.append('kuvateksti', matkanKuvaus);
+    formData.append('kuva', kuvat[0]);
+
+    const response = await axios.post('api/matkakohde/matkakohde', formData);
+    console.log(response);
   };
 
   return (

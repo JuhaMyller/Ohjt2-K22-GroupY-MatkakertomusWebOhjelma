@@ -1,34 +1,47 @@
-// riittää importti vaan './pages' koska tulee index filestä
-//muuten pitäisi olla esim import Etusivu from './pages/Etusivu';
 import {
   Etusivu,
   MatkakohteetSivu,
   MatkakohdeIDSivu,
   LisaaTarinaSivu,
-} from "./pages";
-import Navbar from "./components/NavBar/Navbar";
+} from './pages';
+import Navbar from './components/NavBar/Navbar';
+import { useSelector, useDispatch } from 'react-redux';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { useEffect } from 'react';
+import {
+  KirjauduRefreshToken,
+  KirjauduSpostiJaSalasana,
+} from './Redux/Actions/authActions';
 
-//!!Bootsrap on poissa käytöstä
-import { NavBar2 } from "./components/NavBar/Navbar2";
-
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-
-//Esimerkkinä App.js
-import { useModalContext } from "./components/ResuableComponents/Modal/ModalContext";
-import MatkakohteetTemplate from "./components/ModalTemplates/MatkakohteetTemplate/MatkakohteetTemplate";
-import Button from "./components/ResuableComponents/Button";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
-  const { openModal } = useModalContext();
+  const user = useSelector((state) => state.auth.kayttaja);
+  const userLoading = useSelector((state) => state.auth.refreshTokenFetch);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(KirjauduRefreshToken());
+    // dispatch(
+    //   KirjauduSpostiJaSalasana('marek.puurunen@gmail.com', 'aaaaaa', toast)
+    // );
+  }, []);
+
   return (
     <Router>
       <Navbar />
-      <Routes>
-        <Route index element={<Etusivu />} />
-        <Route exact path="matkakohteet" element={<MatkakohteetSivu />} />
-        <Route exact path="matkakohteet/:id" element={<MatkakohdeIDSivu />} />
-        <Route exact path="lisaatarina" element={<LisaaTarinaSivu />} />
-      </Routes>
+      {!user && userLoading ? (
+        <h1>Loading</h1>
+      ) : (
+        <Routes>
+          <Route index element={<Etusivu />} />
+          <Route exact path="matkakohteet" element={<MatkakohteetSivu />} />
+          <Route exact path="matkakohteet/:id" element={<MatkakohdeIDSivu />} />
+          <Route exact path="lisaatarina" element={<LisaaTarinaSivu />} />
+        </Routes>
+      )}
+      <ToastContainer />
     </Router>
   );
 }

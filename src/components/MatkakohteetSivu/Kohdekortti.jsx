@@ -1,13 +1,13 @@
-import React from "react";
-import PropTypes from "prop-types";
-import styled from "styled-components";
-import ImageContainer from "../ResuableComponents/ImageContainer";
-import { Link, BrowserRouter as Router } from "react-router-dom";
-import "./Kohdekortti.css";
+import React from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
+import ImageContainer from '../ResuableComponents/ImageContainer';
+import { Link, BrowserRouter as Router } from 'react-router-dom';
+import './Kohdekortti.css';
 
-const Kohdekortti = ({ kuva, maa, kohdenimi }) => {
+const Kohdekortti = ({ kuva, maa, kohdenimi, id }) => {
   return (
-    <Link to="matkakohteet/:id">
+    <Link to={`/matkakohteet/${id}`}>
       <div className="kohdekortti" style={{ backgroundImage: `url(${kuva})` }}>
         <div className="kohdekortti_kohde_maa">
           <h1>{kohdenimi}</h1>

@@ -144,6 +144,7 @@ const Wrapper = styled.nav`
   }
 
   .alasvetoContainer {
+    z-index: 1000;
     position: absolute;
     min-width: 150px;
     margin-right: 70px;

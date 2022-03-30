@@ -46,6 +46,15 @@
 .kohdekortti:hover {
   width: 95%;
 }
+.input-container {
+  flex: 1;
+}
+.buttonJaInput {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+}
 
 @media screen and (max-width: 981px) {
   .kohdekortti_lista {
