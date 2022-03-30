@@ -7,6 +7,7 @@ import useWindowDimensions from '../../hooks/useWindowDimensions ';
 import DesktopNav from './DesktopNav';
 import Submenu from './Submenu';
 import MobileNav from './MobileNav';
+import navlogo from "./navlogo.png";
 
 const Navbar = () => {
   const [show, setShow] = useState(false);
@@ -54,7 +55,7 @@ const Navbar = () => {
   return (
     <Wrapper onClick={handleNavClick} onMouseLeave={() => setShow(false)}>
       <div className="NavContainer">
-        <div className="logoContainer"></div>
+        <div className="logoContainer"><img src={navlogo}></img></div>
         {width > 675 ? (
           <DesktopNav displaySubMenu={displaySubMenu} />
         ) : (
@@ -75,7 +76,7 @@ const Navbar = () => {
 
 const Wrapper = styled.nav`
   width: 100%;
-  height: 70px;
+  height: 8vh;
   background: #fa7171;
   position: relative;
   .navBurger {
