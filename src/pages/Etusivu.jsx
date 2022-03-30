@@ -15,7 +15,7 @@ background-image: url(${bg});
 background-size: cover;
 background-position: center top;
 width: 100vw;
-height: 90vh;
+height: 92vh;
 
 
 /*  */
@@ -25,11 +25,13 @@ height: 90vh;
   justify-content: end;
   padding-top: 30vh;
   padding-right: 10vw;
+  font-size: 32px;
 }
 @media screen and (max-width: 600px) {
   .etusivutxt {
     text-align: center;
     padding-top: 20vh;
+    font-size: 20px;
   } 
 }
 
