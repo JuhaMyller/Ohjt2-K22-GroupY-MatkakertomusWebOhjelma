@@ -1,0 +1,75 @@
+.divtietoja {
+  display: flex;
+  margin-top: 10px;
+  padding-bottom: 10px;
+}
+
+.divotsikko {
+  padding-top: 10px;
+  text-align: center;
+}
+
+.divteksti {
+  margin-top: 10px;
+  text-align: center;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.divlukenut {
+  display: flex;
+  width: 25%;
+  margin-left: 30px;
+}
+.divlukenut h5 {
+  padding-left: 10px;
+}
+
+.divpvm {
+  display: flex;
+  width: 33%;
+  margin-left: 10px;
+}
+
+.divpvm h5 {
+  padding-left: 10px;
+}
+
+.divhenkilo {
+  display: flex;
+  width: 33%;
+  margin-left: 50px;
+  padding-left: 10px;
+
+  margin-right: 10px;
+}
+
+.divhenkilo h5 {
+  padding-left: 10px;
+}
+
+.divlista {
+  width: 90%;
+  max-width: 1200px;
+  margin: auto;
+  margin-top: 50px;
+  grid-template-columns: repeat(2, 1fr);
+  display: grid;
+  grid-gap: 25px;
+}
+
+.korttipohja {
+  background-color: #f8af7b;
+  border-radius: 30px;
+}
+
+@media screen and (max-width: 950px) {
+  .divlista {
+    width: 90%;
+    max-width: 600px;
+    grid-template-columns: repeat(1, 1fr);
+    margin: auto;
+    margin-top: 50px;
+    grid-gap: 50px;
+  }
+}

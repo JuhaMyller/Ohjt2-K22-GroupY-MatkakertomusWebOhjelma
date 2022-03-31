@@ -1,14 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
+import TarinaLista from '../components/MatkakohdeIDSivu/TarinaLista';
 
 const MatkakohdeIDSivu = () => {
   const { id } = useParams();
 
   return (
-    <Wrapper>
+    <div>
       <h1>MatkakohdeID: {id}</h1>
-    </Wrapper>
+      <TarinaLista />
+    </div>
   );
 };
 
