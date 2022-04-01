@@ -12,7 +12,7 @@ const TarinaKortti = () => {
   const showtext = text.slice(0, 100) + '...';
 
   const color = () => {
-    let number = Math.floor(Math.random() * (3 + 1));
+    let number = Math.floor(Math.random() * (4 + 1));
     let colorr;
 
     if (number === 0) {
@@ -29,6 +29,10 @@ const TarinaKortti = () => {
 
     if (number === 3) {
       colorr = '#bbc28d';
+    }
+
+    if (number === 4) {
+      colorr = '#fafa13';
     }
 
     return colorr;
