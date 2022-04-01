@@ -59,14 +59,14 @@
 }
 
 .korttipohja {
-  background-color: #f8af7b;
   border-radius: 30px;
+  background-color: #f8af7b;
 }
 
 @media screen and (max-width: 950px) {
   .divlista {
     width: 90%;
-    max-width: 600px;
+    max-width: 575px;
     grid-template-columns: repeat(1, 1fr);
     margin: auto;
     margin-top: 50px;

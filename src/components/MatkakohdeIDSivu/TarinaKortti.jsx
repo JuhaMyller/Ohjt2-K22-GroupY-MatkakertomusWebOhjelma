@@ -6,6 +6,11 @@ import { MdDateRange } from 'react-icons/md';
 import { AiOutlineUser } from 'react-icons/ai';
 
 const TarinaKortti = () => {
+  const text =
+    'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla veniam totam veritatis fuga. Labore inventore animi, odit distinctio aliquid commodi accusamus deleniti rem consequuntur ipsam provident atque voluptates. Dolore, autem.';
+
+  const showtext = text.slice(0, 100) + '...';
+
   return (
     <Link to={''}>
       <div className='korttipohja'>
@@ -13,12 +18,7 @@ const TarinaKortti = () => {
           <h1>Pokon matka</h1>
         </div>
         <div className='divteksti'>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla
-            veniam totam veritatis fuga. Labore inventore animi, odit distinctio
-            aliquid commodi accusamus deleniti rem consequuntur ipsam provident
-            atque voluptates. Dolore, autem.
-          </p>
+          <p>{showtext}</p>
         </div>
         <div className='divtietoja'>
           <div className='divlukenut'>
