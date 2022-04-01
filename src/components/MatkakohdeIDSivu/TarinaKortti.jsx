@@ -11,9 +11,32 @@ const TarinaKortti = () => {
 
   const showtext = text.slice(0, 100) + '...';
 
+  const color = () => {
+    let number = Math.floor(Math.random() * (3 + 1));
+    let colorr;
+
+    if (number === 0) {
+      colorr = '#f8af7b';
+    }
+
+    if (number === 1) {
+      colorr = '#86ceed';
+    }
+
+    if (number === 2) {
+      colorr = '#8d99ff';
+    }
+
+    if (number === 3) {
+      colorr = '#bbc28d';
+    }
+
+    return colorr;
+  };
+
   return (
     <Link to={''}>
-      <div className='korttipohja'>
+      <div style={{ backgroundColor: color() }} className='korttipohja'>
         <div className='divotsikko'>
           <h1>Pokon matka</h1>
         </div>
