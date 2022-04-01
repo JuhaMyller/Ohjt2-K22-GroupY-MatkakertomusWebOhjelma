@@ -52,7 +52,6 @@ const TarinaSivu = () => {
 
 const Wrapper = styled.form`
   max-width: 1440px;
-
   display: flex;
   flex-wrap: wrap;
   position: relative;
@@ -98,7 +97,7 @@ const Wrapper = styled.form`
 
   .kuva-container {
     width: 40%;
-    min-width: 250px;
+    min-width: 500px;
   }
   .tarina-container {
     width: 60%;
