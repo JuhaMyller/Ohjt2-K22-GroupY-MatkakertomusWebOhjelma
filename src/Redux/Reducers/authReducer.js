@@ -8,6 +8,7 @@ const initialState = {
 };
 
 export default function authRecucer(state = initialState, action) {
+  console.log(action.type);
   switch (action.type) {
     case actions.KIRJAUDU_REFRESS_TOKEN_ONNISTUI:
       return {
@@ -20,6 +21,8 @@ export default function authRecucer(state = initialState, action) {
       return {
         ...state,
         refreshTokenFetch: false,
+        kayttaja: null,
+        accessToken: null,
       };
     case actions.KIRJAUDU_SPOSTI_ALOITUS:
       return { ...state, fetching: true };

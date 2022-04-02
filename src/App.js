@@ -5,30 +5,24 @@ import {
   LisaaTarinaSivu,
   Kirjaudu,
   Rekisteröidy,
-} from "./pages";
-import Navbar from "./components/NavBar/Navbar";
-import { useSelector, useDispatch } from "react-redux";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { useEffect } from "react";
-import {
-  KirjauduRefreshToken,
-  KirjauduSpostiJaSalasana,
-} from "./Redux/Actions/authActions";
-
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import TarinaSivu from "./pages/TarinaSivu";
+  TarinaSivu,
+} from './pages';
+import Navbar from './components/NavBar/Navbar';
+import { useSelector } from 'react-redux';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { useEffect } from 'react';
+import useRefreshToken from './hooks/useRefreshToken';
+import RequireAuth from './components/requireAuth';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const user = useSelector((state) => state.auth.kayttaja);
   const userLoading = useSelector((state) => state.auth.refreshTokenFetch);
-  const dispatch = useDispatch();
+  const refresh = useRefreshToken();
 
   useEffect(() => {
-    dispatch(KirjauduRefreshToken());
-    // dispatch(
-    //   KirjauduSpostiJaSalasana('marek.puurunen@gmail.com', 'aaaaaa', toast)
-    // );
+    refresh();
   }, []);
 
   return (
@@ -40,11 +34,14 @@ function App() {
         <Routes>
           <Route index element={<Etusivu />} />
           <Route exact path="matkakohteet" element={<MatkakohteetSivu />} />
-          <Route exact path="matkakohteet/:id" element={<MatkakohdeIDSivu />} />
-          <Route exact path="lisaatarina" element={<LisaaTarinaSivu />} />
-          <Route exact path="tarina/:id" element={<TarinaSivu />} />
           <Route exact path="kirjaudu" element={<Kirjaudu />} />
           <Route exact path="rekisteroidy" element={<Rekisteröidy />} />
+
+          <Route element={<RequireAuth />}>
+            <Route path="matkakohteet/:id" element={<MatkakohdeIDSivu />} />
+            <Route exact path="lisaatarina" element={<LisaaTarinaSivu />} />
+            <Route exact path="tarina/:id" element={<TarinaSivu />} />
+          </Route>
         </Routes>
       )}
       <ToastContainer />
