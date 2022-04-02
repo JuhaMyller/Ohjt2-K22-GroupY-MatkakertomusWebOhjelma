@@ -1,9 +1,12 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const DesktopNav = ({ displaySubMenu }) => {
   const location = useLocation();
   const buttonRef = useRef(null);
+  const user = useSelector((state) => state.auth.kayttaja);
+  const isLoading = useSelector((state) => state.auth.refreshTokenFetch);
 
   return (
     <>
@@ -24,23 +27,29 @@ const DesktopNav = ({ displaySubMenu }) => {
             >
               <Link to="matkakohteet">Matkakohteet</Link>
             </li>
-            <li
-              className={
-                location.pathname === '/porukanmatkat'
-                  ? 'underline'
-                  : 'link-hover'
-              }
-            >
-              <Link to="porukanmatkat">Porukan Matkat</Link>
-            </li>
-            <li>
-              <button
-                ref={buttonRef}
-                onClick={displaySubMenu}
-                // onMouseOver={displaySubMenu}
+            {user && (
+              <li
+                className={
+                  location.pathname === '/porukanmatkat'
+                    ? 'underline'
+                    : 'link-hover'
+                }
               >
-                Marek
-              </button>
+                <Link to="porukanmatkat">Porukan Matkat</Link>
+              </li>
+            )}
+            <li>
+              {isLoading ? null : user ? (
+                <button
+                  ref={buttonRef}
+                  onClick={displaySubMenu}
+                  // onMouseOver={displaySubMenu}
+                >
+                  {user.etunimi}
+                </button>
+              ) : (
+                <Link to="kirjaudu">Kirjaudu</Link>
+              )}
             </li>
           </ul>
         </div>

@@ -19,7 +19,7 @@ const Submenu = ({ setShow, submenu, show }) => {
           <Link to="jasenet">Jäsenet</Link>
         </li>
         <li>
-          <Link to="#">Kirjaudu ulos</Link>
+          <Link to="kirjauduulos">Kirjaudu ulos</Link>
         </li>
       </ul>
     </div>

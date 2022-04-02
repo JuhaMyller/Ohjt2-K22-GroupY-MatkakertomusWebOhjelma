@@ -52,6 +52,7 @@ const Navbar = () => {
     setDisplayMobileNav(false);
     setShow(false);
   }, [width]);
+
   return (
     <Wrapper onClick={handleNavClick} onMouseLeave={() => setShow(false)}>
       <div className="NavContainer">

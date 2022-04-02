@@ -53,7 +53,7 @@ const MobileNav = ({ closeNav, navRef, display }) => {
             </li>
           </ul>
           <button onClick={closeNav} className="logout">
-            Kirjaudu ulos
+            <Link to="kirjauduulos">Kirjaudu ulos</Link>
           </button>
         </div>
       </div>
