@@ -4,11 +4,13 @@ import { axiosPrivate } from '../api/Axios';
 import Input from '../components/ResuableComponents/Input';
 import Button from '../components/ResuableComponents/Button';
 import { Link } from 'react-router-dom';
-import kirjaudubg from './kirjaudubg.png';
+import kirjaudubg from '../assets/kirjaudubg.png';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
 import * as actions from '../Redux/Actions/authActions';
 import { toast } from 'react-toastify';
+import { FaBeer } from 'react-icons/fa';
+
 
 const Kirjaudu = () => {
   const [username, setUsername] = useState('');
@@ -56,7 +58,9 @@ const Kirjaudu = () => {
       <div className="container">
         <form onSubmit={handleLogin}>
           <h3>Kirjaudu</h3>
+
           <Input
+          
             className="username"
             type="text"
             id="username"
@@ -64,9 +68,10 @@ const Kirjaudu = () => {
             onChange={setUsername}
             placeholder="Sähköposti"
             styles={{
-              background: 'white',
+              background: 'white'
             }}
           />
+            
           <Input
             type="password"
             id="password"
@@ -74,9 +79,10 @@ const Kirjaudu = () => {
             onChange={setPassword}
             placeholder="Salasana"
             styles={{
-              background: 'white',
+              background: "white"
             }}
-          ></Input>
+          />
+
           <p>
             Eikö sinulla ole käyttäjää?{' '}
             <Link to="/rekisteroidy" className="link">
@@ -108,13 +114,14 @@ const Wrapper = styled.div`
   align-items: center;
 
   .container {
+    width: 500px;
     background: #ecebeb;
-    margin-left: 37vw;
-    margin-right: 37vw;
     text-align: center;
     margin-bottom: 20vh;
-    padding: 50px;
+    padding: 40px;
     box-shadow: 3px 3px 3px #7a7474;
+    margin-left: 5px;
+    margin-right: 5px;
   }
   .container h3 {
     margin-bottom: 20px;
@@ -122,6 +129,7 @@ const Wrapper = styled.div`
   .icon {
     position: absolute;
   }
+
   .container Input,
   .container p {
     margin-top: 10px;
@@ -129,6 +137,15 @@ const Wrapper = styled.div`
   }
   .link {
     color: blue;
+  }
+ 
+  
+  @media screen and (max-width: 520px) {
+    .container {
+      padding-left: 5px;
+      padding-right: 5px;
+      box-shadow: none;
+    }
   }
 `;
 

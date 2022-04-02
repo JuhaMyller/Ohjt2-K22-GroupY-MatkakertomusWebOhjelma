@@ -7,7 +7,7 @@ import useWindowDimensions from '../../hooks/useWindowDimensions ';
 import DesktopNav from './DesktopNav';
 import Submenu from './Submenu';
 import MobileNav from './MobileNav';
-import navlogo from './navlogo.png';
+import navlogo from '../../assets/navlogo.png'
 
 const Navbar = () => {
   const [show, setShow] = useState(false);
@@ -110,13 +110,13 @@ const Wrapper = styled.nav`
     background: white;
   }
   .linksContainer {
-    margin-right: 70px;
+    margin-right: 20px;
     color: white;
     font-size: var(--font-small);
     ul {
       display: flex;
       li:not(:last-child) {
-        margin-right: 20px;
+        margin-right: 40px;
       }
     }
   }

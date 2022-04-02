@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import rekisteröidybg from './rekisteröidybg.png';
+import rekisteröidybg from '../assets/rekisteröidybg.png';
 import Input from '../components/ResuableComponents/Input';
 import Button from '../components/ResuableComponents/Button';
 import { Link } from 'react-router-dom';
@@ -87,15 +87,19 @@ background-position: center top;
 width: 100vw;
 height: 92vh;
 padding-top: 10vh;
+display: flex;
+justify-content: center;
+align-items: center;
 
 .container {
     background: #ecebeb;
-    margin-left: 37vw;
-    margin-right: 37vw;
+    width: 500px;
     text-align: center;
     margin-bottom: 20vh;
     padding: 50px;
     box-shadow: 3px 3px 3px #7a7474;
+    margin-left: 5px;
+    margin-right: 5px;
 }
 .container h3 {
     margin-bottom: 20px;
@@ -110,7 +114,13 @@ padding-top: 10vh;
 .link {
     color: blue;
 }
-
+@media screen and (max-width: 520px) {
+    .container {
+      padding-left: 5px;
+      padding-right: 5px;
+      box-shadow: none;
+    }
+  }
 `;
 
 

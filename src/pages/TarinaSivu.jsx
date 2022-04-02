@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { AiOutlineRead } from "react-icons/ai";
 import { MdDateRange } from "react-icons/md";
 import ImageContainer from "../components/ResuableComponents/ImageContainer";
-import img from "./TarinaTestiKuva.png";
+import img from "../assets/TarinaTestiKuva.png";
 
 const TarinaSivu = () => {
   const [imgUrls, setImgUrls] = useState([]);

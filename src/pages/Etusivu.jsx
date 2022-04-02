@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import bg from './pagehero1.png'
+import bg from '../assets/pagehero1.png'
 
 const Etusivu = () => {
   return (
