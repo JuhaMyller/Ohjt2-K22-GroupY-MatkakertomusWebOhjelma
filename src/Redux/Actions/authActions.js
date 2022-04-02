@@ -4,6 +4,7 @@ export const KIRJAUDU_REFRESS_TOKEN_EPAONNISTUI = 'KRTEO';
 export const KIRJAUDU_SPOSTI_ALOITUS = 'KSA';
 export const KIRJAUDU_SPOSTI_ONNISTUI = 'KSO';
 export const KIRJAUDU_SPOSTI_EPAONNISTUI = 'KSEO';
+export const KIRJAUDU_ULOS_SUCCESS = 'KIRJAUDU_ULOS_SUCCESS';
 
 export const KirjauduRefreshToken = () => {
   return async (dispatch) => {

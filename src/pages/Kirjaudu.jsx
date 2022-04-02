@@ -44,7 +44,8 @@ const Kirjaudu = () => {
       });
       navigate(from, { replace: true });
     } catch (error) {
-      if (error.response.status === 400)
+      console.log('err');
+      if (error.response?.status === 400)
         toast.error('Sähköposti tai salasana on virheellinen', {
           position: 'top-center',
           duration: 3000,

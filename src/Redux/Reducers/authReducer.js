@@ -35,6 +35,8 @@ export default function authRecucer(state = initialState, action) {
         kayttaja: action.payload.user,
         accessToken: action.payload.accessToken,
       };
+    case actions.KIRJAUDU_ULOS_SUCCESS:
+      return { ...state, kayttaja: null, accessToken: null };
   }
 
   return state;
