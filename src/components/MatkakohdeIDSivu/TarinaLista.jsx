@@ -4,7 +4,7 @@ import TarinaKortti from './TarinaKortti';
 
 const TarinaLista = () => {
   return (
-    <div className='divlista'>
+    <div className="divlista">
       <TarinaKortti />
       <TarinaKortti />
       <TarinaKortti />

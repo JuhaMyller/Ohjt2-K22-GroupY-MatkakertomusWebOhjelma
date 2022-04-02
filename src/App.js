@@ -6,6 +6,7 @@ import {
   Kirjaudu,
   Rekisteröidy,
   TarinaSivu,
+  KirjauduUlos,
 } from './pages';
 import Navbar from './components/NavBar/Navbar';
 import { useSelector } from 'react-redux';
@@ -42,6 +43,7 @@ function App() {
             <Route exact path="lisaatarina" element={<LisaaTarinaSivu />} />
             <Route exact path="tarina/:id" element={<TarinaSivu />} />
           </Route>
+          <Route exact path="kirjauduulos" element={<KirjauduUlos />} />
         </Routes>
       )}
       <ToastContainer />
