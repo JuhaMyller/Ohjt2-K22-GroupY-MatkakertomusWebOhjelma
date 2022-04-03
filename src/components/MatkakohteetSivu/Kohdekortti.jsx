@@ -5,7 +5,7 @@ import ImageContainer from '../ResuableComponents/ImageContainer';
 import { Link, BrowserRouter as Router } from 'react-router-dom';
 import './Kohdekortti.css';
 
-const Kohdekortti = ({ kuva, maa, kohdenimi, id }) => {
+const Kohdekortti = ({ kuva, maa, kohdenimi, id, tarinat }) => {
   return (
     <Link to={`/matkakohteet/${id}`}>
       <div className="kohdekortti" style={{ backgroundImage: `url(${kuva})` }}>
@@ -14,7 +14,7 @@ const Kohdekortti = ({ kuva, maa, kohdenimi, id }) => {
           <h4>{maa}</h4>
         </div>
         <div className="kohdekortti_tarinat">
-          <p>Tarinoita</p>
+          <p>Tarinoita: {tarinat.length}</p>
         </div>
       </div>
     </Link>
