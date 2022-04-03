@@ -160,6 +160,7 @@ const Wrapper = styled.div`
       padding-left: 5px;
       padding-right: 5px;
       box-shadow: none;
+      width: 97vw;
     }
   }
 `;
