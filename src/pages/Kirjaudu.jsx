@@ -140,6 +140,7 @@ const Wrapper = styled.div`
 
   @media screen and (max-width: 520px) {
     .container {
+      width: 97vw;
       padding-left: 5px;
       padding-right: 5px;
       box-shadow: none;
