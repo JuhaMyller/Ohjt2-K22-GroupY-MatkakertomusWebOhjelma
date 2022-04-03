@@ -1,4 +1,4 @@
-import axios from '../../../api/Axios';
+import useAxiosPrivate from '../../../hooks/useAxiosPrivate';
 
 import React, { useState } from 'react';
 import styled from 'styled-components';
@@ -13,6 +13,8 @@ const LisaaMatkakohde = () => {
   const [matkanKuvaus, setKuvaus] = useState('');
 
   //matkakohde, maa, kohdenimi, paikkakunta
+
+  const axios = useAxiosPrivate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
