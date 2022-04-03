@@ -11,7 +11,6 @@ import * as actions from '../Redux/Actions/authActions';
 import { toast } from 'react-toastify';
 import { FaBeer } from 'react-icons/fa';
 
-
 const Kirjaudu = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -61,7 +60,6 @@ const Kirjaudu = () => {
           <h3>Kirjaudu</h3>
 
           <Input
-          
             className="username"
             type="text"
             id="username"
@@ -69,10 +67,10 @@ const Kirjaudu = () => {
             onChange={setUsername}
             placeholder="Sähköposti"
             styles={{
-              background: 'white'
+              background: 'white',
             }}
           />
-            
+
           <Input
             type="password"
             id="password"
@@ -80,7 +78,7 @@ const Kirjaudu = () => {
             onChange={setPassword}
             placeholder="Salasana"
             styles={{
-              background: "white"
+              background: 'white',
             }}
           />
 
@@ -139,8 +137,7 @@ const Wrapper = styled.div`
   .link {
     color: blue;
   }
- 
-  
+
   @media screen and (max-width: 520px) {
     .container {
       padding-left: 5px;

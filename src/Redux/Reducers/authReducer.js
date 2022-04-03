@@ -37,6 +37,10 @@ export default function authRecucer(state = initialState, action) {
       };
     case actions.KIRJAUDU_ULOS_SUCCESS:
       return { ...state, kayttaja: null, accessToken: null };
+    case actions.REKISTEROIDY_ALOITUS:
+      return { ...state, fetch: true };
+    case actions.REKISTEROIDY_LOPETUS:
+      return { ...state, fetch: false };
   }
 
   return state;

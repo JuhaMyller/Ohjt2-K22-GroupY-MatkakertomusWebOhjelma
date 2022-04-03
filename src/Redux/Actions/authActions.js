@@ -5,6 +5,8 @@ export const KIRJAUDU_SPOSTI_ALOITUS = 'KSA';
 export const KIRJAUDU_SPOSTI_ONNISTUI = 'KSO';
 export const KIRJAUDU_SPOSTI_EPAONNISTUI = 'KSEO';
 export const KIRJAUDU_ULOS_SUCCESS = 'KIRJAUDU_ULOS_SUCCESS';
+export const REKISTEROIDY_ALOITUS = 'RA';
+export const REKISTEROIDY_LOPETUS = 'RL';
 
 export const KirjauduRefreshToken = () => {
   return async (dispatch) => {

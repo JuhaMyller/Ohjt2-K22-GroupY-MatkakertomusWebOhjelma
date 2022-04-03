@@ -1,7 +1,7 @@
 import axios from 'axios';
 import react from 'react';
 
-const BASE_URL = process.env.REACT_APP_SERVER_URL;
+const BASE_URL = 'https://ohjelmistotuotanto2.herokuapp.com';
 
 export default axios.create({
   baseURL: BASE_URL,
