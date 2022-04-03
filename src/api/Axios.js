@@ -1,8 +1,7 @@
 import axios from 'axios';
 import react from 'react';
 
-const BASE_URL =
-  'http://localhost:4000' || 'https://ohjelmistotuotanto2.herokuapp.com';
+const BASE_URL = 'https://ohjelmistotuotanto2.herokuapp.com';
 
 console.log(BASE_URL);
 
