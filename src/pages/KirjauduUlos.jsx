@@ -19,8 +19,7 @@ const KirjauduUlos = () => {
       });
     }
     try {
-      const response = await axiosPrivate.post('/api/user/logout');
-      console.log(response);
+      await axiosPrivate.post('/api/user/logout');
       dispatch({ type: KIRJAUDU_ULOS_SUCCESS });
       navigate('/', { replace: true });
     } catch (error) {

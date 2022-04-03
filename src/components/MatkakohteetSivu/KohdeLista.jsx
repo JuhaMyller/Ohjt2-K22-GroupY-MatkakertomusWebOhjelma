@@ -19,11 +19,9 @@ const KohdeLista = () => {
     const response = await axios.get('/api/matkakohde/matkakohteet');
     setMkohteet(response.data.matkakohteet);
     setFilteredData(response.data.matkakohteet);
-    console.log(response.data);
   };
 
   useEffect(() => {
-    console.log('use');
     getMatkakohteet();
   }, []);
 
@@ -96,6 +94,7 @@ const KohdeLista = () => {
           {filteredData && filteredData.length > 0 ? (
             filteredData.map((matkakohde) => (
               <Kohdekortti
+                tarinat={matkakohde.tarinat}
                 kuva={`${process.env.REACT_APP_SERVER_URL}/img/${matkakohde.kuva}`}
                 kohdenimi={matkakohde.kohdenimi.toUpperCase()}
                 maa={matkakohde.maa}
