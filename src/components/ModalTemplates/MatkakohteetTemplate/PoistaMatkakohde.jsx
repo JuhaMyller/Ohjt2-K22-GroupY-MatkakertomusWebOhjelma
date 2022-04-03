@@ -1,16 +1,20 @@
 import React, { useState } from 'react';
+import useAxiosPrivate from '../../../hooks/useAxiosPrivate';
 import styled from 'styled-components';
 import Button from '../../ResuableComponents/Button';
 import Input from '../../ResuableComponents/Input';
 
 const PoistaMatkakohde = ({ mkohteet }) => {
-  const [matkakohteet, setMatkakohteet] = useState(mkohteet);
+  const [matkakohteet, setMatkakohteet] = useState(() =>
+    mkohteet.filter((kohde) => kohde.tarinat.length === 0)
+  );
+  const axios = useAxiosPrivate();
 
-  console.log(matkakohteet);
-
-  const PoistaMatkakohde = (event, id) => {
-    event.preventDefault();
-    console.log(event, id);
+  const PoistaMatkakohde = async (e, id) => {
+    e.preventDefault();
+    try {
+      const response = await axios.delete(`/api/matkakohde/matkakohde/${id}`);
+    } catch (error) {}
   };
 
   return (
@@ -28,7 +32,7 @@ const PoistaMatkakohde = ({ mkohteet }) => {
           </div>
           {matkakohteet.map((kohde) => {
             return (
-              <div key={kohde.id} className="PoistaMatkaCard">
+              <div key={kohde._id} className="PoistaMatkaCard">
                 <div className="grid-layout">
                   <h3>{kohde.kohdenimi}</h3>
                   <div className="displayNone">
@@ -41,7 +45,7 @@ const PoistaMatkakohde = ({ mkohteet }) => {
                 <div className="deleteMatkaBtn">
                   <Button
                     type="submit"
-                    onClick={(e) => PoistaMatkakohde(e, kohde.id)}
+                    onClick={(e) => PoistaMatkakohde(e, kohde._id)}
                     styles={{ background: 'red', color: 'white' }}
                   >
                     Poista
@@ -65,8 +69,7 @@ const Wrapper = styled.div`
     .grid-layout {
       display: grid;
       width: 80%;
-
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: 1.5fr 1fr 1fr;
     }
     .PoistaMatkaCard {
       border-radius: 5px;
