@@ -100,10 +100,7 @@ const KohdeLista = () => {
         <div className="kohdekortti_lista">
           {filteredData && filteredData.length > 0 ? (
             filteredData.map((matkakohde) => (
-              <Link
-                to={`/matkakohteet/:${matkakohde._id}`}
-                key={matkakohde._id}
-              >
+              <Link to={`/matkakohteet/${matkakohde._id}`} key={matkakohde._id}>
                 <Kohdekortti
                   tarinat={matkakohde.tarinat}
                   kuva={`${BASE_URL}/img/${matkakohde.kuva}`}
