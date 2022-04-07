@@ -7,15 +7,13 @@ import MuokkaaMatkakohdetta from './MuokkaaMatkakohdetta';
 
 const templates = { Lisaa: 'Lisaa', Poista: 'Poista', Muokkaa: 'Muokka' };
 
-const MatkakohteetTemplate = ({ mkohteet }) => {
+const MatkakohteetTemplate = () => {
   const [template, setTemplate] = useState(templates.Lisaa);
 
   const getTemplate = () => {
     if (template === templates.Lisaa) return <LisaaMatkakohde />;
-    if (template === templates.Poista)
-      return <PoistaMatkakohde mkohteet={mkohteet} />;
-    if (template === templates.Muokkaa)
-      return <MuokkaaMatkakohdetta mkohteet={mkohteet} />;
+    if (template === templates.Poista) return <PoistaMatkakohde />;
+    if (template === templates.Muokkaa) return <MuokkaaMatkakohdetta />;
   };
 
   return (

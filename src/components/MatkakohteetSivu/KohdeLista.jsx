@@ -12,21 +12,16 @@ import { useSelector } from 'react-redux';
 const BASE_URL = 'https://ohjelmistotuotanto2.herokuapp.com';
 
 const KohdeLista = () => {
-  const [mkohteet, setMkohteet] = useState([]);
   const [etsi, setEtsi] = useState('');
   const [filteredData, setFilteredData] = useState([]);
   const { openModal } = useModalContext();
-  const user = useSelector((state) => state.auth.kayttaja);
 
-  const getMatkakohteet = async () => {
-    const response = await axios.get('/api/matkakohde/matkakohteet');
-    setMkohteet(response.data.matkakohteet);
-    setFilteredData(response.data.matkakohteet);
-  };
+  const user = useSelector((state) => state.auth.kayttaja);
+  const mkohteet = useSelector((state) => state.matkakohteet.Matkakohteet);
 
   useEffect(() => {
-    getMatkakohteet();
-  }, []);
+    setFilteredData(mkohteet);
+  }, [mkohteet]);
 
   const filter = () => {
     if (etsi !== '') {
@@ -85,7 +80,7 @@ const KohdeLista = () => {
                 }}
                 onClick={() =>
                   openModal({
-                    template: <MatkakohteetTemplate mkohteet={mkohteet} />,
+                    template: <MatkakohteetTemplate />,
                     title: 'Muokkaa matkakohteita',
                   })
                 }

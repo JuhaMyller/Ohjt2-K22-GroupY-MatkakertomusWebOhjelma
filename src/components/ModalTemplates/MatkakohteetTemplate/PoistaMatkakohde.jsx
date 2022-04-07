@@ -1,20 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import useAxiosPrivate from '../../../hooks/useAxiosPrivate';
 import styled from 'styled-components';
 import Button from '../../ResuableComponents/Button';
-import Input from '../../ResuableComponents/Input';
+import { toast } from 'react-toastify';
+import { deleteMatkakohde } from '../../../Redux/Actions/matkakohdeActions';
+import { useDispatch, useSelector } from 'react-redux';
 
-const PoistaMatkakohde = ({ mkohteet }) => {
-  const [matkakohteet, setMatkakohteet] = useState(() =>
-    mkohteet.filter((kohde) => kohde.tarinat.length === 0)
-  );
+const PoistaMatkakohde = () => {
+  const [matkakohteet, setMatkakohteet] = useState([]);
+
+  const fetching = useSelector((state) => state.matkakohteet.fetchingRequest);
+  const mk = useSelector((state) => state.matkakohteet.Matkakohteet);
   const axios = useAxiosPrivate();
+  const dispath = useDispatch();
+
+  useEffect(() => {
+    setMatkakohteet(mk);
+  }, [mk]);
 
   const PoistaMatkakohde = async (e, id) => {
     e.preventDefault();
-    try {
-      const response = await axios.delete(`/api/matkakohde/matkakohde/${id}`);
-    } catch (error) {}
+    dispath(deleteMatkakohde(id, axios, toast));
   };
 
   return (
@@ -44,6 +50,7 @@ const PoistaMatkakohde = ({ mkohteet }) => {
                 </div>
                 <div className="deleteMatkaBtn">
                   <Button
+                    disabled={fetching}
                     type="submit"
                     onClick={(e) => PoistaMatkakohde(e, kohde._id)}
                     styles={{ background: 'red', color: 'white' }}
