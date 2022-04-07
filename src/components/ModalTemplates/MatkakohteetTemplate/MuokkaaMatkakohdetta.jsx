@@ -4,8 +4,8 @@ import styled from 'styled-components';
 import Button from '../../ResuableComponents/Button';
 import Input from '../../ResuableComponents/Input';
 
-const MuokkaaMatkakohdetta = ({ mkohteet }) => {
-  const [matkakohteet, setMatkakohteet] = useState(mkohteet);
+const MuokkaaMatkakohdetta = () => {
+  const [matkakohteet, setMatkakohteet] = useState([]);
   const [edit, setEdit] = useState(false);
 
   const [editId, seteditID] = useState([]);
