@@ -48,7 +48,7 @@ export function getMatkakohteet(axios) {
   };
 }
 
-export function postMatkakohde(payload, toast, axios) {
+export function postMatkakohde(payload, toast, axios, resetForm) {
   const { matkakohde, maa, paikkakunta, matkanKuvaus, kuvat } = payload;
   return async (dispatch) => {
     try {
@@ -66,6 +66,7 @@ export function postMatkakohde(payload, toast, axios) {
           formData
         );
         if (response.status === 201) {
+          resetForm();
           dispatch({
             type: POST_MATKAKOHDE_SUCCESS,
             payload: response.data.uusiMatkakohde,
