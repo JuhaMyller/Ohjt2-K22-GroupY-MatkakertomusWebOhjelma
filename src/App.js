@@ -29,9 +29,7 @@ function App() {
   return (
     <Router>
       <Navbar />
-      {!user && userLoading ? (
-        <h1>Loading</h1>
-      ) : (
+      {!user && userLoading ? null : (
         <Routes>
           <Route index element={<Etusivu />} />
           <Route exact path='matkakohteet' element={<MatkakohteetSivu />} />

@@ -34,7 +34,7 @@ const TarinaKortti = ({ matkaaja, alkupvm, teksti, id, otsikko }) => {
   };
 
   return (
-    <Link to={`/api/tarina/${id}`}>
+    <Link to={`/tarina/${id}`}>
       <div style={{ backgroundColor: color() }} className='korttipohja'>
         <div className='divotsikko'>
           <h1>
