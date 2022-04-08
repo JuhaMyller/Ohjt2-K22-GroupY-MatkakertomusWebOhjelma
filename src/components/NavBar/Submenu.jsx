@@ -10,7 +10,7 @@ const Submenu = ({ setShow, submenu, show }) => {
     >
       <ul>
         <li>
-          <Link to="omatmatkat">Omat matkat</Link>
+          <Link to="omattarinat">Omat matkat</Link>
         </li>
         <li>
           <Link to="omattiedot">Omat tiedot</Link>
