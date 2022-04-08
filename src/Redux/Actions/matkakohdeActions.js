@@ -39,16 +39,19 @@ export function getMatkakohteet(axios) {
   return async (dispatch) => {
     try {
       const response = await axios.get('/api/matkakohde/matkakohteet');
-      if (response)
-        dispatch({
-          type: GET_MATKAKOHTEET_SUCCESS,
-          payload: response.data.matkakohteet,
-        });
+      const matkakohteet = response.data.matkakohteet.sort(
+        (a, b) => b.tarinat.length - a.tarinat.length
+      );
+
+      dispatch({
+        type: GET_MATKAKOHTEET_SUCCESS,
+        payload: matkakohteet,
+      });
     } catch (error) {}
   };
 }
 
-export function postMatkakohde(payload, toast, axios) {
+export function postMatkakohde(payload, toast, axios, resetForm) {
   const { matkakohde, maa, paikkakunta, matkanKuvaus, kuvat } = payload;
   return async (dispatch) => {
     try {
@@ -66,6 +69,7 @@ export function postMatkakohde(payload, toast, axios) {
           formData
         );
         if (response.status === 201) {
+          resetForm();
           dispatch({
             type: POST_MATKAKOHDE_SUCCESS,
             payload: response.data.uusiMatkakohde,

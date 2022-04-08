@@ -124,8 +124,7 @@ const Wrapper = styled.div`
   background-image: url(${rekisteröidybg});
   background-size: cover;
   background-position: center top;
-  width: 100vw;
-  height: 92vh;
+  width: 100%;
   padding-top: 10vh;
   display: flex;
   justify-content: center;

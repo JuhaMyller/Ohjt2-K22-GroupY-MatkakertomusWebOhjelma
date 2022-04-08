@@ -3,8 +3,10 @@ import styled from 'styled-components';
 import Input from '../ResuableComponents/Input';
 import Button from '../ResuableComponents/Button';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
 const PageInputsContainer = (props) => {
+  const matkakohteet = useSelector((state) => state.matkakohteet.Matkakohteet);
   return (
     <Wrapper>
       <div className="input-container">
@@ -17,13 +19,19 @@ const PageInputsContainer = (props) => {
         />
       </div>
       <div className="input-container">
-        <Input
-          id="lisaaTarinaMatkakohde"
+        <select
           value={props.matkakohde}
-          onChange={props.setMatkakohde}
-          placeholder="Matkakohde"
-          styles={{ height: '50px' }}
-        />
+          onChange={(e) => props.setMatkakohde(e.target.value)}
+          name="matkakohde"
+          id="matkakohde"
+        >
+          <option value="">Valitse matkakohde</option>,
+          {matkakohteet.map((kohde) => [
+            <option key={kohde._id} value={kohde._id}>
+              {kohde.kohdenimi}
+            </option>,
+          ])}
+        </select>
       </div>
       <div className="input-container">
         <textarea
@@ -60,6 +68,17 @@ const Wrapper = styled.div`
   }
   .input-container {
     margin-top: 20px;
+    select {
+      width: 100%;
+      font-size: var(--font-small);
+      font-family: inherit;
+      padding: 10px 15px;
+      border-radius: 5px;
+      border: none;
+      background: var(--clr-grey);
+      option {
+      }
+    }
     textarea {
       width: 100%;
       font-size: var(--font-small);

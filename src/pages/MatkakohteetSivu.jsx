@@ -5,11 +5,11 @@ import { useDispatch } from 'react-redux';
 import { getMatkakohteet } from '../Redux/Actions/matkakohdeActions';
 
 const MatkakohteetSivu = () => {
-  const dispath = useDispatch();
+  const dispatch = useDispatch();
   const axios = useAxiosPrivate();
 
   const handleGetMatkakohteet = () => {
-    dispath(getMatkakohteet(axios));
+    dispatch(getMatkakohteet(axios));
   };
 
   useEffect(() => {

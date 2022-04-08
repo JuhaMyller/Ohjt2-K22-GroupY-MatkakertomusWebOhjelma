@@ -11,47 +11,58 @@ const TarinaLista = ({ id }) => {
   const [etsi, setEtsi] = useState("");
   const [filteredData, setFilteredData] = useState([]);
   const [matkakohde, setMatkakohde] = useState([]);
+  const [loadingMK, setLoadingMK] = useState(true);
   const axios = useAxiosPrivate();
 
   const getTarinat = async () => {
-    const response = await axios.get("/api/tarina/matkakohteentarinat/" + id);
+    try {
+      const response = await axios.get("/api/tarina/matkakohteentarinat/" + id);
 
-    console.log(response.data.tarinat);
-    setTarinat(response.data.tarinat);
+      setTarinat(response.data.tarinat);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const getMatkakohde = async () => {
-    const responseMatkakohde = await axios.get(
-      "/api/matkakohde/matkakohde/" + id
-    );
+    try {
+      setLoadingMK(true);
+      const responseMatkakohde = await axios.get(
+        "/api/matkakohde/matkakohde/" + id
+      );
 
-    setMatkakohde(responseMatkakohde.data.matkakohteet);
-    console.log(responseMatkakohde.data.matkakohteet);
+      setMatkakohde(responseMatkakohde.data.matkakohteet);
+    } finally {
+      setLoadingMK(false);
+    }
   };
 
   useEffect(() => {
-    getTarinat();
     getMatkakohde();
+    getTarinat();
   }, []);
-
+  console.log(tarinat);
   return (
     <>
-      <div className="divmatkakohde">
-        <h1>{matkakohde.kohdenimi}</h1>
-        <h2>
-          {matkakohde.paikkakunta}
-          {`, ${matkakohde.maa}`}
-        </h2>
-        <div className="divkuva">
-          <img
-            src={`${serverUrl}/img/${matkakohde.kuva}`}
-            alt={`Matkakohteen ${matkakohde.kohdenimi} kuva`}
-          />
+      {loadingMK ? null : (
+        <div className="divmatkakohde">
+          <h1>{matkakohde.kohdenimi}</h1>
+          <h2>
+            {matkakohde.paikkakunta}
+            {`, ${matkakohde.maa}`}
+          </h2>
+          <div className="divkuva">
+            <img
+              src={`${serverUrl}/img/${matkakohde.kuva}`}
+              alt={`Matkakohteen ${matkakohde.kohdenimi} kuva`}
+            />
+          </div>
         </div>
-      </div>
+      )}
       <div className="divlista">
-        {tarinat.map((tarina) => (
+        {tarinat.map((tarina, index) => (
           <TarinaKortti
+            numero={index}
             id={tarina._id}
             otsikko={tarina.otsikko}
             key={tarina._id}

@@ -5,36 +5,36 @@ import { AiOutlineRead } from "react-icons/ai";
 import { MdDateRange } from "react-icons/md";
 import { AiOutlineUser } from "react-icons/ai";
 
-const TarinaKortti = ({ matkaaja, alkupvm, teksti, id, otsikko }) => {
+const TarinaKortti = ({ matkaaja, alkupvm, teksti, id, otsikko, numero }) => {
   const color = () => {
-    let number = Math.floor(Math.random() * (4 + 1));
     let colorr;
+    const number = numero % 5;
 
     if (number === 0) {
-      colorr = "#f8af7b";
+      colorr = "#ffef9f";
     }
 
     if (number === 1) {
-      colorr = "#86ceed";
+      colorr = "#c1fba4";
     }
 
     if (number === 2) {
-      colorr = "#8d99ff";
+      colorr = "#ffd6e0";
     }
 
     if (number === 3) {
-      colorr = "#bbc28d";
+      colorr = "#7bf1a8";
     }
 
     if (number === 4) {
-      colorr = "#fafa13";
+      colorr = "#90f1ef";
     }
 
     return colorr;
   };
 
   return (
-    <Link to={`/tarina/${id}`}>
+    <Link to={`/tarinat/${id}`}>
       <div style={{ backgroundColor: color() }} className="korttipohja">
         <div className="divotsikko">
           <h1>
