@@ -7,6 +7,7 @@ import {
   Rekisteröidy,
   TarinaSivu,
   KirjauduUlos,
+  KaikkiTarinat,
 } from './pages';
 import Navbar from './components/NavBar/Navbar';
 import { useSelector } from 'react-redux';
@@ -39,7 +40,8 @@ function App() {
           <Route element={<RequireAuth />}>
             <Route path='matkakohteet/:id' element={<MatkakohdeIDSivu />} />
             <Route exact path='lisaatarina' element={<LisaaTarinaSivu />} />
-            <Route path='tarina/:id' element={<TarinaSivu />} />
+            <Route path='tarinat/:id' element={<TarinaSivu />} />
+            <Route path='tarinat' element={<KaikkiTarinat />} />
           </Route>
           <Route exact path='kirjauduulos' element={<KirjauduUlos />} />
         </Routes>

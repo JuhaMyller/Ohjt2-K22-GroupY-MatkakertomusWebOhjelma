@@ -6,6 +6,7 @@ import Rekisteröidy from './Rekisteröidy';
 import Kirjaudu from './Kirjaudu';
 import TarinaSivu from './TarinaSivu';
 import KirjauduUlos from './KirjauduUlos';
+import KaikkiTarinat from './KaikkiTarinat';
 
 export {
   Etusivu,
@@ -16,4 +17,5 @@ export {
   Kirjaudu,
   TarinaSivu,
   KirjauduUlos,
+  KaikkiTarinat,
 };
