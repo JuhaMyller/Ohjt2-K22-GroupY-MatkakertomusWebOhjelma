@@ -34,16 +34,16 @@ function App() {
       ) : (
         <Routes>
           <Route index element={<Etusivu />} />
-          <Route exact path="matkakohteet" element={<MatkakohteetSivu />} />
-          <Route exact path="kirjaudu" element={<Kirjaudu />} />
-          <Route exact path="rekisteroidy" element={<Rekisteröidy />} />
+          <Route exact path='matkakohteet' element={<MatkakohteetSivu />} />
+          <Route exact path='kirjaudu' element={<Kirjaudu />} />
+          <Route exact path='rekisteroidy' element={<Rekisteröidy />} />
 
           <Route element={<RequireAuth />}>
-            <Route path="matkakohteet/:id" element={<MatkakohdeIDSivu />} />
-            <Route exact path="lisaatarina" element={<LisaaTarinaSivu />} />
-            <Route exact path="tarina/:id" element={<TarinaSivu />} />
+            <Route path='matkakohteet/:id' element={<MatkakohdeIDSivu />} />
+            <Route exact path='lisaatarina' element={<LisaaTarinaSivu />} />
+            <Route path='tarina/:id' element={<TarinaSivu />} />
           </Route>
-          <Route exact path="kirjauduulos" element={<KirjauduUlos />} />
+          <Route exact path='kirjauduulos' element={<KirjauduUlos />} />
         </Routes>
       )}
       <ToastContainer />

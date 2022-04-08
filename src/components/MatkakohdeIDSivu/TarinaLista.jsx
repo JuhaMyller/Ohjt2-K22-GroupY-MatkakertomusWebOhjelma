@@ -17,7 +17,7 @@ const TarinaLista = ({ id }) => {
   const getTarinat = async () => {
     const response = await axios.get('/api/tarina/matkakohteentarinat/' + id);
 
-    console.log(response.data);
+    console.log(response.data.tarinat);
     setTarinat(response.data.tarinat);
   };
 
