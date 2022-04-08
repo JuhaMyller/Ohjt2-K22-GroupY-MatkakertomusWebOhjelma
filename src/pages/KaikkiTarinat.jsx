@@ -26,8 +26,9 @@ const KaikkiTarinat = () => {
   return (
     <>
       <div className='divlista'>
-        {tarinat.map((tarina) => (
+        {tarinat.map((tarina, index) => (
           <TarinaKortti
+            numero={index}
             teksti={tarina.teksti}
             alkupvm={formatDate(tarina.alkupvm)}
             otsikko={tarina.otsikko}

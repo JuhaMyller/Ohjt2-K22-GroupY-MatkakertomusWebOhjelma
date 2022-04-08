@@ -22,8 +22,9 @@ const OmatTarinatSivu = () => {
   return (
     <>
       <div className='divlista'>
-        {omatTarinat.map((tarina) => (
+        {omatTarinat.map((tarina, index) => (
           <TarinaKortti
+            numero={index}
             teksti={tarina.teksti}
             alkupvm={formatDate(tarina.alkupvm)}
             otsikko={tarina.otsikko}

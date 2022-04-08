@@ -61,8 +61,9 @@ const TarinaLista = ({ id }) => {
         </div>
       )}
       <div className='divlista'>
-        {tarinat.map((tarina) => (
+        {tarinat.map((tarina, index) => (
           <TarinaKortti
+            numero={index}
             id={tarina._id}
             otsikko={tarina.otsikko}
             key={tarina._id}
