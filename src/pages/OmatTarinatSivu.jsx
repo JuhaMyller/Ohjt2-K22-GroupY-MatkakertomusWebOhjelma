@@ -1,32 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import TarinaKortti from '../components/MatkakohdeIDSivu/TarinaKortti';
-
 import useAxiosPrivate from '../hooks/useAxiosPrivate';
-
 import formatDate from '../utils/formatedDate';
 
-const KaikkiTarinat = () => {
-  const [tarinat, setTarinat] = useState([]);
+const OmatTarinatSivu = () => {
   const axios = useAxiosPrivate();
+  const [omatTarinat, setOmatTarinat] = useState([]);
 
-  const getTarinat = async () => {
+  const getOmatTarinat = async () => {
     try {
-      const response = await axios.get('/api/tarina/kaikkitarinat');
-
-      setTarinat(response.data.tarinat);
+      const response = await axios.get('/api/tarina/omattarinat');
+      setOmatTarinat(response.data.tarinat);
     } catch (error) {
       console.error(error);
     }
   };
 
   useEffect(() => {
-    getTarinat();
+    getOmatTarinat();
   }, []);
-
   return (
     <>
       <div className='divlista'>
-        {tarinat.map((tarina, index) => (
+        {omatTarinat.map((tarina, index) => (
           <TarinaKortti
             numero={index}
             teksti={tarina.teksti}
@@ -42,4 +38,4 @@ const KaikkiTarinat = () => {
   );
 };
 
-export default KaikkiTarinat;
+export default OmatTarinatSivu;
