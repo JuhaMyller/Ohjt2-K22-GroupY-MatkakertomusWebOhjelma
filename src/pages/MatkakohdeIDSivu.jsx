@@ -15,7 +15,6 @@ const MatkakohdeIDSivu = () => {
 
   return (
     <div>
-      <h1>MatkakohdeID: {id}</h1>
       <TarinaLista id={id} />
     </div>
   );

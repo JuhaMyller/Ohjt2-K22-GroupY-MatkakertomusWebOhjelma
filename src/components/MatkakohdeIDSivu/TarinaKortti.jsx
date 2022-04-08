@@ -5,12 +5,7 @@ import { AiOutlineRead } from 'react-icons/ai';
 import { MdDateRange } from 'react-icons/md';
 import { AiOutlineUser } from 'react-icons/ai';
 
-const TarinaKortti = ({ matkaaja, alkupvm, teksti, _id, otsikko }) => {
-  const text =
-    'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla veniam totam veritatis fuga. Labore inventore animi, odit distinctio aliquid commodi accusamus deleniti rem consequuntur ipsam provident atque voluptates. Dolore, autem.';
-
-  const showtext = text.slice(0, 100) + '...';
-
+const TarinaKortti = ({ matkaaja, alkupvm, teksti, id, otsikko }) => {
   const color = () => {
     let number = Math.floor(Math.random() * (4 + 1));
     let colorr;
@@ -39,7 +34,7 @@ const TarinaKortti = ({ matkaaja, alkupvm, teksti, _id, otsikko }) => {
   };
 
   return (
-    <Link to={''}>
+    <Link to={`/api/tarina/tarina/${id}`}>
       <div style={{ backgroundColor: color() }} className='korttipohja'>
         <div className='divotsikko'>
           <h1>
