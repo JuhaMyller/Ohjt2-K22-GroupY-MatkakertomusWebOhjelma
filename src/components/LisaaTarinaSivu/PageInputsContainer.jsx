@@ -3,8 +3,10 @@ import styled from 'styled-components';
 import Input from '../ResuableComponents/Input';
 import Button from '../ResuableComponents/Button';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
 const PageInputsContainer = (props) => {
+  const matkakohteet = useSelector((state) => state.matkakohteet.Matkakohteet);
   return (
     <Wrapper>
       <div className="input-container">
@@ -17,6 +19,12 @@ const PageInputsContainer = (props) => {
         />
       </div>
       <div className="input-container">
+        <select name="matkakohde" id="matkakohde">
+          <option value=""></option>,
+          {matkakohteet.map((kohde) => [
+            <option value={kohde._id}>{kohde.kohdenimi}</option>,
+          ])}
+        </select>
         <Input
           id="lisaaTarinaMatkakohde"
           value={props.matkakohde}

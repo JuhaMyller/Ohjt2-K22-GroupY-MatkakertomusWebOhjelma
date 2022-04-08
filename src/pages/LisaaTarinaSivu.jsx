@@ -4,6 +4,11 @@ import LisaaKuva from '../components/LisaaTarinaSivu/LisaaKuva';
 import DateTimespanPicker from '../components/LisaaTarinaSivu/DateInput/DateTimespanPicker';
 import PageInputsContainer from '../components/LisaaTarinaSivu/PageInputsContainer';
 import { setDate } from '../components/LisaaTarinaSivu/DateInput/Utils';
+import { postTarina } from '../Redux/Actions/tarinatActions';
+import { getMatkakohteet } from '../Redux/Actions/matkakohdeActions';
+import { useDispatch } from 'react-redux';
+import useAxiosPrivate from '../hooks/useAxiosPrivate';
+import { toast } from 'react-toastify';
 
 const LisaaTarinaSivu = () => {
   const [imgArr, setImgArr] = useState([]);
@@ -13,6 +18,13 @@ const LisaaTarinaSivu = () => {
   const [otsikko, setOtsikko] = useState('');
   const [matkakohde, setMatkakohde] = useState('');
   const [tarina, setTarina] = useState('');
+
+  const dispatch = useDispatch();
+  const axios = useAxiosPrivate();
+
+  useEffect(() => {
+    dispatch(getMatkakohteet(axios));
+  }, []);
 
   //TODO:
   //MAKSIMI BYTE MÄÄRÄ KUVILLE! Liian isot kuvat lagaa
@@ -43,8 +55,21 @@ const LisaaTarinaSivu = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    //logiikka tähän tulee vasta kun backend saadaan toimimaan
-    console.log('submit');
+    dispatch(
+      postTarina(
+        {
+          matkakohde,
+          yksityinen: false,
+          tarina,
+          tulopaiva,
+          lahtopaiva,
+          otsikko,
+          imgArr,
+        },
+        axios,
+        toast
+      )
+    );
   };
 
   return (
