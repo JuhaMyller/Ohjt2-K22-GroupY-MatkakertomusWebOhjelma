@@ -19,19 +19,19 @@ const PageInputsContainer = (props) => {
         />
       </div>
       <div className="input-container">
-        <select name="matkakohde" id="matkakohde">
-          <option value=""></option>,
+        <select
+          value={props.matkakohde}
+          onChange={(e) => props.setMatkakohde(e.target.value)}
+          name="matkakohde"
+          id="matkakohde"
+        >
+          <option value="">Valitse matkakohde</option>,
           {matkakohteet.map((kohde) => [
-            <option value={kohde._id}>{kohde.kohdenimi}</option>,
+            <option key={kohde._id} value={kohde._id}>
+              {kohde.kohdenimi}
+            </option>,
           ])}
         </select>
-        <Input
-          id="lisaaTarinaMatkakohde"
-          value={props.matkakohde}
-          onChange={props.setMatkakohde}
-          placeholder="Matkakohde"
-          styles={{ height: '50px' }}
-        />
       </div>
       <div className="input-container">
         <textarea
@@ -68,6 +68,17 @@ const Wrapper = styled.div`
   }
   .input-container {
     margin-top: 20px;
+    select {
+      width: 100%;
+      font-size: var(--font-small);
+      font-family: inherit;
+      padding: 10px 15px;
+      border-radius: 5px;
+      border: none;
+      background: var(--clr-grey);
+      option {
+      }
+    }
     textarea {
       width: 100%;
       font-size: var(--font-small);
