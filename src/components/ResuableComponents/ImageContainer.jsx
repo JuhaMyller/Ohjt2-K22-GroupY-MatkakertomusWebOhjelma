@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import React, { useState } from "react";
+import PropTypes from "prop-types";
+import styled from "styled-components";
 
 const ImageContainer = ({ imgUrls = [], mainImg = 0 }) => {
   const [imgIndex, setImgIndex] = useState(mainImg);
-
   return (
     <Wrapper>
       <div className="main-img">
@@ -41,7 +40,7 @@ ImageContainer.propTypes = {
 const Wrapper = styled.div`
   min-width: 250px;
   max-width: 400px;
-  width: 90%;
+  width: 100%;
   user-select: none;
   img {
     transition: opacity 0.5s linear;

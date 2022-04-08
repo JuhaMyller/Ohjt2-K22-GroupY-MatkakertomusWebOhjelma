@@ -4,114 +4,124 @@ import { AiOutlineRead } from "react-icons/ai";
 import { MdDateRange } from "react-icons/md";
 import ImageContainer from "../components/ResuableComponents/ImageContainer";
 import img from "../assets/TarinaTestiKuva.png";
+import useAxiosPrivate from "../hooks/useAxiosPrivate";
+import { useParams } from "react-router-dom";
 
 const TarinaSivu = () => {
   const [imgUrls, setImgUrls] = useState([]);
+  const [tarina, setTarina] = useState([]);
+  const axios = useAxiosPrivate();
+  const { id } = useParams();
 
-  const haeTarina = async () => {};
-  useEffect(() => {}, []);
+  const haeTarina = async () => {
+    const responseTarina = await axios.get("/api/tarina/tarina/" + id);
+
+    setImgUrls(() => {
+      return responseTarina.data.tarina.kuva.map((t) => {
+        return "http://localhost:4000/img/" + t;
+      });
+    });
+
+    setTarina(responseTarina.data.tarina);
+    console.log(responseTarina.data.tarina);
+  };
+  useEffect(() => {
+    haeTarina();
+  }, []);
 
   return (
     <Wrapper>
-      <div className="kuva-container">
-        <ImageContainer imgUrls={imgUrls} />
-
-        <img className="kayttajaKuva" src={img} alt="" />
-        <h3 className="kayttaja">Juha Myller</h3>
-        <div className="tiedot">
-          <div className="lukenut">
-            <AiOutlineRead className="lukenutIcon" />
-            <h5>2</h5>
+      <div className="wrapper">
+        <div className="kuva_kayttajaWrap">
+          <div className="kuva-container">
+            <ImageContainer imgUrls={imgUrls || []} />
           </div>
-          <div className="pvm">
+          <div className="kayttajaKuvaContainer">
+            <img className="kayttajaKuva" src={img} alt="" />
+          </div>
+          <div className="kayttaja">
+            <h3>Juha Myller</h3>
+          </div>
+          <div className="tiedot">
             <MdDateRange className="paivaIcon" />
-            <h5>01.04.2022</h5>
+            <p>01.04.2022</p>
+            <AiOutlineRead className="lukenutIcon" />
+            <p>2</p>
           </div>
         </div>
-      </div>
-
-      <div className="tarina-container">
-        <h1 className="otsikko">Otsikko</h1>
-        <p>
-          lorem ipsum dolor lorem ipsum dolor sit amet, consectetur adip Lorem,
-          ipsum dolor sit amet consectetur adipisicing elit. Sapiente corrupti
-          omnis at a deleniti quae dolores labore explicabo consectetur
-          blanditiis vero, quasi qui amet iure, voluptate ullam accusantium
-          repellendus. Dolor? Lorem ipsum dolor sit amet, consectetur
-          adipisicing elit. Sit ducimus ratione eos mollitia velit vitae
-          blanditiis saepe ipsam, nihil exercitationem perspiciatis natus id
-          aspernatur? Nemo deserunt provident modi quas quod! Lorem ipsum dolor
-          sit, amet consectetur adipisicing elit. Debitis id itaque praesentium,
-          aliquid rerum impedit esse cumque reprehenderit libero laboriosam
-          quibusdam deleniti ut vero nemo et repellendus sed non illum.
-        </p>
+        <div className="tarina-container">
+          <h1 className="otsikko">{tarina.otsikko}</h1>
+          <p>{tarina.teksti}</p>
+        </div>
       </div>
     </Wrapper>
   );
 };
 
 const Wrapper = styled.form`
-  max-width: 1440px;
-  display: flex;
-  flex-wrap: wrap;
-  position: relative;
-  top: 50px;
-  left: 50px;
+  width: 100%;
 
-  .lukenutIcon {
-    margin-right: 5px;
+  .wrapper {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: auto;
+    flex-wrap: wrap-reverse;
+  }
+
+  .otsikko {
+    margin-top: 50px;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  .tarina-container {
+    flex: 1 1 300px;
+    text-align: center;
+    padding: 0 10px;
+    margin-left: 10px;
+    min-width: 300px;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .kuva_kayttajaWrap {
+    max-width: 400px;
+    min-width: 250px;
+    margin: auto;
+    width: 90%;
+    text-align: center;
+  }
+  .kuva-container {
+    margin: auto;
+    margin-top: 50px;
+    max-width: 350px;
+    min-width: 280px;
+  }
+
+  .kayttajaKuvaContainer {
+    width: fit-content;
+    margin: 20px auto;
+  }
+
+  .kayttajaKuva {
+    margin-top: 10px;
+    margin: auto;
+    border-radius: 50%;
+    display: flex;
+    min-width: 150px;
+    max-width: 150px;
+  }
+  .tiedot {
+    width: fit-content;
+    margin: auto;
+    align-items: center;
+    display: flex;
   }
   .paivaIcon {
     margin-right: 5px;
   }
-  .kayttajaKuva {
-    border-radius: 110px;
-    display: flex;
-    flex-wrap: wrap;
-    width: 200px;
-    position: relative;
-    left: 100px;
-    top: 10px;
-  }
-  .kayttaja {
-    top: 10px;
-    position: relative;
-    display: flex;
-    flex-wrap: wrap;
-    left: 144px;
-  }
-  .tiedot {
-    top: 10px;
-    left: 144px;
-    display: flex;
-    flex-wrap: wrap;
-    position: relative;
-  }
-  .pvm {
-    display: flex;
-    margin-left: 10px;
-  }
-  .lukenut {
-    display: flex;
-  }
-
-  .kuva-container {
-    width: 40%;
-    min-width: 500px;
-  }
-  .tarina-container {
-    width: 60%;
-  }
-  .otsikko {
-    margin-bottom: 10px;
-  }
-  @media only screen and (max-width: 875px) {
-    .kuva-container {
-      width: 90%;
-    }
-    .tarina-container {
-      width: 90%;
-    }
+  .lukenutIcon {
+    margin: 0 5px 0 20px;
   }
 `;
 

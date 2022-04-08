@@ -1,18 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import './Kohdekortti.css';
-import Kohdekortti from './Kohdekortti';
-import Input from '../ResuableComponents/Input';
-import Button from '../ResuableComponents/Button';
-import axios from '../../api/Axios';
-import { useModalContext } from '../ResuableComponents/Modal/ModalContext';
-import MatkakohteetTemplate from '../ModalTemplates/MatkakohteetTemplate/MatkakohteetTemplate';
-import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-
-const BASE_URL = 'https://ohjelmistotuotanto2.herokuapp.com';
+import React, { useEffect, useState } from "react";
+import "./Kohdekortti.css";
+import Kohdekortti from "./Kohdekortti";
+import Input from "../ResuableComponents/Input";
+import Button from "../ResuableComponents/Button";
+import axios from "../../api/Axios";
+import { useModalContext } from "../ResuableComponents/Modal/ModalContext";
+import MatkakohteetTemplate from "../ModalTemplates/MatkakohteetTemplate/MatkakohteetTemplate";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import serverUrl from "../../utils/serverUrl";
 
 const KohdeLista = () => {
-  const [etsi, setEtsi] = useState('');
+  const [etsi, setEtsi] = useState("");
   const [filteredData, setFilteredData] = useState([]);
   const { openModal } = useModalContext();
 
@@ -24,7 +23,7 @@ const KohdeLista = () => {
   }, [mkohteet]);
 
   const filter = () => {
-    if (etsi !== '') {
+    if (etsi !== "") {
       const results = mkohteet.filter((matkakohde) => {
         return matkakohde.kohdenimi
           .toLowerCase()
@@ -50,19 +49,19 @@ const KohdeLista = () => {
               onChange={setEtsi}
               placeholder="Etsi"
               styles={{
-                marginTop: '10px',
-                marginBottom: '10px',
-                float: 'left',
-                width: '50%',
-                marginLeft: '100px',
+                marginTop: "10px",
+                marginBottom: "10px",
+                float: "left",
+                width: "50%",
+                marginLeft: "100px",
               }}
             />
             <Button
               styles={{
-                marginLeft: '2px',
-                float: 'left',
-                marginTop: '10px',
-                marginBottom: '10px',
+                marginLeft: "2px",
+                float: "left",
+                marginTop: "10px",
+                marginBottom: "10px",
               }}
               onClick={filter}
               className="button"
@@ -74,14 +73,14 @@ const KohdeLista = () => {
             <div>
               <Button
                 styles={{
-                  marginRight: '100px',
-                  marginTop: '10px',
-                  marginBottom: '10px',
+                  marginRight: "100px",
+                  marginTop: "10px",
+                  marginBottom: "10px",
                 }}
                 onClick={() =>
                   openModal({
                     template: <MatkakohteetTemplate />,
-                    title: 'Muokkaa matkakohteita',
+                    title: "Muokkaa matkakohteita",
                   })
                 }
               >
@@ -98,7 +97,7 @@ const KohdeLista = () => {
               <Link to={`/matkakohteet/${matkakohde._id}`} key={matkakohde._id}>
                 <Kohdekortti
                   tarinat={matkakohde.tarinat}
-                  kuva={`${BASE_URL}/img/${matkakohde.kuva}`}
+                  kuva={`${serverUrl}/img/${matkakohde.kuva}`}
                   kohdenimi={matkakohde.kohdenimi.toUpperCase()}
                   maa={matkakohde.maa}
                   id={matkakohde._id}
