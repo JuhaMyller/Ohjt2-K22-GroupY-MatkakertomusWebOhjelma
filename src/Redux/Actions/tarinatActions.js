@@ -1,7 +1,7 @@
 export const ADD_TARINA = 'ADD_TARINA';
 export const DELETE_TARINA = 'DELETE_TARINA';
 
-export const REQUEST_BEGIN = 'REQUEST_BEGIN';
+export const TARINAT_REQUEST_BEGIN = 'TARINAT_REQUEST_BEGIN';
 export const POST_TARINA_SUCCESS = 'POST_TARINA_SUCCESS';
 export const POST_TARINA_ERROR = 'POST_TARINA_ERROR';
 export const GET_TARINAT_SUCCESS = 'GET_TARINAT_SUCCESS';
@@ -31,7 +31,7 @@ export function postTarina(payload, axios, toast) {
   } = payload;
   return async (dispatch) => {
     try {
-      dispatch({ type: REQUEST_BEGIN });
+      dispatch({ type: TARINAT_REQUEST_BEGIN });
       try {
         const formData = new FormData();
         formData.append('matkakohde', matkakohde);
