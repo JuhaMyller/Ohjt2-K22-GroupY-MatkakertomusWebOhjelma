@@ -7,16 +7,16 @@ import useAxiosPrivate from '../hooks/useAxiosPrivate';
 const MatkakohdeIDSivu = () => {
   const { id } = useParams();
 
-  const axios = useAxiosPrivate();
-  useEffect(async () => {
-    const tarinat = await axios.get('/api/matkakohde//matkakohteet/' + id);
-    console.log(tarinat);
-  }, []);
+  // const axios = useAxiosPrivate();
+  // useEffect(async () => {
+  //   const tarinat = await axios.get('/api/matkakohde/matkakohteet/' + id);
+  //   console.log(tarinat);
+  // }, []);
 
   return (
     <div>
-      {/* <h1>MatkakohdeID: {id}</h1> */}
-      <TarinaLista />
+      <h1>MatkakohdeID: {id}</h1>
+      <TarinaLista id={id} />
     </div>
   );
 };

@@ -5,7 +5,7 @@ import { AiOutlineRead } from 'react-icons/ai';
 import { MdDateRange } from 'react-icons/md';
 import { AiOutlineUser } from 'react-icons/ai';
 
-const TarinaKortti = () => {
+const TarinaKortti = ({ matkaaja, alkupvm, teksti, _id, otsikko }) => {
   const text =
     'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla veniam totam veritatis fuga. Labore inventore animi, odit distinctio aliquid commodi accusamus deleniti rem consequuntur ipsam provident atque voluptates. Dolore, autem.';
 
@@ -42,23 +42,30 @@ const TarinaKortti = () => {
     <Link to={''}>
       <div style={{ backgroundColor: color() }} className='korttipohja'>
         <div className='divotsikko'>
-          <h1>Pokon matka</h1>
+          <h1>
+            {otsikko.slice(0, 25)}
+            {otsikko.length > 20 && '...'}
+          </h1>
         </div>
         <div className='divteksti'>
-          <p>{showtext}</p>
+          <p>
+            {teksti.slice(0, 150)}
+            {teksti.length > 150 && '...'}
+          </p>
         </div>
         <div className='divtietoja'>
           <div className='divlukenut'>
             <AiOutlineRead />
             <h5>14</h5>
+            <div className='pvmdiv'>
+              <MdDateRange />
+              <h5>{alkupvm}</h5>
+            </div>
           </div>
-          <div className='divpvm'>
-            <MdDateRange />
-            <h5>31.03.2022</h5>
-          </div>
+
           <div className='divhenkilo'>
             <AiOutlineUser />
-            <h5>Eki Poko</h5>
+            <h5>{matkaaja}</h5>
           </div>
         </div>
       </div>
