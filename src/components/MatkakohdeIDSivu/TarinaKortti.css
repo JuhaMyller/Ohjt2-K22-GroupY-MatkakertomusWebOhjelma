@@ -17,6 +17,7 @@
   text-align: center;
   margin-left: 10px;
   margin-right: 10px;
+  margin-bottom: 10px;
 }
 
 .divlukenut {
@@ -24,6 +25,7 @@
 }
 .divlukenut h5 {
   margin-left: 5px;
+  margin-bottom: 5px;
 }
 
 .pvmdiv {
@@ -34,7 +36,6 @@
 .divhenkilo {
   display: flex;
 
-  margin-left: 50px;
   padding-left: 10px;
 
   margin-right: 10px;
@@ -102,11 +103,16 @@
     margin: auto;
     margin-top: 50px;
     grid-gap: 25px;
-    min-width: 375px;
   }
   .divkuva img {
     max-height: 300px;
     max-width: 575px;
-    min-width: 375px;
+  }
+}
+
+@media screen and (max-width: 398px) {
+  .divtietoja {
+    justify-content: center;
+    flex-wrap: wrap;
   }
 }
