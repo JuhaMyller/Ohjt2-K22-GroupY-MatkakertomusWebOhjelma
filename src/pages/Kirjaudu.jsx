@@ -107,7 +107,7 @@ const Wrapper = styled.div`
   background-size: cover;
   background-position: center top;
   width: 100vw;
-  height: 92vh;
+  height: calc(100vh - 70px);
   display: flex;
   justify-content: center;
   align-items: center;

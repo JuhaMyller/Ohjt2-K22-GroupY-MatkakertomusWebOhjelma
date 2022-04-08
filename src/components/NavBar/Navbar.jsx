@@ -2,12 +2,13 @@ import React, { useRef, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import ReactDOM from 'react-dom';
+import { Link } from 'react-router-dom';
 
 import useWindowDimensions from '../../hooks/useWindowDimensions ';
 import DesktopNav from './DesktopNav';
 import Submenu from './Submenu';
 import MobileNav from './MobileNav';
-import navlogo from '../../assets/navlogo.png'
+import navlogo from '../../assets/navlogo.png';
 
 const Navbar = () => {
   const [show, setShow] = useState(false);
@@ -57,7 +58,9 @@ const Navbar = () => {
     <Wrapper onClick={handleNavClick} onMouseLeave={() => setShow(false)}>
       <div className="NavContainer">
         <div className="logoContainer">
-          <img src={navlogo}></img>
+          <Link to="/">
+            <img src={navlogo}></img>
+          </Link>
         </div>
         {width > 675 ? (
           <DesktopNav displaySubMenu={displaySubMenu} />
@@ -79,8 +82,7 @@ const Navbar = () => {
 
 const Wrapper = styled.nav`
   width: 100%;
-  min-height: 70px;
-  height: 8vh;
+  height: 70px;
   background: #fa7171;
   position: relative;
   .navBurger {
@@ -98,6 +100,7 @@ const Wrapper = styled.nav`
     margin: auto;
     height: 100%;
     max-width: 1440px;
+    width: 90%;
     display: flex;
     align-items: center;
     justify-content: space-between;
