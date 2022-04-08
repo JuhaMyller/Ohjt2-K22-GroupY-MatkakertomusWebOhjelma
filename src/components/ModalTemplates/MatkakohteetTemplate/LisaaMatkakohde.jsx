@@ -19,13 +19,22 @@ const LisaaMatkakohde = () => {
   const axios = useAxiosPrivate();
   const fetching = useSelector((state) => state.matkakohteet.fetchingRequest);
 
+  const resetForm = () => {
+    setKuvat([]);
+    setMatkakohde('');
+    setMaa('');
+    setPaikkakunta('');
+    setKuvaus('');
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     dispath(
       postMatkakohde(
         { kuvat, matkakohde, maa, paikkakunta, matkanKuvaus },
         toast,
-        axios
+        axios,
+        resetForm
       )
     );
   };

@@ -15,7 +15,9 @@ const PoistaMatkakohde = () => {
   const dispath = useDispatch();
 
   useEffect(() => {
-    setMatkakohteet(mk);
+    const ilmanTarinoita = mk.filter((kohde) => kohde.tarinat.length === 0);
+    const tarinoilla = mk.filter((kohde) => kohde.tarinat.length !== 0);
+    setMatkakohteet([...ilmanTarinoita, ...tarinoilla]);
   }, [mk]);
 
   const PoistaMatkakohde = async (e, id) => {
@@ -50,10 +52,15 @@ const PoistaMatkakohde = () => {
                 </div>
                 <div className="deleteMatkaBtn">
                   <Button
-                    disabled={fetching}
+                    disabled={fetching || kohde.tarinat.length > 0}
                     type="submit"
                     onClick={(e) => PoistaMatkakohde(e, kohde._id)}
-                    styles={{ background: 'red', color: 'white' }}
+                    styles={
+                      kohde.tarinat.length === 0 && {
+                        background: 'red',
+                        color: 'white',
+                      }
+                    }
                   >
                     Poista
                   </Button>
