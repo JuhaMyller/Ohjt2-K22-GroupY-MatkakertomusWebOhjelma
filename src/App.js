@@ -8,6 +8,7 @@ import {
   TarinaSivu,
   KirjauduUlos,
   KaikkiTarinat,
+  OmatTarinatSivu,
 } from './pages';
 import Navbar from './components/NavBar/Navbar';
 import { useSelector } from 'react-redux';
@@ -42,6 +43,7 @@ function App() {
             <Route exact path='lisaatarina' element={<LisaaTarinaSivu />} />
             <Route path='tarinat/:id' element={<TarinaSivu />} />
             <Route path='tarinat' element={<KaikkiTarinat />} />
+            <Route path='omattarinat' element={<OmatTarinatSivu />} />
           </Route>
           <Route exact path='kirjauduulos' element={<KirjauduUlos />} />
         </Routes>
