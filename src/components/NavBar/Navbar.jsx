@@ -82,8 +82,7 @@ const Navbar = () => {
 
 const Wrapper = styled.nav`
   width: 100%;
-  min-height: 70px;
-  height: 8vh;
+  height: 70px;
   background: #fa7171;
   position: relative;
   .navBurger {
