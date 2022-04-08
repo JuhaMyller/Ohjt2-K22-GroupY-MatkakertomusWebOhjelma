@@ -44,13 +44,13 @@ const TarinaKortti = ({ matkaaja, alkupvm, teksti, _id, otsikko }) => {
         <div className='divotsikko'>
           <h1>
             {otsikko.slice(0, 25)}
-            {otsikko.length > 20 && '...'}
+            {otsikko.length > 20 && ' ...'}
           </h1>
         </div>
         <div className='divteksti'>
           <p>
             {teksti.slice(0, 150)}
-            {teksti.length > 150 && '...'}
+            {teksti.length > 150 && ' ...'}
           </p>
         </div>
         <div className='divtietoja'>
