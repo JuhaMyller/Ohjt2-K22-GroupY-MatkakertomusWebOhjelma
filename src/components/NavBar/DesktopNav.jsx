@@ -10,13 +10,13 @@ const DesktopNav = ({ displaySubMenu }) => {
 
   return (
     <>
-      <div className="desktopNav">
-        <div className="linksContainer">
+      <div className='desktopNav'>
+        <div className='linksContainer'>
           <ul>
             <li
               className={location.pathname === '/' ? 'underline' : 'link-hover'}
             >
-              <Link to="/">Etusivu</Link>
+              <Link to='/'>Etusivu</Link>
             </li>
             <li
               className={
@@ -25,17 +25,15 @@ const DesktopNav = ({ displaySubMenu }) => {
                   : 'link-hover'
               }
             >
-              <Link to="matkakohteet">Matkakohteet</Link>
+              <Link to='matkakohteet'>Matkakohteet</Link>
             </li>
             {user && (
               <li
                 className={
-                  location.pathname === '/porukanmatkat'
-                    ? 'underline'
-                    : 'link-hover'
+                  location.pathname === '/tarinat' ? 'underline' : 'link-hover'
                 }
               >
-                <Link to="porukanmatkat">Porukan Matkat</Link>
+                <Link to='tarinat'>Porukan Tarinat</Link>
               </li>
             )}
             <li>
@@ -48,7 +46,7 @@ const DesktopNav = ({ displaySubMenu }) => {
                   {user.etunimi}
                 </button>
               ) : (
-                <Link to="kirjaudu">Kirjaudu</Link>
+                <Link to='kirjaudu'>Kirjaudu</Link>
               )}
             </li>
           </ul>

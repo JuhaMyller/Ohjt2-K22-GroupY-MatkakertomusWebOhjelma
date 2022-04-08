@@ -7,6 +7,7 @@ import {
   Rekisteröidy,
   TarinaSivu,
   KirjauduUlos,
+  KaikkiTarinat,
 } from './pages';
 import Navbar from './components/NavBar/Navbar';
 import { useSelector } from 'react-redux';
@@ -29,21 +30,20 @@ function App() {
   return (
     <Router>
       <Navbar />
-      {!user && userLoading ? (
-        <h1>Loading</h1>
-      ) : (
+      {!user && userLoading ? null : (
         <Routes>
           <Route index element={<Etusivu />} />
-          <Route exact path="matkakohteet" element={<MatkakohteetSivu />} />
-          <Route exact path="kirjaudu" element={<Kirjaudu />} />
-          <Route exact path="rekisteroidy" element={<Rekisteröidy />} />
+          <Route exact path='matkakohteet' element={<MatkakohteetSivu />} />
+          <Route exact path='kirjaudu' element={<Kirjaudu />} />
+          <Route exact path='rekisteroidy' element={<Rekisteröidy />} />
 
           <Route element={<RequireAuth />}>
-            <Route path="matkakohteet/:id" element={<MatkakohdeIDSivu />} />
-            <Route exact path="lisaatarina" element={<LisaaTarinaSivu />} />
-            <Route exact path="tarina/:id" element={<TarinaSivu />} />
+            <Route path='matkakohteet/:id' element={<MatkakohdeIDSivu />} />
+            <Route exact path='lisaatarina' element={<LisaaTarinaSivu />} />
+            <Route path='tarinat/:id' element={<TarinaSivu />} />
+            <Route path='tarinat' element={<KaikkiTarinat />} />
           </Route>
-          <Route exact path="kirjauduulos" element={<KirjauduUlos />} />
+          <Route exact path='kirjauduulos' element={<KirjauduUlos />} />
         </Routes>
       )}
       <ToastContainer />
