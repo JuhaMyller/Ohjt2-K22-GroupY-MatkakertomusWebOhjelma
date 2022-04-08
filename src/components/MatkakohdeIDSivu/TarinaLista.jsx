@@ -33,7 +33,6 @@ const TarinaLista = ({ id }) => {
       );
 
       setMatkakohde(responseMatkakohde.data.matkakohteet);
-      console.log(responseMatkakohde.data.matkakohteet);
     } finally {
       setLoadingMK(false);
     }
