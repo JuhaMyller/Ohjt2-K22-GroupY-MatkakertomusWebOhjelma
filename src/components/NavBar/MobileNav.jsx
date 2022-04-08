@@ -38,7 +38,7 @@ const MobileNav = ({ closeNav, navRef, display }) => {
             </li>
             <li>
               <Link to="omattarinat">
-                <button onClick={closeNav}>Omat matkat</button>
+                <button onClick={closeNav}>Omat tarinat</button>
               </Link>
             </li>
             <li>
@@ -76,6 +76,7 @@ const Wrapper = styled.section`
   width: 100vw;
   display: flex;
   position: absolute;
+  z-index: 1000;
   .mobileNavContainer {
     width: 100vw;
     height: calc(100vh - 70px);
