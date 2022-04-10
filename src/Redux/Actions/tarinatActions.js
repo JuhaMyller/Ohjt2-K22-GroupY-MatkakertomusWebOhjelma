@@ -1,3 +1,4 @@
+import requestTime from '../../utils/getRequestTime';
 export const ADD_TARINA = 'ADD_TARINA';
 export const DELETE_TARINA = 'DELETE_TARINA';
 
@@ -32,6 +33,7 @@ export function postTarina(payload, axios, toast, navigate) {
   return async (dispatch) => {
     try {
       dispatch({ type: TARINAT_REQUEST_BEGIN });
+      const reqTime = new requestTime(new Date());
       try {
         const formData = new FormData();
         formData.append('matkakohde', matkakohde);
@@ -46,25 +48,37 @@ export function postTarina(payload, axios, toast, navigate) {
         });
 
         const response = await axios.post('/api/tarina/tarina', formData);
-        if (response.status === 201) {
+
+        const time = reqTime.onFinish(new Date(), 800);
+
+        const timer = setTimeout(() => {
+          if (response.status === 201) {
+            dispatch({
+              type: POST_TARINA_SUCCESS,
+              payload: response.data.savedTarina,
+            });
+            toast.success('Tarina lisätty', {
+              position: 'top-center',
+              duration: 1500,
+            });
+            navigate(`/tarinat/${response.data.savedTarina._id}`);
+          }
+        }, 800 - time);
+        return () => clearTimeout(timer);
+      } catch (error) {
+        const time = reqTime.onFinish(new Date(), 800);
+        console.log(time);
+
+        const timer = setTimeout(() => {
           dispatch({
-            type: POST_TARINA_SUCCESS,
-            payload: response.data.savedTarina,
+            type: POST_TARINA_ERROR,
           });
-          toast.success('Tarina lisätty', {
+          toast.error(error.response.data.message, {
             position: 'top-center',
             duration: 1500,
           });
-          navigate(`/tarinat/${response.data.savedTarina._id}`);
-        }
-      } catch (error) {
-        dispatch({
-          type: POST_TARINA_ERROR,
-        });
-        toast.error(error.response.data.message, {
-          position: 'top-center',
-          duration: 1500,
-        });
+        }, 800 - time);
+        return () => clearTimeout(timer);
       }
     } catch (error) {}
   };
