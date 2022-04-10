@@ -19,7 +19,7 @@ export function deleteTarina(payload) {
   };
 }
 
-export function postTarina(payload, axios, toast) {
+export function postTarina(payload, axios, toast, navigate) {
   const {
     matkakohde,
     yksityinen,
@@ -55,6 +55,7 @@ export function postTarina(payload, axios, toast) {
             position: 'top-center',
             duration: 1500,
           });
+          navigate(`/tarinat/${response.data.savedTarina._id}`);
         }
       } catch (error) {
         dispatch({
