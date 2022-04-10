@@ -16,6 +16,7 @@ const initialState = {
   isOpen: false,
   template: null,
   title: '',
+  canClose: true,
 };
 
 const ModalProvider = ({ children }) => {
@@ -24,11 +25,13 @@ const ModalProvider = ({ children }) => {
   const modal = useRef(null);
 
   const handleBackDropClick = (event) => {
+    if (!state.canClose) return;
     if (modal && modal.current.contains(event.target)) return;
     closeModal();
   };
 
   const closeModal = () => {
+    if (!state.isOpen) return;
     const node = ReactDOM.findDOMNode(modal.current);
     node.classList.toggle('closeModal');
     const timeout = setTimeout(() => {
@@ -36,7 +39,7 @@ const ModalProvider = ({ children }) => {
     }, 300);
     return () => clearTimeout(timeout);
   };
-  //options: !template, title
+  //options: !template, title, canClose
   const openModal = (options) => {
     if (!options.template) throw new Error(`Modal template is missing`);
     dispatch({ type: 'OPEN_MODAL', payload: { ...options } });
@@ -57,20 +60,24 @@ const ModalProvider = ({ children }) => {
           <>
             <div onMouseDown={handleBackDropClick} className="backdrop">
               <div ref={modal} className="modal">
-                <div
-                  className={
-                    state.title
-                      ? 'withTitle titleAndClosebtn'
-                      : 'titleAndClosebtn'
-                  }
-                >
-                  <div className="title">
-                    <h2>{state.title}</h2>
+                {!state.title && !state.canClose ? null : (
+                  <div
+                    className={
+                      state.title
+                        ? 'withTitle titleAndClosebtn'
+                        : 'titleAndClosebtn'
+                    }
+                  >
+                    <div className="title">
+                      <h2>{state.title}</h2>
+                    </div>
+                    {state.canClose && (
+                      <button onClick={closeModal} className="closeBtn">
+                        <AiOutlineClose color={'red'} size={25} />
+                      </button>
+                    )}
                   </div>
-                  <button onClick={closeModal} className="closeBtn">
-                    <AiOutlineClose color={'red'} size={25} />
-                  </button>
-                </div>
+                )}
                 {state.template}
               </div>
             </div>

@@ -2,7 +2,13 @@ import React from 'react';
 
 const reducer = (state, action) => {
   if (action.type === 'CLOSE_MODAL') {
-    return { ...state, isOpen: false, template: null, title: '' };
+    return {
+      ...state,
+      canClose: true,
+      isOpen: false,
+      template: null,
+      title: '',
+    };
   }
   if (action.type === 'OPEN_MODAL') {
     if (!React.isValidElement(action.payload.template))
