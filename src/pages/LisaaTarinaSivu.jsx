@@ -9,18 +9,20 @@ import { getMatkakohteet } from '../Redux/Actions/matkakohdeActions';
 import { useDispatch } from 'react-redux';
 import useAxiosPrivate from '../hooks/useAxiosPrivate';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 const LisaaTarinaSivu = () => {
   const [imgArr, setImgArr] = useState([]);
-  const [imgUrls, setImgUrls] = useState([]);
   const [tulopaiva, setTulopaiva] = useState(setDate());
   const [lahtopaiva, setLahtopaiva] = useState(setDate());
   const [otsikko, setOtsikko] = useState('');
   const [matkakohde, setMatkakohde] = useState('');
   const [tarina, setTarina] = useState('');
+  const [lahtopaivaSet, setLahtopaivaSet] = useState(false);
 
   const dispatch = useDispatch();
   const axios = useAxiosPrivate();
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(getMatkakohteet(axios));
@@ -39,20 +41,13 @@ const LisaaTarinaSivu = () => {
     const newDate = new Date(year, month, day);
     if (mode === 'endDate') return setLahtopaiva(newDate);
     if (mode === 'startDate') setTulopaiva(newDate);
-
     if (newDate.getTime() > lahtopaiva.getTime()) setLahtopaiva(newDate);
+    if (!lahtopaivaSet && mode === 'startDate') {
+      setLahtopaivaSet(true);
+      setLahtopaiva(newDate);
+    }
   };
 
-  useEffect(() => {
-    if (imgArr.length < 1) return;
-    const newImageURLs = [];
-    imgArr.forEach((image) => newImageURLs.push(URL.createObjectURL(image)));
-    setImgUrls(newImageURLs);
-  }, [imgArr]);
-
-  const onImgChange = (e) => {
-    setImgArr((curr) => [...curr, ...e.target.files]);
-  };
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(
@@ -67,7 +62,8 @@ const LisaaTarinaSivu = () => {
           imgArr,
         },
         axios,
-        toast
+        toast,
+        navigate
       )
     );
   };
@@ -75,7 +71,7 @@ const LisaaTarinaSivu = () => {
   return (
     <Wrapper onSubmit={handleSubmit}>
       <div className="lisaa-kuva-container">
-        <LisaaKuva imgUrls={imgUrls} onImgChange={onImgChange} />
+        <LisaaKuva imgArr={imgArr} setImgArr={setImgArr} />
         <DateTimespanPicker
           onDateChange={onDateChange}
           startDate={tulopaiva}
