@@ -49,9 +49,7 @@ export function postTarina(payload, axios, toast, navigate) {
 
         const response = await axios.post('/api/tarina/tarina', formData);
 
-        const time = reqTime.onFinish(new Date(), 800);
-
-        const timer = setTimeout(() => {
+        reqTime.onFinish(800, () => {
           if (response.status === 201) {
             dispatch({
               type: POST_TARINA_SUCCESS,
@@ -63,13 +61,9 @@ export function postTarina(payload, axios, toast, navigate) {
             });
             navigate(`/tarinat/${response.data.savedTarina._id}`);
           }
-        }, 800 - time);
-        return () => clearTimeout(timer);
+        });
       } catch (error) {
-        const time = reqTime.onFinish(new Date(), 800);
-        console.log(time);
-
-        const timer = setTimeout(() => {
+        reqTime.onFinish(600, () => {
           dispatch({
             type: POST_TARINA_ERROR,
           });
@@ -77,8 +71,7 @@ export function postTarina(payload, axios, toast, navigate) {
             position: 'top-center',
             duration: 1500,
           });
-        }, 800 - time);
-        return () => clearTimeout(timer);
+        });
       }
     } catch (error) {}
   };
