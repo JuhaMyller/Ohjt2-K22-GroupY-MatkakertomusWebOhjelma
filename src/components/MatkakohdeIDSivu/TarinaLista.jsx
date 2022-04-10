@@ -67,8 +67,9 @@ const TarinaLista = ({ id }) => {
             otsikko={tarina.otsikko}
             key={tarina._id}
             matkaaja={tarina.matkaaja.nimimerkki}
-            alkupvm={formatedDate(tarina.alkupvm)}
+            createdAt={formatedDate(tarina.createdAt)}
             teksti={tarina.teksti}
+            lukukertoja={tarina.lukukertoja}
           />
         ))}
       </div>

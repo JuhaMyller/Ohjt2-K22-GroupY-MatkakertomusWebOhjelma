@@ -5,7 +5,15 @@ import { AiOutlineRead } from 'react-icons/ai';
 import { MdDateRange } from 'react-icons/md';
 import { AiOutlineUser } from 'react-icons/ai';
 
-const TarinaKortti = ({ matkaaja, alkupvm, teksti, id, otsikko, numero }) => {
+const TarinaKortti = ({
+  matkaaja,
+  createdAt,
+  teksti,
+  id,
+  otsikko,
+  numero,
+  lukukertoja,
+}) => {
   const color = () => {
     let colorr;
     const number = numero % 5;
@@ -32,7 +40,7 @@ const TarinaKortti = ({ matkaaja, alkupvm, teksti, id, otsikko, numero }) => {
 
     return colorr;
   };
-
+  console.log();
   return (
     <Link to={`/tarinat/${id}`}>
       <div style={{ backgroundColor: color() }} className='korttipohja'>
@@ -51,10 +59,10 @@ const TarinaKortti = ({ matkaaja, alkupvm, teksti, id, otsikko, numero }) => {
         <div className='divtietoja'>
           <div className='divlukenut'>
             <AiOutlineRead />
-            <h5>14</h5>
+            <h5>{lukukertoja.length}</h5>
             <div className='pvmdiv'>
               <MdDateRange />
-              <h5>{alkupvm}</h5>
+              <h5>{createdAt}</h5>
             </div>
           </div>
 

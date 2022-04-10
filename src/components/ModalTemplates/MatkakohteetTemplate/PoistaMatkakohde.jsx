@@ -56,10 +56,12 @@ const PoistaMatkakohde = () => {
                     type="submit"
                     onClick={(e) => PoistaMatkakohde(e, kohde._id)}
                     styles={
-                      kohde.tarinat.length === 0 && {
-                        background: 'red',
-                        color: 'white',
-                      }
+                      kohde.tarinat.length === 0
+                        ? {
+                            background: 'red',
+                            color: 'white',
+                          }
+                        : {}
                     }
                   >
                     Poista

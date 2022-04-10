@@ -69,7 +69,7 @@ export const isDisabled = (startDay, currDay, mode) => {
   const date = setDate();
   if (mode === 'endDate' && currDay.getTime() < startDay.getTime()) return true;
 
-  if (currDay.getTime() < date.getTime()) return true;
+  // if (currDay.getTime() < date.getTime()) return true;
 };
 
 export const checkDateRange = (currDay, startDay, endDay) => {
