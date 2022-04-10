@@ -21,6 +21,7 @@ const LisaaTarinaSivu = () => {
   const [matkakohde, setMatkakohde] = useState('');
   const [tarina, setTarina] = useState('');
   const [lahtopaivaSet, setLahtopaivaSet] = useState(false);
+  const [yksityinen, setYksityinen] = useState(false);
 
   const dispatch = useDispatch();
   const axios = useAxiosPrivate();
@@ -68,12 +69,12 @@ const LisaaTarinaSivu = () => {
       postTarina(
         {
           matkakohde,
-          yksityinen: false,
           tarina,
           tulopaiva,
           lahtopaiva,
           otsikko,
           imgArr,
+          yksityinen,
         },
         axios,
         toast,
@@ -100,6 +101,8 @@ const LisaaTarinaSivu = () => {
           tarina={tarina}
           matkakohde={matkakohde}
           setMatkakohde={setMatkakohde}
+          setYksityinen={setYksityinen}
+          yksityinen={yksityinen}
         />
       </div>
     </Wrapper>
@@ -108,6 +111,7 @@ const LisaaTarinaSivu = () => {
 
 const Wrapper = styled.form`
   max-width: 1440px;
+
   margin: 50px auto;
   display: flex;
   justify-content: center;
@@ -116,13 +120,15 @@ const Wrapper = styled.form`
 
   .lisaa-kuva-container {
     width: 40%;
-    min-width: 250px;
+    min-width: 270px;
+    padding-left: 20px;
   }
   .page-inputs-container {
     width: 60%;
     height: fit-content;
   }
   @media only screen and (max-width: 875px) {
+    padding: 0;
     .lisaa-kuva-container {
       width: 90%;
       min-height: fit-content;
