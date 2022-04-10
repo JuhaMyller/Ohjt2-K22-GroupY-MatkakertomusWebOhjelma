@@ -45,13 +45,13 @@ const TarinaLista = ({ id }) => {
   return (
     <>
       {loadingMK ? null : (
-        <div className="divmatkakohde">
+        <div className='divmatkakohde'>
           <h1>{matkakohde.kohdenimi}</h1>
           <h2>
             {matkakohde.paikkakunta}
             {`, ${matkakohde.maa}`}
           </h2>
-          <div className="divkuva">
+          <div className='divkuva'>
             <img
               src={`${serverUrl}/img/${matkakohde.kuva}`}
               alt={`Matkakohteen ${matkakohde.kohdenimi} kuva`}
@@ -59,7 +59,7 @@ const TarinaLista = ({ id }) => {
           </div>
         </div>
       )}
-      <div className="divlista">
+      <div className='divlista'>
         {tarinat.map((tarina, index) => (
           <TarinaKortti
             numero={index}

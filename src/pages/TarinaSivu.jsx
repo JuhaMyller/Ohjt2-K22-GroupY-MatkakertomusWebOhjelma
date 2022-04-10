@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
-import { AiOutlineRead } from "react-icons/ai";
-import { MdDateRange } from "react-icons/md";
-import ImageContainer from "../components/ResuableComponents/ImageContainer";
-import img from "../assets/TarinaTestiKuva.png";
-import useAxiosPrivate from "../hooks/useAxiosPrivate";
-import { useParams } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
+import { AiOutlineRead } from 'react-icons/ai';
+import { MdDateRange } from 'react-icons/md';
+import ImageContainer from '../components/ResuableComponents/ImageContainer';
+import img from '../assets/TarinaTestiKuva.png';
+import useAxiosPrivate from '../hooks/useAxiosPrivate';
+import { useParams } from 'react-router-dom';
+import SERVER_URL from '../utils/serverUrl';
 
 const TarinaSivu = () => {
   const [imgUrls, setImgUrls] = useState([]);
@@ -14,11 +15,11 @@ const TarinaSivu = () => {
   const { id } = useParams();
 
   const haeTarina = async () => {
-    const responseTarina = await axios.get("/api/tarina/tarina/" + id);
+    const responseTarina = await axios.get('/api/tarina/tarina/' + id);
 
     setImgUrls(() => {
       return responseTarina.data.tarina.kuva.map((t) => {
-        return "http://localhost:4000/img/" + t;
+        return SERVER_URL + '/img/' + t;
       });
     });
 
@@ -31,26 +32,26 @@ const TarinaSivu = () => {
 
   return (
     <Wrapper>
-      <div className="wrapper">
-        <div className="kuva_kayttajaWrap">
-          <div className="kuva-container">
+      <div className='wrapper'>
+        <div className='kuva_kayttajaWrap'>
+          <div className='kuva-container'>
             <ImageContainer imgUrls={imgUrls || []} />
           </div>
-          <div className="kayttajaKuvaContainer">
-            <img className="kayttajaKuva" src={img} alt="" />
+          <div className='kayttajaKuvaContainer'>
+            <img className='kayttajaKuva' src={img} alt='' />
           </div>
-          <div className="kayttaja">
+          <div className='kayttaja'>
             <h3>Juha Myller</h3>
           </div>
-          <div className="tiedot">
-            <MdDateRange className="paivaIcon" />
+          <div className='tiedot'>
+            <MdDateRange className='paivaIcon' />
             <p>01.04.2022</p>
-            <AiOutlineRead className="lukenutIcon" />
+            <AiOutlineRead className='lukenutIcon' />
             <p>2</p>
           </div>
         </div>
-        <div className="tarina-container">
-          <h1 className="otsikko">{tarina.otsikko}</h1>
+        <div className='tarina-container'>
+          <h1 className='otsikko'>{tarina.otsikko}</h1>
           <p>{tarina.teksti}</p>
         </div>
       </div>
@@ -87,9 +88,8 @@ const Wrapper = styled.form`
   .kuva_kayttajaWrap {
     max-width: 400px;
     min-width: 250px;
-    margin: auto;
+    margin-top: 8px;
     width: 90%;
-    text-align: center;
   }
   .kuva-container {
     margin: auto;
@@ -122,6 +122,15 @@ const Wrapper = styled.form`
   }
   .lukenutIcon {
     margin: 0 5px 0 20px;
+  }
+  @media screen and (max-width: 700px) {
+    .kuva_kayttajaWrap {
+      max-width: 400px;
+      min-width: 250px;
+      margin: auto;
+      width: 90%;
+      text-align: center;
+    }
   }
 `;
 
