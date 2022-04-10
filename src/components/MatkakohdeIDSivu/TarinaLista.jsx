@@ -1,14 +1,14 @@
-import "./TarinaKortti.css";
-import React, { useEffect, useState } from "react";
-import TarinaKortti from "./TarinaKortti";
-import axios from "../../api/Axios";
-import useAxiosPrivate from "../../hooks/useAxiosPrivate";
-import formatedDate from "../../utils/formatedDate";
-import serverUrl from "../../utils/serverUrl";
+import './TarinaKortti.css';
+import React, { useEffect, useState } from 'react';
+import TarinaKortti from './TarinaKortti';
+import axios from '../../api/Axios';
+import useAxiosPrivate from '../../hooks/useAxiosPrivate';
+import formatedDate from '../../utils/formatedDate';
+import serverUrl from '../../utils/serverUrl';
 
 const TarinaLista = ({ id }) => {
   const [tarinat, setTarinat] = useState([]);
-  const [etsi, setEtsi] = useState("");
+  const [etsi, setEtsi] = useState('');
   const [filteredData, setFilteredData] = useState([]);
   const [matkakohde, setMatkakohde] = useState([]);
   const [loadingMK, setLoadingMK] = useState(true);
@@ -16,7 +16,7 @@ const TarinaLista = ({ id }) => {
 
   const getTarinat = async () => {
     try {
-      const response = await axios.get("/api/tarina/matkakohteentarinat/" + id);
+      const response = await axios.get('/api/tarina/matkakohteentarinat/' + id);
 
       setTarinat(response.data.tarinat);
     } catch (error) {
@@ -28,7 +28,7 @@ const TarinaLista = ({ id }) => {
     try {
       setLoadingMK(true);
       const responseMatkakohde = await axios.get(
-        "/api/matkakohde/matkakohde/" + id
+        '/api/matkakohde/matkakohde/' + id
       );
 
       setMatkakohde(responseMatkakohde.data.matkakohteet);
@@ -45,13 +45,13 @@ const TarinaLista = ({ id }) => {
   return (
     <>
       {loadingMK ? null : (
-        <div className="divmatkakohde">
+        <div className='divmatkakohde'>
           <h1>{matkakohde.kohdenimi}</h1>
           <h2>
             {matkakohde.paikkakunta}
             {`, ${matkakohde.maa}`}
           </h2>
-          <div className="divkuva">
+          <div className='divkuva'>
             <img
               src={`${serverUrl}/img/${matkakohde.kuva}`}
               alt={`Matkakohteen ${matkakohde.kohdenimi} kuva`}
@@ -59,7 +59,7 @@ const TarinaLista = ({ id }) => {
           </div>
         </div>
       )}
-      <div className="divlista">
+      <div className='divlista'>
         {tarinat.map((tarina, index) => (
           <TarinaKortti
             numero={index}

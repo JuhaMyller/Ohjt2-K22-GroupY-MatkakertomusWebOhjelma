@@ -53,63 +53,63 @@ const Rekisteröidy = () => {
   return (
     <Wrapper>
       <form onSubmit={handleSubmit}>
-        <div className="container">
+        <div className='container'>
           <h3>Rekisteröidy</h3>
           <Input
-            className="etunimi"
-            type="text"
-            id="etunimi"
+            className='etunimi'
+            type='text'
+            id='etunimi'
             value={etunimi}
             onChange={setEtunimi}
-            placeholder="Etunimi"
+            placeholder='Etunimi'
             styles={{}}
           />
           <Input
-            className="sukunimi"
-            type="text"
-            id="sukunimni"
+            className='sukunimi'
+            type='text'
+            id='sukunimni'
             value={sukunimi}
             onChange={setSukunimi}
-            placeholder="Sukunimi"
+            placeholder='Sukunimi'
             styles={{}}
           />
           <Input
-            className="nimimerkki"
-            type="text"
-            id="nimimerkki"
+            className='nimimerkki'
+            type='text'
+            id='nimimerkki'
             value={nimimerkki}
             onChange={setNimimerkki}
-            placeholder="Nimimerkki"
+            placeholder='Nimimerkki'
             styles={{}}
           />
           <Input
-            className="sähköposti"
-            type="text"
-            id="sähköposti"
+            className='sähköposti'
+            type='text'
+            id='sähköposti'
             value={sahkoposti}
             onChange={setSahkoposti}
-            placeholder="Sähköposti"
+            placeholder='Sähköposti'
             styles={{}}
           />
           <Input
-            className="salasana"
-            type="password"
-            id="salasana"
+            className='salasana'
+            type='password'
+            id='salasana'
             value={salasana}
             onChange={setSalasana}
-            placeholder="Salasana"
+            placeholder='Salasana'
             styles={{}}
           />
           <p>
             Minulla on jo käyttäjä?{' '}
-            <Link to="/kirjaudu" className="link">
+            <Link to='/kirjaudu' className='link'>
               Kirjaudu
             </Link>
           </p>
           <Button
             disabled={fetching}
-            type="submit"
-            className="Rekisteroidy"
+            type='submit'
+            className='Rekisteroidy'
             styles={{ background: '#fa7171' }}
           >
             Rekisteröidy

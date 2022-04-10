@@ -55,28 +55,28 @@ const Kirjaudu = () => {
 
   return (
     <Wrapper>
-      <div className="container">
+      <div className='container'>
         <form onSubmit={handleLogin}>
           <h3>Kirjaudu</h3>
 
           <Input
-            className="username"
-            type="text"
-            id="username"
+            className='username'
+            type='text'
+            id='username'
             value={username}
             onChange={setUsername}
-            placeholder="Sähköposti"
+            placeholder='Sähköposti'
             styles={{
               background: 'white',
             }}
           />
 
           <Input
-            type="password"
-            id="password"
+            type='password'
+            id='password'
             value={password}
             onChange={setPassword}
-            placeholder="Salasana"
+            placeholder='Salasana'
             styles={{
               background: 'white',
             }}
@@ -84,14 +84,14 @@ const Kirjaudu = () => {
 
           <p>
             Eikö sinulla ole käyttäjää?{' '}
-            <Link to="/rekisteroidy" className="link">
+            <Link to='/rekisteroidy' className='link'>
               Rekisteröidy
             </Link>
           </p>
           <Button
             disabled={auth.fetching}
-            type="submit"
-            className="Kirjaudu"
+            type='submit'
+            className='Kirjaudu'
             styles={{ background: '#fa7171' }}
           >
             Kirjaudu

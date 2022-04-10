@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from "react";
-import "./Kohdekortti.css";
-import Kohdekortti from "./Kohdekortti";
-import Input from "../ResuableComponents/Input";
-import Button from "../ResuableComponents/Button";
-import axios from "../../api/Axios";
-import { useModalContext } from "../ResuableComponents/Modal/ModalContext";
-import MatkakohteetTemplate from "../ModalTemplates/MatkakohteetTemplate/MatkakohteetTemplate";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
-import serverUrl from "../../utils/serverUrl";
+import React, { useEffect, useState } from 'react';
+import './Kohdekortti.css';
+import Kohdekortti from './Kohdekortti';
+import Input from '../ResuableComponents/Input';
+import Button from '../ResuableComponents/Button';
+import axios from '../../api/Axios';
+import { useModalContext } from '../ResuableComponents/Modal/ModalContext';
+import MatkakohteetTemplate from '../ModalTemplates/MatkakohteetTemplate/MatkakohteetTemplate';
+import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import serverUrl from '../../utils/serverUrl';
 
 const KohdeLista = () => {
-  const [etsi, setEtsi] = useState("");
+  const [etsi, setEtsi] = useState('');
   const [filteredData, setFilteredData] = useState([]);
   const { openModal } = useModalContext();
 
@@ -23,7 +23,7 @@ const KohdeLista = () => {
   }, [mkohteet]);
 
   const filter = () => {
-    if (etsi !== "") {
+    if (etsi !== '') {
       const results = mkohteet.filter((matkakohde) => {
         return matkakohde.kohdenimi
           .toLowerCase()
@@ -39,32 +39,32 @@ const KohdeLista = () => {
   return (
     <div>
       <div>
-        <div className="buttonJaInput">
-          <div className="input-container">
+        <div className='buttonJaInput'>
+          <div className='input-container'>
             <Input
-              className="etsi"
-              type="text"
-              id="etsi"
+              className='etsi'
+              type='text'
+              id='etsi'
               value={etsi}
               onChange={setEtsi}
-              placeholder="Etsi"
+              placeholder='Etsi'
               styles={{
-                marginTop: "10px",
-                marginBottom: "10px",
-                float: "left",
-                width: "50%",
-                marginLeft: "100px",
+                marginTop: '10px',
+                marginBottom: '10px',
+                float: 'left',
+                width: '50%',
+                marginLeft: '100px',
               }}
             />
             <Button
               styles={{
-                marginLeft: "2px",
-                float: "left",
-                marginTop: "10px",
-                marginBottom: "10px",
+                marginLeft: '2px',
+                float: 'left',
+                marginTop: '10px',
+                marginBottom: '10px',
               }}
               onClick={filter}
-              className="button"
+              className='button'
             >
               Etsi
             </Button>
@@ -73,14 +73,14 @@ const KohdeLista = () => {
             <div>
               <Button
                 styles={{
-                  marginRight: "100px",
-                  marginTop: "10px",
-                  marginBottom: "10px",
+                  marginRight: '100px',
+                  marginTop: '10px',
+                  marginBottom: '10px',
                 }}
                 onClick={() =>
                   openModal({
                     template: <MatkakohteetTemplate />,
-                    title: "Muokkaa matkakohteita",
+                    title: 'Muokkaa matkakohteita',
                   })
                 }
               >
@@ -91,7 +91,7 @@ const KohdeLista = () => {
         </div>
       </div>
       <div>
-        <div className="kohdekortti_lista">
+        <div className='kohdekortti_lista'>
           {filteredData && filteredData.length > 0 ? (
             filteredData.map((matkakohde) => (
               <Link to={`/matkakohteet/${matkakohde._id}`} key={matkakohde._id}>
