@@ -6,10 +6,12 @@ import PageInputsContainer from '../components/LisaaTarinaSivu/PageInputsContain
 import { setDate } from '../components/LisaaTarinaSivu/DateInput/Utils';
 import { postTarina } from '../Redux/Actions/tarinatActions';
 import { getMatkakohteet } from '../Redux/Actions/matkakohdeActions';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import useAxiosPrivate from '../hooks/useAxiosPrivate';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import { useModalContext } from '../components/ResuableComponents/Modal/ModalContext';
+import Loading from '../components/ModalTemplates/Loading/Loading';
 
 const LisaaTarinaSivu = () => {
   const [imgArr, setImgArr] = useState([]);
@@ -23,6 +25,18 @@ const LisaaTarinaSivu = () => {
   const dispatch = useDispatch();
   const axios = useAxiosPrivate();
   const navigate = useNavigate();
+  const fetching = useSelector((state) => state.tarinat.fetchingRequest);
+
+  const { openModal, closeModal } = useModalContext();
+
+  useEffect(() => {
+    if (fetching)
+      return openModal({
+        template: <Loading />,
+        canClose: false,
+      });
+    closeModal();
+  }, [fetching]);
 
   useEffect(() => {
     dispatch(getMatkakohteet(axios));
