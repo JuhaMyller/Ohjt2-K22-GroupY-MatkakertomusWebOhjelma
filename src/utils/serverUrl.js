@@ -1,2 +1,2 @@
-const SERVER_URL = "https://ohjelmistotuotanto2.herokuapp.com";
+const SERVER_URL = 'http://localhost:4000';
 export default SERVER_URL;
