@@ -7,6 +7,7 @@ import img from '../assets/TarinaTestiKuva.png';
 import useAxiosPrivate from '../hooks/useAxiosPrivate';
 import { useParams } from 'react-router-dom';
 import SERVER_URL from '../utils/serverUrl';
+import formatDate from '../utils/formatedDate';
 
 const TarinaSivu = () => {
   const [imgUrls, setImgUrls] = useState([]);
@@ -30,29 +31,39 @@ const TarinaSivu = () => {
     haeTarina();
   }, []);
 
+  console.log(tarina);
+
   return (
     <Wrapper>
-      <div className='wrapper'>
-        <div className='kuva_kayttajaWrap'>
-          <div className='kuva-container'>
+      <div className="wrapper">
+        <div className="kuva_kayttajaWrap">
+          <div className="kuva-container">
             <ImageContainer imgUrls={imgUrls || []} />
           </div>
-          <div className='kayttajaKuvaContainer'>
-            <img className='kayttajaKuva' src={img} alt='' />
+          <div className="kayttajaKuvaContainer">
+            <img
+              className="kayttajaKuva"
+              src={
+                tarina?.matkaaja?.kuva
+                  ? `${SERVER_URL}/img/${tarina.matkaaja.kuva}`
+                  : img
+              }
+              alt="Kuva ei toimi"
+            />
           </div>
-          <div className='kayttaja'>
-            <h3>Juha Myller</h3>
+          <div className="kayttaja">
+            <h3>{`${tarina?.matkaaja?.etunimi} ${tarina?.matkaaja?.sukunimi}`}</h3>
           </div>
-          <div className='tiedot'>
-            <MdDateRange className='paivaIcon' />
-            <p>01.04.2022</p>
-            <AiOutlineRead className='lukenutIcon' />
-            <p>2</p>
+          <div className="tiedot">
+            <MdDateRange className="paivaIcon" />
+            <p>{formatDate(tarina?.createdAt)}</p>
+            <AiOutlineRead className="lukenutIcon" />
+            <p>{tarina?.lukukertoja?.length}</p>
           </div>
         </div>
-        <div className='tarina-container'>
-          <h1 className='otsikko'>{tarina.otsikko}</h1>
-          <p>{tarina.teksti}</p>
+        <div className="tarina-container">
+          <h1 className="otsikko">{tarina?.otsikko}</h1>
+          <p>{tarina?.teksti}</p>
         </div>
       </div>
     </Wrapper>
@@ -61,7 +72,9 @@ const TarinaSivu = () => {
 
 const Wrapper = styled.form`
   width: 100%;
-
+  .kayttaja {
+    text-align: center;
+  }
   .wrapper {
     display: flex;
     justify-content: space-between;
