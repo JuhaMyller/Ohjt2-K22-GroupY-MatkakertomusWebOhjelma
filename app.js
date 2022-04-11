@@ -28,7 +28,7 @@ app.use('/api/matkakohde', matkakohdeRoutes);
 //Lataa kuvan clientille
 app.get('/img/:key', sendImage);
 //Palauttaa react sivun serveriltä
-app.use('*', (req, res) => {
+app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '/client/build/index.html'));
 });
 
