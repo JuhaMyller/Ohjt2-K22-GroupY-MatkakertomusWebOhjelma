@@ -1,0 +1,118 @@
+.divtietoja {
+  display: flex;
+
+  margin-bottom: 10px;
+  padding: 0 20px;
+  justify-content: space-between;
+}
+
+.divotsikko {
+  padding-top: 10px;
+  text-align: center;
+}
+
+.divteksti {
+  flex-grow: 1;
+  margin-top: 10px;
+  text-align: center;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+.divlukenut {
+  display: flex;
+}
+.divlukenut h5 {
+  margin-left: 5px;
+  margin-bottom: 5px;
+}
+
+.pvmdiv {
+  margin-left: 15px;
+  display: flex;
+}
+
+.divhenkilo {
+  display: flex;
+
+  padding-left: 10px;
+
+  margin-right: 10px;
+}
+
+.divhenkilo h5 {
+  margin-left: 10px;
+}
+
+.divlista {
+  width: 90%;
+  max-width: 1200px;
+  margin: auto;
+  margin-top: 50px;
+  grid-template-columns: repeat(2, 1fr);
+  display: grid;
+  grid-gap: 25px;
+  margin-bottom: 100px;
+}
+
+.korttipohja {
+  border-radius: 30px;
+  min-height: 175px;
+  padding: 10px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Matkakohteen css */
+
+.divmatkakohde {
+  margin-top: 50px;
+}
+
+.divkuva {
+  text-align: center;
+  margin: auto;
+  width: 90%;
+}
+
+.divkuva img {
+  aspect-ratio: 16/9;
+  max-width: 1000px;
+  max-height: 400px;
+  width: 100%;
+  border-radius: 30px;
+}
+
+.divmatkakohde h1 {
+  text-align: center;
+}
+
+.divmatkakohde h2 {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 30px;
+}
+
+@media screen and (max-width: 990px) {
+  .divlista {
+    width: 90%;
+    max-width: 575px;
+    grid-template-columns: repeat(1, 1fr);
+    margin: auto;
+    margin-top: 50px;
+    grid-gap: 25px;
+  }
+  .divkuva img {
+    max-height: 300px;
+    max-width: 575px;
+  }
+}
+
+@media screen and (max-width: 398px) {
+  .divtietoja {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+}

@@ -1,12 +1,14 @@
+import axios from '../../../api/Axios';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import Button from '../../ResuableComponents/Button';
 import Input from '../../ResuableComponents/Input';
 
-const MuokkaaMatkakohdetta = ({ mkohteet }) => {
-  const [matkakohteet, setMatkakohteet] = useState(mkohteet);
+const MuokkaaMatkakohdetta = () => {
+  const [matkakohteet, setMatkakohteet] = useState([]);
   const [edit, setEdit] = useState(false);
 
+  const [editId, seteditID] = useState([]);
   const [kuvat, setKuvat] = useState([]);
   const [matkakohde, setMatkakohde] = useState('');
   const [maa, setMaa] = useState('');
@@ -15,15 +17,25 @@ const MuokkaaMatkakohdetta = ({ mkohteet }) => {
 
   const handleButtonClick = (id) => {
     setEdit(true);
-    const kohde = matkakohteet.find((kohde) => kohde.id === id);
+
+    const kohde = matkakohteet.find((kohde) => kohde._id === id);
+    seteditID(id);
     setKuvat([kohde.kuvat]);
-    setMatkakohde(kohde.kohde);
+    setMatkakohde(kohde.kohdenimi);
     setMaa(kohde.maa);
-    setPaikkakunta(kohde.kaupunki);
-    setKuvaus(kohde.kuvaus);
+    setPaikkakunta(kohde.paikkakunta);
+    setKuvaus(kohde.kuvateksti);
   };
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    const response = await axios.put('api/matkakohde/matkakohteet', {
+      kohdenimi: matkakohde,
+      maa: maa,
+      paikkakunta: paikkakunta,
+      id: editId,
+      kuvateksti: matkanKuvaus,
+    });
+    console.log(response);
     setEdit(false);
   };
 
@@ -44,9 +56,9 @@ const MuokkaaMatkakohdetta = ({ mkohteet }) => {
             return (
               <div key={kohde.id} className="MuokkaaMatkaCard">
                 <div className="grid-layout">
-                  <h3>{kohde.kohde}</h3>
+                  <h3>{kohde.kohdenimi}</h3>
                   <div className="displayNone">
-                    <h3>{kohde.kaupunki}</h3>
+                    <h3>{kohde.paikkakunta}</h3>
                   </div>
                   <div className="displayNone">
                     <h3>{kohde.maa}</h3>
@@ -55,7 +67,7 @@ const MuokkaaMatkakohdetta = ({ mkohteet }) => {
                 <div className="MuokkaaMatkaBtn">
                   <Button
                     type="submit"
-                    onClick={() => handleButtonClick(kohde.id)}
+                    onClick={() => handleButtonClick(kohde._id)}
                     styles={{ background: '#3d5a80', color: 'white' }}
                   >
                     Muokkaa

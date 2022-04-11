@@ -1,11 +1,22 @@
 import React, { useRef, useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { Link, useLocation } from 'react-router-dom';
+import { GiHamburgerMenu } from 'react-icons/gi';
+import ReactDOM from 'react-dom';
+import { Link } from 'react-router-dom';
+
+import useWindowDimensions from '../../hooks/useWindowDimensions ';
+import DesktopNav from './DesktopNav';
+import Submenu from './Submenu';
+import MobileNav from './MobileNav';
+import navlogo from '../../assets/navlogo.png';
 
 const Navbar = () => {
   const [show, setShow] = useState(false);
+  const [displayMobileNav, setDisplayMobileNav] = useState(false);
   const submenu = useRef(null);
-  const location = useLocation();
+  const buttonRef = useRef(null);
+  const { width } = useWindowDimensions();
+  const MobileNavRef = useRef(null);
 
   const displaySubMenu = (e) => {
     if (!submenu?.current || show) return;
@@ -17,61 +28,53 @@ const Navbar = () => {
     setShow(true);
   };
 
+  const handleNavClick = (e) => {
+    if (show) return setShow(false);
+    if (buttonRef?.current && e.target == buttonRef.current) displaySubMenu(e);
+  };
+
+  const closeNav = () => {
+    const node = ReactDOM.findDOMNode(MobileNavRef.current);
+    node.classList.remove('animateIN');
+    node.classList.add('animateOUT');
+    const timeout = setTimeout(() => {
+      setDisplayMobileNav(false);
+      node.classList.remove('animateOUT');
+      node.classList.add('animateIN');
+    }, 450);
+    return () => clearTimeout(timeout);
+  };
+  const handleHamburgerClick = () => {
+    if (displayMobileNav) closeNav();
+    else setDisplayMobileNav(true);
+  };
+
+  useEffect(() => {
+    setDisplayMobileNav(false);
+    setShow(false);
+  }, [width]);
+
   return (
-    <Wrapper onMouseLeave={() => setShow(false)}>
+    <Wrapper onClick={handleNavClick} onMouseLeave={() => setShow(false)}>
       <div className="NavContainer">
-        <div className="logoContainer"></div>
-        <div className="linksContainer">
-          <ul>
-            <li
-              className={location.pathname === '/' ? 'underline' : 'link-hover'}
-            >
-              <Link to="/">Etusivu</Link>
-            </li>
-            <li
-              className={
-                location.pathname === '/matkakohteet'
-                  ? 'underline'
-                  : 'link-hover'
-              }
-            >
-              <Link to="matkakohteet">Matkakohteet</Link>
-            </li>
-            <li
-              className={
-                location.pathname === '/porukanmatkat'
-                  ? 'underline'
-                  : 'link-hover'
-              }
-            >
-              <Link to="porukanmatkat">Porukan Matkat</Link>
-            </li>
-            <li>
-              <button onMouseOver={displaySubMenu}>Marek</button>
-            </li>
-          </ul>
+        <div className="logoContainer">
+          <Link to="/">
+            <img src={navlogo}></img>
+          </Link>
         </div>
-      </div>
-      <div
-        onMouseLeave={() => setShow(false)}
-        onClick={() => setShow(false)}
-        ref={submenu}
-        className={show ? 'alasvetoContainer show' : 'alasvetoContainer'}
-      >
-        <ul>
-          <li>
-            <Link to="omatmatkat">Omat matkat</Link>
-          </li>
-          <li>
-            <Link to="omattiedot">Omat tiedot</Link>
-          </li>
-          <li>
-            <Link to="jasenet">Jäsenet</Link>
-          </li>
-          <li>
-            <Link to="#">Kirjaudu ulos</Link>
-          </li>
-        </ul>
+        {width > 675 ? (
+          <DesktopNav displaySubMenu={displaySubMenu} />
+        ) : (
+          <button onClick={handleHamburgerClick} className="navBurger">
+            <GiHamburgerMenu color="white" size={35} />
+          </button>
+        )}
+        <MobileNav
+          display={displayMobileNav}
+          navRef={MobileNavRef}
+          closeNav={closeNav}
+        />
+        <Submenu setShow={setShow} show={show} submenu={submenu} />
       </div>
     </Wrapper>
   );
@@ -82,6 +85,9 @@ const Wrapper = styled.nav`
   height: 70px;
   background: #fa7171;
   position: relative;
+  .navBurger {
+    margin: 0 30px 0 auto;
+  }
   button {
     background: inherit;
     border: none;
@@ -94,9 +100,12 @@ const Wrapper = styled.nav`
     margin: auto;
     height: 100%;
     max-width: 1440px;
+    width: 90%;
     display: flex;
     align-items: center;
     justify-content: space-between;
+  }
+  .desktopNav {
   }
   .logoContainer {
     margin-left: 30px;
@@ -105,19 +114,20 @@ const Wrapper = styled.nav`
     background: white;
   }
   .linksContainer {
-    margin-right: 70px;
+    margin-right: 20px;
     color: white;
     font-size: var(--font-small);
     ul {
       display: flex;
       li:not(:last-child) {
-        margin-right: 20px;
+        margin-right: 40px;
       }
     }
   }
 
   .underline {
     position: relative;
+
     ::after {
       content: '';
       border-bottom: 3px solid #d33939;
@@ -142,6 +152,7 @@ const Wrapper = styled.nav`
   }
 
   .alasvetoContainer {
+    z-index: 1000;
     position: absolute;
     min-width: 150px;
     margin-right: 70px;

@@ -1,31 +1,54 @@
-// riittää importti vaan './pages' koska tulee index filestä
-//muuten pitäisi olla esim import Etusivu from './pages/Etusivu';
 import {
   Etusivu,
   MatkakohteetSivu,
   MatkakohdeIDSivu,
   LisaaTarinaSivu,
-} from './pages';
-import Navbar from './components/NavBar/Navbar';
-
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-
-//Esimerkkinä App.js
-import { useModalContext } from './components/ResuableComponents/Modal/ModalContext';
-import MatkakohteetTemplate from './components/ModalTemplates/MatkakohteetTemplate/MatkakohteetTemplate';
-import Button from './components/ResuableComponents/Button';
+  Kirjaudu,
+  Rekisteröidy,
+  TarinaSivu,
+  KirjauduUlos,
+  KaikkiTarinat,
+  OmatTarinatSivu,
+} from "./pages";
+import Navbar from "./components/NavBar/Navbar";
+import { useSelector } from "react-redux";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useEffect } from "react";
+import useRefreshToken from "./hooks/useRefreshToken";
+import RequireAuth from "./components/requireAuth";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
-  const { openModal } = useModalContext();
+  const user = useSelector((state) => state.auth.kayttaja);
+  const userLoading = useSelector((state) => state.auth.refreshTokenFetch);
+  const refresh = useRefreshToken();
+
+  useEffect(() => {
+    refresh();
+  }, []);
+
   return (
     <Router>
       <Navbar />
-      <Routes>
-        <Route index element={<Etusivu />} />
-        <Route exact path="matkakohteet" element={<MatkakohteetSivu />} />
-        <Route exact path="matkakohteet/:id" element={<MatkakohdeIDSivu />} />
-        <Route exact path="lisaatarina" element={<LisaaTarinaSivu />} />
-      </Routes>
+      {!user && userLoading ? null : (
+        <Routes>
+          <Route index element={<Etusivu />} />
+          <Route exact path="matkakohteet" element={<MatkakohteetSivu />} />
+          <Route exact path="kirjaudu" element={<Kirjaudu />} />
+          <Route exact path="rekisteroidy" element={<Rekisteröidy />} />
+
+          <Route element={<RequireAuth />}>
+            <Route path="matkakohteet/:id" element={<MatkakohdeIDSivu />} />
+            <Route exact path="lisaatarina" element={<LisaaTarinaSivu />} />
+            <Route path="tarinat/:id" element={<TarinaSivu />} />
+            <Route path="tarinat" element={<KaikkiTarinat />} />
+            <Route path="omattarinat" element={<OmatTarinatSivu />} />
+          </Route>
+          <Route exact path="kirjauduulos" element={<KirjauduUlos />} />
+        </Routes>
+      )}
+      <ToastContainer />
     </Router>
   );
 }

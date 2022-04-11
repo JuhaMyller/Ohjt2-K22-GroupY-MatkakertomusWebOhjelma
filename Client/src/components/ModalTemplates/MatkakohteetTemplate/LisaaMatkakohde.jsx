@@ -1,7 +1,12 @@
+import useAxiosPrivate from '../../../hooks/useAxiosPrivate';
+
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import Button from '../../ResuableComponents/Button';
 import Input from '../../ResuableComponents/Input';
+import { toast } from 'react-toastify';
+import { postMatkakohde } from '../../../Redux/Actions/matkakohdeActions';
+import { useDispatch, useSelector } from 'react-redux';
 
 const LisaaMatkakohde = () => {
   const [kuvat, setKuvat] = useState([]);
@@ -10,11 +15,28 @@ const LisaaMatkakohde = () => {
   const [paikkakunta, setPaikkakunta] = useState('');
   const [matkanKuvaus, setKuvaus] = useState('');
 
-  //matkakohde, maa, kohdenimi, paikkakunta
+  const dispath = useDispatch();
+  const axios = useAxiosPrivate();
+  const fetching = useSelector((state) => state.matkakohteet.fetchingRequest);
 
-  const handleSubmit = (e) => {
+  const resetForm = () => {
+    setKuvat([]);
+    setMatkakohde('');
+    setMaa('');
+    setPaikkakunta('');
+    setKuvaus('');
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(e);
+    dispath(
+      postMatkakohde(
+        { kuvat, matkakohde, maa, paikkakunta, matkanKuvaus },
+        toast,
+        axios,
+        resetForm
+      )
+    );
   };
 
   return (
@@ -66,7 +88,7 @@ const LisaaMatkakohde = () => {
           <h3>{kuvat[0]?.name}</h3>
         </div>
         <div className="tallennaBtnContainer">
-          <Button type="submit" styles={{ width: '100%' }}>
+          <Button disabled={fetching} type="submit" styles={{ width: '100%' }}>
             Lisää
           </Button>
         </div>

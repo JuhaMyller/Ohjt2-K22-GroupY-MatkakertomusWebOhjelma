@@ -5,15 +5,6 @@ import LisaaMatkakohde from './LisaaMatkakohde';
 import PoistaMatkakohde from './PoistaMatkakohde';
 import MuokkaaMatkakohdetta from './MuokkaaMatkakohdetta';
 
-const mkohteet = [
-  { kohde: 'ruka', maa: 'suomi', kaupunki: 'Kuopio', tarinat: 0, id: 0 },
-  { kohde: 'levi', maa: 'suomi', kaupunki: 'Kuopio', tarinat: 10, id: 1 },
-  { kohde: 'kuusamo', maa: 'suomi', kaupunki: 'Kuopio', tarinat: 7, id: 2 },
-  { kohde: 'Tampere', maa: 'suomi', kaupunki: 'Kuopio', tarinat: 0, id: 3 },
-  { kohde: 'ranta-aho', maa: 'suomi', kaupunki: 'Kuopio', tarinat: 1, id: 4 },
-  { kohde: 'perkele', maa: 'suomi', kaupunki: 'Kuopio', tarinat: 0, id: 5 },
-];
-
 const templates = { Lisaa: 'Lisaa', Poista: 'Poista', Muokkaa: 'Muokka' };
 
 const MatkakohteetTemplate = () => {
@@ -21,10 +12,8 @@ const MatkakohteetTemplate = () => {
 
   const getTemplate = () => {
     if (template === templates.Lisaa) return <LisaaMatkakohde />;
-    if (template === templates.Poista)
-      return <PoistaMatkakohde mkohteet={mkohteet} />;
-    if (template === templates.Muokkaa)
-      return <MuokkaaMatkakohdetta mkohteet={mkohteet} />;
+    if (template === templates.Poista) return <PoistaMatkakohde />;
+    if (template === templates.Muokkaa) return <MuokkaaMatkakohdetta />;
   };
 
   return (

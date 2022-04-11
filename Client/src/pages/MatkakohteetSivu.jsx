@@ -1,29 +1,26 @@
-import React from "react";
-import styled from "styled-components";
-import Kohdekortti from "../components/MatkakohteetSivu/Kohdekortti";
-import Input from "../components/ResuableComponents/Input";
+import React, { useEffect } from 'react';
+import useAxiosPrivate from '../hooks/useAxiosPrivate';
+import KohdeLista from '../components/MatkakohteetSivu/KohdeLista';
+import { useDispatch } from 'react-redux';
+import { getMatkakohteet } from '../Redux/Actions/matkakohdeActions';
 
 const MatkakohteetSivu = () => {
-  function KohdeLista() {
-    return (
-      <Kohdekortti /> // Kohdekortti on ReusableComponents kansiossa
-    );
-  }
+  const dispatch = useDispatch();
+  const axios = useAxiosPrivate();
+
+  const handleGetMatkakohteet = () => {
+    dispatch(getMatkakohteet(axios));
+  };
+
+  useEffect(() => {
+    handleGetMatkakohteet();
+  }, []);
 
   return (
-    <Wrapper>
-      <h1>MatkakohteetSivu</h1>
-
-      <body>
-        <div>
-          <Input />
-        </div>
-        <table></table>
-      </body>
-    </Wrapper>
+    <div>
+      <KohdeLista />
+    </div>
   );
 };
-
-const Wrapper = styled.div``;
 
 export default MatkakohteetSivu;

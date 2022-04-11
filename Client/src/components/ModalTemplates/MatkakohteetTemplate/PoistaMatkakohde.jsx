@@ -1,16 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import useAxiosPrivate from '../../../hooks/useAxiosPrivate';
 import styled from 'styled-components';
 import Button from '../../ResuableComponents/Button';
-import Input from '../../ResuableComponents/Input';
+import { toast } from 'react-toastify';
+import { deleteMatkakohde } from '../../../Redux/Actions/matkakohdeActions';
+import { useDispatch, useSelector } from 'react-redux';
 
-const PoistaMatkakohde = ({ mkohteet }) => {
-  const [matkakohteet, setMatkakohteet] = useState(() => {
-    return mkohteet.filter((kohde) => kohde.tarinat === 0);
-  });
+const PoistaMatkakohde = () => {
+  const [matkakohteet, setMatkakohteet] = useState([]);
 
-  const PoistaMatkakohde = (event, id) => {
-    event.preventDefault();
-    console.log(event, id);
+  const fetching = useSelector((state) => state.matkakohteet.fetchingRequest);
+  const mk = useSelector((state) => state.matkakohteet.Matkakohteet);
+  const axios = useAxiosPrivate();
+  const dispath = useDispatch();
+
+  useEffect(() => {
+    const ilmanTarinoita = mk.filter((kohde) => kohde.tarinat.length === 0);
+    const tarinoilla = mk.filter((kohde) => kohde.tarinat.length !== 0);
+    setMatkakohteet([...ilmanTarinoita, ...tarinoilla]);
+  }, [mk]);
+
+  const PoistaMatkakohde = async (e, id) => {
+    e.preventDefault();
+    dispath(deleteMatkakohde(id, axios, toast));
   };
 
   return (
@@ -28,11 +40,11 @@ const PoistaMatkakohde = ({ mkohteet }) => {
           </div>
           {matkakohteet.map((kohde) => {
             return (
-              <div key={kohde.id} className="PoistaMatkaCard">
+              <div key={kohde._id} className="PoistaMatkaCard">
                 <div className="grid-layout">
-                  <h3>{kohde.kohde}</h3>
+                  <h3>{kohde.kohdenimi}</h3>
                   <div className="displayNone">
-                    <h3>{kohde.kaupunki}</h3>
+                    <h3>{kohde.paikkakunta}</h3>
                   </div>
                   <div className="displayNone">
                     <h3>{kohde.maa}</h3>
@@ -40,9 +52,17 @@ const PoistaMatkakohde = ({ mkohteet }) => {
                 </div>
                 <div className="deleteMatkaBtn">
                   <Button
+                    disabled={fetching || kohde.tarinat.length > 0}
                     type="submit"
-                    onClick={(e) => PoistaMatkakohde(e, kohde.id)}
-                    styles={{ background: 'red', color: 'white' }}
+                    onClick={(e) => PoistaMatkakohde(e, kohde._id)}
+                    styles={
+                      kohde.tarinat.length === 0
+                        ? {
+                            background: 'red',
+                            color: 'white',
+                          }
+                        : {}
+                    }
                   >
                     Poista
                   </Button>
@@ -65,8 +85,7 @@ const Wrapper = styled.div`
     .grid-layout {
       display: grid;
       width: 80%;
-
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: 1.5fr 1fr 1fr;
     }
     .PoistaMatkaCard {
       border-radius: 5px;

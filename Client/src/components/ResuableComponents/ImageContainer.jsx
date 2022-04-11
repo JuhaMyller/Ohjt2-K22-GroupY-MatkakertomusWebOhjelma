@@ -1,12 +1,28 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import Button from './Button';
 
-const ImageContainer = ({ imgUrls = [], mainImg = 0 }) => {
+const ImageContainer = ({
+  imgUrls = [],
+  mainImg = 0,
+  canDelete = false,
+  deleteImg,
+}) => {
   const [imgIndex, setImgIndex] = useState(mainImg);
+
+  useEffect(() => {
+    if (imgUrls.length === 0) return;
+    if (imgIndex > imgUrls.length - 1) setImgIndex(imgUrls.length - 1);
+  }, [imgUrls]);
 
   return (
     <Wrapper>
+      {canDelete && imgUrls.length > 0 && (
+        <Button type="button" onClick={() => deleteImg(imgIndex)}>
+          Poista
+        </Button>
+      )}
       <div className="main-img">
         {imgUrls.length > 0 && <img src={imgUrls[imgIndex]} alt="ei toimi" />}
       </div>
@@ -41,7 +57,7 @@ ImageContainer.propTypes = {
 const Wrapper = styled.div`
   min-width: 250px;
   max-width: 400px;
-  width: 90%;
+  width: 100%;
   user-select: none;
   img {
     transition: opacity 0.5s linear;
@@ -51,11 +67,12 @@ const Wrapper = styled.div`
     object-position: center;
   }
   .main-img {
+    margin-top: 10px;
     min-width: 250px;
     aspect-ratio: 1/1;
     overflow: hidden;
     background-color: inherit;
-    border: 2px solid #777;
+    /* border: 2px solid #777; */
     border-radius: 5px;
     img {
       object-fit: contain;

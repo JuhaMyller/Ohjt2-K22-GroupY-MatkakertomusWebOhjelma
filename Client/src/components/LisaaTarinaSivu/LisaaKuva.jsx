@@ -1,16 +1,40 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import ImageContainer from '../ResuableComponents/ImageContainer';
 
-const LisaaKuva = (props) => {
+const LisaaKuva = ({ setImgArr, imgArr }) => {
+  const [imgUrls, setImgUrls] = useState([]);
+
+  const onImgChange = (e) => {
+    setImgArr((curr) => [...curr, ...e.target.files]);
+  };
+
+  const deleteImg = (index) => {
+    setImgArr((arr) => {
+      const newArr = [...arr];
+      newArr.splice(index, 1);
+      return newArr;
+    });
+  };
+
+  useEffect(() => {
+    const newImageURLs = [];
+    imgArr.forEach((image) => newImageURLs.push(URL.createObjectURL(image)));
+    setImgUrls(newImageURLs);
+  }, [imgArr]);
+
   return (
     <Wrapper>
-      <ImageContainer imgUrls={props.imgUrls} />
+      <ImageContainer
+        deleteImg={deleteImg}
+        canDelete={true}
+        imgUrls={imgUrls}
+      />
       <div className="lisaakuva-input-container">
         <label className="file-label">
           <input
             type="file"
-            onChange={props.onImgChange}
+            onChange={onImgChange}
             multiple
             accept=".jpg, .jpeg, .png"
           />
