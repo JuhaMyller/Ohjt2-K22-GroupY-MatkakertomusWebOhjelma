@@ -9,7 +9,7 @@ const MatkakohdeIDSivu = () => {
 
   return (
     <div>
-      <TarinaLista id={id} />
+      <TarinaLista id={id} url={'matkakohteentarinat/' + id} />
     </div>
   );
 };

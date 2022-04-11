@@ -21,7 +21,7 @@ const OmatTarinatSivu = () => {
   }, []);
   return (
     <>
-      <div className='divlista'>
+      <div className="divlista">
         {omatTarinat.map((tarina, index) => (
           <TarinaKortti
             numero={index}
@@ -31,6 +31,8 @@ const OmatTarinatSivu = () => {
             id={tarina._id}
             key={tarina._id}
             matkaaja={tarina.matkaaja.nimimerkki}
+            lukukertoja={tarina.lukukertoja}
+            createdAt={formatDate(tarina.createdAt)}
           />
         ))}
       </div>

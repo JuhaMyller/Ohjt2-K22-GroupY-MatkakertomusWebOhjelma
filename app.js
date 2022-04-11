@@ -12,27 +12,24 @@ const userRoutes = require('./Routes/userRoutes');
 const matkakohdeRoutes = require('./Routes/matkakohteetRoutes');
 const tarinaRoutes = require('./Routes/tarinatRoutes');
 
-const { getFileStream } = require('./utils/AWS_s3');
+const sendImage = require('./middleware/sendImage');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
-app.use(express.static('build'));
+app.use(express.static(path.join(__dirname, '/client/build')));
 
 //http://localhost:4000/
 
 app.use('/api/user', userRoutes);
 app.use('/api/tarina', requireAuth, tarinaRoutes);
 app.use('/api/matkakohde', matkakohdeRoutes);
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'));
-});
-
 //Lataa kuvan clientille
-app.get('/img/:key', (req, res) => {
-  const key = req.params.key;
-  getFileStream(key, res);
+app.get('/img/:key', sendImage);
+//Palauttaa react sivun serveriltä
+app.use('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '/client/build/index.html'));
 });
 
 app.use(ErrorHandler);

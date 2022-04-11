@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import TarinaKortti from '../components/MatkakohdeIDSivu/TarinaKortti';
 
 import useAxiosPrivate from '../hooks/useAxiosPrivate';
-
 import formatDate from '../utils/formatedDate';
 
 const KaikkiTarinat = () => {
@@ -25,7 +24,7 @@ const KaikkiTarinat = () => {
 
   return (
     <>
-      <div className='divlista'>
+      <div className="divlista">
         {tarinat.map((tarina, index) => (
           <TarinaKortti
             numero={index}
@@ -35,6 +34,8 @@ const KaikkiTarinat = () => {
             id={tarina._id}
             key={tarina._id}
             matkaaja={tarina.matkaaja.nimimerkki}
+            lukukertoja={tarina.lukukertoja}
+            createdAt={formatDate(tarina.createdAt)}
           />
         ))}
       </div>

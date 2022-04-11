@@ -6,7 +6,7 @@ import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 import formatedDate from '../../utils/formatedDate';
 import serverUrl from '../../utils/serverUrl';
 
-const TarinaLista = ({ id }) => {
+const TarinaLista = ({ url, id }) => {
   const [tarinat, setTarinat] = useState([]);
   const [etsi, setEtsi] = useState('');
   const [filteredData, setFilteredData] = useState([]);
@@ -16,7 +16,7 @@ const TarinaLista = ({ id }) => {
 
   const getTarinat = async () => {
     try {
-      const response = await axios.get('/api/tarina/matkakohteentarinat/' + id);
+      const response = await axios.get('/api/tarina/' + url);
 
       setTarinat(response.data.tarinat);
     } catch (error) {
@@ -45,13 +45,13 @@ const TarinaLista = ({ id }) => {
   return (
     <>
       {loadingMK ? null : (
-        <div className='divmatkakohde'>
+        <div className="divmatkakohde">
           <h1>{matkakohde.kohdenimi}</h1>
           <h2>
             {matkakohde.paikkakunta}
             {`, ${matkakohde.maa}`}
           </h2>
-          <div className='divkuva'>
+          <div className="divkuva">
             <img
               src={`${serverUrl}/img/${matkakohde.kuva}`}
               alt={`Matkakohteen ${matkakohde.kohdenimi} kuva`}
@@ -59,14 +59,14 @@ const TarinaLista = ({ id }) => {
           </div>
         </div>
       )}
-      <div className='divlista'>
+      <div className="divlista">
         {tarinat.map((tarina, index) => (
           <TarinaKortti
             numero={index}
             id={tarina._id}
             otsikko={tarina.otsikko}
             key={tarina._id}
-            matkaaja={tarina.matkaaja.nimimerkki}
+            matkaaja={tarina?.matkaaja?.nimimerkki}
             createdAt={formatedDate(tarina.createdAt)}
             teksti={tarina.teksti}
             lukukertoja={tarina.lukukertoja}
