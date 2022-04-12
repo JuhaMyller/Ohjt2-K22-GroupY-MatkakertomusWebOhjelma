@@ -68,6 +68,12 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  transition: all 0.2s ease-in;
+}
+
+.korttipohja:hover {
+  transform: scale(0.95);
 }
 
 /* Matkakohteen css */
