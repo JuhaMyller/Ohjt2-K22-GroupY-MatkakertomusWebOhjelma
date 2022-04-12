@@ -2,26 +2,23 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import ImageContainer from '../ResuableComponents/ImageContainer';
 
-const LisaaKuva = ({ setImgArr, imgArr }) => {
-  const [imgUrls, setImgUrls] = useState([]);
+const ImageMuokkaus = (props) => {
+  const [imgUrls, setImgUrls] = useState(props.imgUrls);
 
   const onImgChange = (e) => {
-    setImgArr((curr) => [...curr, ...e.target.files]);
+    setImgUrls((curr) => [...curr, ...e.target.files]);
   };
 
   const deleteImg = (index) => {
-    setImgArr((arr) => {
+    setImgUrls((arr) => {
       const newArr = [...arr];
       newArr.splice(index, 1);
       return newArr;
     });
   };
 
-  useEffect(() => {
-    const newImageURLs = [];
-    imgArr.forEach((image) => newImageURLs.push(URL.createObjectURL(image)));
-    setImgUrls(newImageURLs);
-  }, [imgArr]);
+  //poistaminen 2 arrayta, toisessa server img URL, toisessa object URL.
+  //Kun käyttäjä poistaa niin katsotaan sisältääkö poistettava keyword blop.
 
   return (
     <Wrapper>
@@ -66,4 +63,4 @@ const Wrapper = styled.div`
   }
 `;
 
-export default LisaaKuva;
+export default ImageMuokkaus;
