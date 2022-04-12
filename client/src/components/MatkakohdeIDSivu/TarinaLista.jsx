@@ -54,9 +54,13 @@ const TarinaLista = ({ id }) => {
           </h2>
           <div className='divkuva'>
             <img
+              className='kuva'
               src={`${serverUrl}/img/${matkakohde.kuva}`}
               alt={`Matkakohteen ${matkakohde.kohdenimi} kuva`}
             />
+            <div className='kuvateksti'>
+              <h3>{matkakohde.kuvateksti}</h3>
+            </div>
           </div>
         </div>
       )}
