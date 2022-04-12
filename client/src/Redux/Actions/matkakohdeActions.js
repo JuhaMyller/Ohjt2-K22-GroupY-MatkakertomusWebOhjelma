@@ -1,3 +1,5 @@
+import requestTime from '../../utils/getRequestTime';
+
 export const ADD_MATKAKOHDE = 'ADD_MATKAKOHDE';
 export const DELETE_MATKAKOHDE_ERROR = 'DELETE_MATKAKOHDE_ERROR';
 export const DELETE_MATKAKOHDE_SUCCESS = 'DELETE_MATKAKOHDE_SUCCESS';
@@ -14,24 +16,30 @@ export function addMatkakohde(payload) {
     payload,
   };
 }
-export function deleteMatkakohde(id, axios, toast) {
+export function deleteMatkakohde(id, axios, toast, RequestTime) {
   return async (dispatch) => {
+    const requestTime = new RequestTime(new Date());
+    dispatch({ type: REQUEST_BEGIN });
+
     try {
-      dispatch({ type: REQUEST_BEGIN });
       const response = await axios.delete('/api/matkakohde/matkakohde/' + id);
-      dispatch({
-        type: DELETE_MATKAKOHDE_SUCCESS,
-        payload: response.data.matkakohde,
-      });
-      toast.success('Matkakohde poistettu', {
-        position: 'top-center',
-        duration: 1500,
+      requestTime.onFinish(500, () => {
+        dispatch({
+          type: DELETE_MATKAKOHDE_SUCCESS,
+          payload: response.data.matkakohde,
+        });
+        toast.success('Matkakohde poistettu', {
+          position: 'top-center',
+          duration: 1500,
+        });
       });
     } catch (error) {
-      dispatch({ type: DELETE_MATKAKOHDE_ERROR });
-      toast.error(error.response.data.message, {
-        position: 'top-center',
-        duration: 1500,
+      requestTime.onFinish(500, () => {
+        dispatch({ type: DELETE_MATKAKOHDE_ERROR });
+        toast.error(error.response.data.message, {
+          position: 'top-center',
+          duration: 1500,
+        });
       });
     }
   };
@@ -53,23 +61,21 @@ export function getMatkakohteet(axios) {
   };
 }
 
-export function postMatkakohde(payload, toast, axios, resetForm) {
+export function postMatkakohde(payload, toast, axios, resetForm, RequestTime) {
   const { matkakohde, maa, paikkakunta, matkanKuvaus, kuvat } = payload;
   return async (dispatch) => {
+    dispatch({ type: REQUEST_BEGIN });
+    const requestTime = new RequestTime(new Date());
     try {
-      dispatch({ type: REQUEST_BEGIN });
-      try {
-        const formData = new FormData();
-        formData.append('kohdenimi', matkakohde);
-        formData.append('maa', maa);
-        formData.append('paikkakunta', paikkakunta);
-        formData.append('kuvateksti', matkanKuvaus);
-        formData.append('kuva', kuvat[0]);
+      const formData = new FormData();
+      formData.append('kohdenimi', matkakohde);
+      formData.append('maa', maa);
+      formData.append('paikkakunta', paikkakunta);
+      formData.append('kuvateksti', matkanKuvaus);
+      formData.append('kuva', kuvat[0]);
 
-        const response = await axios.post(
-          'api/matkakohde/matkakohde',
-          formData
-        );
+      const response = await axios.post('api/matkakohde/matkakohde', formData);
+      requestTime.onFinish(500, () => {
         if (response.status === 201) {
           resetForm();
           dispatch({
@@ -81,7 +87,9 @@ export function postMatkakohde(payload, toast, axios, resetForm) {
             duration: 1500,
           });
         }
-      } catch (error) {
+      });
+    } catch (error) {
+      requestTime.onFinish(500, () => {
         dispatch({
           type: POST_MATKAKOHDE_ERROR,
         });
@@ -89,7 +97,7 @@ export function postMatkakohde(payload, toast, axios, resetForm) {
           position: 'top-center',
           duration: 1500,
         });
-      }
-    } catch (error) {}
+      });
+    }
   };
 }
