@@ -8,12 +8,16 @@ import useAxiosPrivate from '../hooks/useAxiosPrivate';
 import { useParams } from 'react-router-dom';
 import SERVER_URL from '../utils/serverUrl';
 import formatDate from '../utils/formatedDate';
+import MuokkaatarinaaTemplate from '../components/ModalTemplates/MuokkaatarinaaTemplate/MuokkaaTarinaa';
+import Button from '../components/ResuableComponents/Button';
+import { useModalContext } from '../components/ResuableComponents/Modal/ModalContext';
 
 const TarinaSivu = () => {
   const [imgUrls, setImgUrls] = useState([]);
   const [tarina, setTarina] = useState([]);
   const axios = useAxiosPrivate();
   const { id } = useParams();
+  const { openModal } = useModalContext();
 
   const haeTarina = async () => {
     const responseTarina = await axios.get('/api/tarina/tarina/' + id);
@@ -25,7 +29,6 @@ const TarinaSivu = () => {
     });
 
     setTarina(responseTarina.data.tarina);
-    console.log(responseTarina.data.tarina);
   };
   useEffect(() => {
     haeTarina();
@@ -35,34 +38,52 @@ const TarinaSivu = () => {
 
   return (
     <Wrapper>
-      <div className="wrapper">
-        <div className="kuva_kayttajaWrap">
-          <div className="kuva-container">
+      <div className='muokkaaTarinaaButton'>
+        <Button
+          onClick={() =>
+            openModal({
+              template: (
+                <MuokkaatarinaaTemplate
+                  id={id}
+                  tarina={tarina}
+                  imgUrls={imgUrls}
+                />
+              ),
+              title: 'Muokkaa tarinaa',
+            })
+          }
+        >
+          Muokkaa
+        </Button>
+      </div>
+      <div className='wrapper'>
+        <div className='kuva_kayttajaWrap'>
+          <div className='kuva-container'>
             <ImageContainer imgUrls={imgUrls || []} />
           </div>
-          <div className="kayttajaKuvaContainer">
+          <div className='kayttajaKuvaContainer'>
             <img
-              className="kayttajaKuva"
+              className='kayttajaKuva'
               src={
                 tarina?.matkaaja?.kuva
                   ? `${SERVER_URL}/img/${tarina.matkaaja.kuva}`
                   : img
               }
-              alt="Kuva ei toimi"
+              alt='Kuva ei toimi'
             />
           </div>
-          <div className="kayttaja">
+          <div className='kayttaja'>
             <h3>{`${tarina?.matkaaja?.etunimi} ${tarina?.matkaaja?.sukunimi}`}</h3>
           </div>
-          <div className="tiedot">
-            <MdDateRange className="paivaIcon" />
+          <div className='tiedot'>
+            <MdDateRange className='paivaIcon' />
             <p>{formatDate(tarina?.createdAt)}</p>
-            <AiOutlineRead className="lukenutIcon" />
+            <AiOutlineRead className='lukenutIcon' />
             <p>{tarina?.lukukertoja?.length}</p>
           </div>
         </div>
-        <div className="tarina-container">
-          <h1 className="otsikko">{tarina?.otsikko}</h1>
+        <div className='tarina-container'>
+          <h1 className='otsikko'>{tarina?.otsikko}</h1>
           <p>{tarina?.teksti}</p>
         </div>
       </div>
@@ -72,6 +93,12 @@ const TarinaSivu = () => {
 
 const Wrapper = styled.form`
   width: 100%;
+  margin-bottom: 100px;
+  .muokkaaTarinaaButton {
+    display: flex;
+    padding: 10px 20px;
+    justify-content: end;
+  }
   .kayttaja {
     text-align: center;
   }
@@ -90,8 +117,8 @@ const Wrapper = styled.form`
   }
   .tarina-container {
     flex: 1 1 300px;
-    text-align: center;
-    padding: 0 10px;
+    text-align: left;
+    padding: 0 30px;
     margin-left: 10px;
     min-width: 300px;
     max-width: 700px;
@@ -101,7 +128,6 @@ const Wrapper = styled.form`
   .kuva_kayttajaWrap {
     max-width: 400px;
     min-width: 250px;
-    margin-top: 8px;
     width: 90%;
   }
   .kuva-container {
@@ -143,6 +169,9 @@ const Wrapper = styled.form`
       margin: auto;
       width: 90%;
       text-align: center;
+    }
+    .tarina-container {
+      max-width: 80%;
     }
   }
 `;
