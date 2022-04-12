@@ -1,12 +1,13 @@
 import React, { useLayoutEffect, useRef } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { Link } from 'react-router-dom';
-
+import { useSelector } from 'react-redux';
 //kovakoodattu img
 
 import profileImg from '../../assets/testimg.jpeg';
 
 const MobileNav = ({ closeNav, navRef, display }) => {
+  const userID = useSelector((state) => state.auth.kayttaja?.id);
   return (
     <Wrapper
       style={{
@@ -42,7 +43,7 @@ const MobileNav = ({ closeNav, navRef, display }) => {
               </Link>
             </li>
             <li>
-              <Link to="omattiedot">
+              <Link to={`jasenet/${userID}`}>
                 <button onClick={closeNav}>Omat tiedot</button>
               </Link>
             </li>

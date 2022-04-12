@@ -1,7 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const Submenu = ({ setShow, submenu, show }) => {
+  const userID = useSelector((state) => state.auth.kayttaja?.id);
+
   return (
     <div
       onClick={() => setShow(false)}
@@ -13,7 +16,7 @@ const Submenu = ({ setShow, submenu, show }) => {
           <Link to="omattarinat">Omat matkat</Link>
         </li>
         <li>
-          <Link to="omattiedot">Omat tiedot</Link>
+          <Link to={`jasenet/${userID}`}>Omat tiedot</Link>
         </li>
         <li>
           <Link to="jasenet">Jäsenet</Link>
