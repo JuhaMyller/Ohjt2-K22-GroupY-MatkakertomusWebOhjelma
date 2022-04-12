@@ -1,4 +1,5 @@
 const Matkaaja = require('../models/matkaaja');
+const Tarina = require('../models/tarina');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
@@ -129,6 +130,7 @@ module.exports.login = async (req, res, next) => {
     res.status(200).json({
       message: 'OK',
       user: {
+        id: user._id,
         etunimi: user.etunimi,
         sukunimi: user.sukunimi,
         sposti: user.sposti,
@@ -441,6 +443,7 @@ module.exports.refreshToken = async (req, res, next) => {
         res.status(200).json({
           message: 'OK',
           user: {
+            id: user._id,
             etunimi: user.etunimi,
             sukunimi: user.sukunimi,
             sposti: user.sposti,
@@ -455,5 +458,48 @@ module.exports.refreshToken = async (req, res, next) => {
     );
   } catch (err) {
     next(err);
+  }
+};
+
+module.exports.profiiliIDlla = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+
+    if (!id) {
+      return res.status(400).json({
+        message: 'Käyttäjän id puuttui',
+      });
+    }
+
+    const user = await Matkaaja.findById(id)
+      .select(
+        'etunimi sukunimi createdAt kuva nimimerkki paikkakunta esittely sposti'
+      )
+      .exec();
+
+    if (!user) {
+      return res.status(404).json({
+        message: 'Käyttäjää ei löytynyt',
+      });
+    }
+
+    const tarinoita = await Tarina.countDocuments({ id: user._id }).exec();
+
+    res.status(200).json({
+      message: 'OK',
+      profiili: {
+        tarinoita,
+        etunimi: user.etunimi,
+        sukunimi: user.sukunimi,
+        createdAt: user.createdAt,
+        kuva: user.kuva,
+        nimimerkki: user.nimimerkki,
+        paikkakunta: user.paikkakunta,
+        esittely: user.esittely,
+        sposti: user.sposti,
+      },
+    });
+  } catch (error) {
+    next(error);
   }
 };
