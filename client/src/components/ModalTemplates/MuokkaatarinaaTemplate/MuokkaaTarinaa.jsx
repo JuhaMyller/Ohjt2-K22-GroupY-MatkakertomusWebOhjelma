@@ -2,36 +2,25 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Button from '../../ResuableComponents/Button';
 import Input from '../../ResuableComponents/Input';
-import ImageContainer from '../../ResuableComponents/ImageContainer';
+import useAxiosPrivate from '../../../hooks/useAxiosPrivate';
+import ImageMuokkaus from '../../TarinaSivu/ImageMuokkaus';
 
 const MuokkaaTarinaa = (props) => {
-  const [matkakohde, setMatkakohde] = useState(props.tarina.matkakohde);
+  const [matkakohde, setMatkakohde] = useState(
+    props.tarina.matkakohde.kohdenimi
+  );
   const [edit, setEdit] = useState(false);
   const [editId, seteditID] = useState([]);
-  const [kuvat, setKuvat] = useState(props.imgUrls);
+  const [kuvat, setKuvat] = useState([]);
   const [otsikko, setOtsikko] = useState(props.tarina.otsikko);
   const [teksti, setTeksti] = useState(props.tarina.teksti);
 
-  // const handleButtonClick = (id) => {
-  //   setEdit(true);
-  //   seteditID(id);
-  //   setMatkakohde(tarina.kohdenimi);
-  //   setKuvat([tarina.kuvat]);
-  //   setOtsikko(tarina.otsikko);
-  //   setTeksti(tarina.teksti);
-  // };
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   const response = await axios.put('api/tarina/tarina/' + id, {
-  //     kohdenimi: matkakohde,
-  //     teksti: teksti,
-  //     otsikko: otsikko,
-  //     id: editId,
-  //     kuva: kuvat,
-  //   });
-  //   console.log(response);
-  //   setEdit(false);
-  // };
+  const axios = useAxiosPrivate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setEdit(false);
+  };
 
   return (
     <Wrapper style={edit ? { margin: '10px' } : { padding: '20px' }}>
@@ -65,17 +54,12 @@ const MuokkaaTarinaa = (props) => {
             />
           </div>
           <div className='kuva-container'>
-            <ImageContainer imgUrls={kuvat || []} />
+            <ImageMuokkaus
+              imgUrls={props.imgUrls}
+              setImgUrls={props.setImgUrls}
+            />
           </div>
           <div className='bottom-input-container'>
-            <label className='file-label'>
-              <input
-                type='file'
-                onChange={(e) => setKuvat(e.target.files)}
-                accept='.jpg, .jpeg, .png'
-              />
-              Lisää kuva
-            </label>
             <h3>{kuvat[0]?.name}</h3>
           </div>
           <div className='tallennaBtnContainer'>

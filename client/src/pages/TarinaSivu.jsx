@@ -8,7 +8,7 @@ import useAxiosPrivate from '../hooks/useAxiosPrivate';
 import { useParams } from 'react-router-dom';
 import SERVER_URL from '../utils/serverUrl';
 import formatDate from '../utils/formatedDate';
-import MuokkaatarinaaTemplate from '../components/ModalTemplates/MuokkaatarinaaTemplate/MuokkaaTarinaa';
+import Muokkaatarinaa from '../components/ModalTemplates/MuokkaatarinaaTemplate/MuokkaaTarinaa';
 import Button from '../components/ResuableComponents/Button';
 import { useModalContext } from '../components/ResuableComponents/Modal/ModalContext';
 
@@ -43,10 +43,11 @@ const TarinaSivu = () => {
           onClick={() =>
             openModal({
               template: (
-                <MuokkaatarinaaTemplate
+                <Muokkaatarinaa
                   id={id}
                   tarina={tarina}
                   imgUrls={imgUrls}
+                  setImgUrls={setImgUrls}
                 />
               ),
               title: 'Muokkaa tarinaa',
