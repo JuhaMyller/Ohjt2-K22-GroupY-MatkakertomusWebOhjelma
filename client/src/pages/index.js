@@ -8,6 +8,7 @@ import TarinaSivu from './TarinaSivu';
 import KirjauduUlos from './KirjauduUlos';
 import KaikkiTarinat from './KaikkiTarinat';
 import OmatTarinatSivu from './OmatTarinatSivu';
+import JasenetIDSivu from './JasenetIDSivu';
 
 export {
   Etusivu,
@@ -20,4 +21,5 @@ export {
   KirjauduUlos,
   KaikkiTarinat,
   OmatTarinatSivu,
+  JasenetIDSivu,
 };
