@@ -8,6 +8,7 @@ const multer = require('../middleware/multer');
 
 router.post(
   '/matkakohde',
+  requireAuth,
   multer.single('kuva'),
   matkakohteetControllers.uusiMatkakohde
 );
@@ -20,8 +21,17 @@ router.get(
   matkakohteetControllers.matkakohteetID
 );
 
-router.put('/matkakohteet', matkakohteetControllers.muokkaaMatkakohdetta);
+router.put(
+  '/muokkaa',
+  requireAuth,
+  multer.single('kuva'),
+  matkakohteetControllers.muokkaaMatkakohdetta
+);
 
-router.delete('/matkakohde/:id', matkakohteetControllers.poistaMatkakohde);
+router.delete(
+  '/matkakohde/:id',
+  requireAuth,
+  matkakohteetControllers.poistaMatkakohde
+);
 
 module.exports = router;

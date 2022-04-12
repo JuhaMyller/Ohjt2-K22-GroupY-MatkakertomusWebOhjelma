@@ -1,26 +1,44 @@
-import axios from '../../../api/Axios';
+import useAxiosPrivate from '../../../hooks/useAxiosPrivate';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import Button from '../../ResuableComponents/Button';
 import Input from '../../ResuableComponents/Input';
+import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+import RequestTime from '../../../utils/getRequestTime';
+import * as actions from '../../../Redux/Actions/matkakohdeActions';
+import Loading from '../Loading/Loading';
 
 const MuokkaaMatkakohdetta = () => {
-  const [matkakohteet, setMatkakohteet] = useState([]);
+  const matkakohteet = useSelector((state) => state.matkakohteet.Matkakohteet);
   const [edit, setEdit] = useState(false);
 
-  const [editId, seteditID] = useState([]);
-  const [kuvat, setKuvat] = useState([]);
+  const [editId, seteditID] = useState('');
+  const [kuva, setKuva] = useState([]);
   const [matkakohde, setMatkakohde] = useState('');
   const [maa, setMaa] = useState('');
   const [paikkakunta, setPaikkakunta] = useState('');
   const [matkanKuvaus, setKuvaus] = useState('');
+
+  const axios = useAxiosPrivate();
+  const dispatch = useDispatch();
+  const fetching = useSelector((state) => state.matkakohteet.fetchingRequest);
+
+  const resetForm = () => {
+    seteditID('');
+    setKuva([]);
+    setMatkakohde('');
+    setMaa('');
+    setPaikkakunta('');
+    setKuvaus('');
+  };
 
   const handleButtonClick = (id) => {
     setEdit(true);
 
     const kohde = matkakohteet.find((kohde) => kohde._id === id);
     seteditID(id);
-    setKuvat([kohde.kuvat]);
+    setKuva(kohde.kuva);
     setMatkakohde(kohde.kohdenimi);
     setMaa(kohde.maa);
     setPaikkakunta(kohde.paikkakunta);
@@ -28,15 +46,43 @@ const MuokkaaMatkakohdetta = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await axios.put('api/matkakohde/matkakohteet', {
-      kohdenimi: matkakohde,
-      maa: maa,
-      paikkakunta: paikkakunta,
-      id: editId,
-      kuvateksti: matkanKuvaus,
-    });
-    console.log(response);
-    setEdit(false);
+    dispatch({ type: actions.REQUEST_BEGIN });
+    const requestTime = new RequestTime(new Date());
+
+    try {
+      const formData = new FormData();
+      formData.append('kohdenimi', matkakohde);
+      formData.append('id', editId);
+      formData.append('maa', maa);
+      formData.append('paikkakunta', paikkakunta);
+      formData.append('kuvateksti', matkanKuvaus);
+      formData.append('kuva', kuva[0]);
+
+      const response = await axios.put('/api/matkakohde/muokkaa', formData);
+
+      requestTime.onFinish(500, async () => {
+        if (response.status === 200) {
+          dispatch({
+            type: actions.PUT_MATKAKOHTEET_SUCCESS,
+            payload: response.data.matkakohde,
+          });
+          setEdit(false);
+          resetForm();
+          toast.success('Matkakohde muokattu', {
+            position: 'top-center',
+            duration: 1500,
+          });
+        }
+      });
+    } catch (error) {
+      requestTime.onFinish(500, async () => {
+        dispatch({ type: actions.PUT_MATKAKOHTEET_ERROR });
+        toast.error(error.response.data.message, {
+          position: 'top-center',
+          duration: 1500,
+        });
+      });
+    }
   };
 
   return (
@@ -54,7 +100,7 @@ const MuokkaaMatkakohdetta = () => {
           </div>
           {matkakohteet.map((kohde) => {
             return (
-              <div key={kohde.id} className="MuokkaaMatkaCard">
+              <div key={kohde._id} className="MuokkaaMatkaCard">
                 <div className="grid-layout">
                   <h3>{kohde.kohdenimi}</h3>
                   <div className="displayNone">
@@ -66,6 +112,7 @@ const MuokkaaMatkakohdetta = () => {
                 </div>
                 <div className="MuokkaaMatkaBtn">
                   <Button
+                    disabled={fetching}
                     type="submit"
                     onClick={() => handleButtonClick(kohde._id)}
                     styles={{ background: '#3d5a80', color: 'white' }}
@@ -79,75 +126,82 @@ const MuokkaaMatkakohdetta = () => {
         </div>
       )}
 
-      {edit && (
-        <>
-          <Button
-            onClick={() => setEdit(false)}
-            styles={{ marginBottom: '10px', background: 'red', color: 'white' }}
-          >
-            Takaisin
-          </Button>
-          <form onSubmit={handleSubmit}>
-            <div className="input">
-              <Input
-                placeholder="Matkakohde"
-                value={matkakohde}
-                onChange={setMatkakohde}
-                id="matkannimiinput"
-              />
-            </div>
-            <div className="input-50-container">
-              <div className="input-50">
+      {edit &&
+        (fetching ? (
+          <Loading />
+        ) : (
+          <>
+            <Button
+              onClick={() => setEdit(false)}
+              styles={{
+                marginBottom: '10px',
+                background: 'red',
+                color: 'white',
+              }}
+            >
+              Takaisin
+            </Button>
+            <form onSubmit={handleSubmit}>
+              <div className="input">
                 <Input
-                  placeholder="Paikkakunta"
-                  value={paikkakunta}
-                  onChange={setPaikkakunta}
-                  id="paikkakuntainput"
+                  placeholder="Matkakohde"
+                  value={matkakohde}
+                  onChange={setMatkakohde}
+                  id="matkannimiinput"
                 />
               </div>
-              <div className="input-50">
-                <Input
-                  placeholder="Maa"
-                  value={maa}
-                  onChange={setMaa}
-                  id="maainput"
+              <div className="input-50-container">
+                <div className="input-50">
+                  <Input
+                    placeholder="Paikkakunta"
+                    value={paikkakunta}
+                    onChange={setPaikkakunta}
+                    id="paikkakuntainput"
+                  />
+                </div>
+                <div className="input-50">
+                  <Input
+                    placeholder="Maa"
+                    value={maa}
+                    onChange={setMaa}
+                    id="maainput"
+                  />
+                </div>
+              </div>
+              <div className="input">
+                <textarea
+                  placeholder="Matkakohteen kuvaus"
+                  value={matkanKuvaus}
+                  onChange={(e) => setKuvaus(e.target.value)}
+                  id="matkankuvausinput"
                 />
               </div>
-            </div>
-            <div className="input">
-              <textarea
-                placeholder="Matkakohteen kuvaus"
-                value={matkanKuvaus}
-                onChange={(e) => setKuvaus(e.target.value)}
-                id="matkankuvausinput"
-              />
-            </div>
-            <div className="bottom-input-container">
-              <label className="file-label">
-                <input
-                  type="file"
-                  onChange={(e) => setKuvat(e.target.files)}
-                  accept=".jpg, .jpeg, .png"
-                />
-                Lisää kuva
-              </label>
-              <h3>{kuvat[0]?.name}</h3>
-            </div>
-            <div className="tallennaBtnContainer">
-              <Button
-                type="submit"
-                styles={{
-                  width: '100%',
-                  background: '#3d5a80',
-                  color: 'white',
-                }}
-              >
-                Muokkaa
-              </Button>
-            </div>
-          </form>
-        </>
-      )}
+              <div className="bottom-input-container">
+                <label className="file-label">
+                  <input
+                    type="file"
+                    onChange={(e) => setKuva(e.target.files)}
+                    accept=".jpg, .jpeg, .png"
+                  />
+                  Lisää kuva
+                </label>
+                <h3>{kuva[0]?.name}</h3>
+              </div>
+              <div className="tallennaBtnContainer">
+                <Button
+                  type="submit"
+                  styles={{
+                    width: '100%',
+                    background: '#3d5a80',
+                    color: 'white',
+                  }}
+                >
+                  Muokkaa
+                </Button>
+              </div>
+            </form>
+          </>
+        ))}
     </Wrapper>
   );
 };

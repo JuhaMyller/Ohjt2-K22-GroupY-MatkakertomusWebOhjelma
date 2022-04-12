@@ -24,7 +24,10 @@ const KaikkiTarinat = () => {
 
   return (
     <>
-      <div className="divlista">
+      <div className='otsikko'>
+        <h1>Porukan Tarinat</h1>
+      </div>
+      <div className='divlista'>
         {tarinat.map((tarina, index) => (
           <TarinaKortti
             numero={index}

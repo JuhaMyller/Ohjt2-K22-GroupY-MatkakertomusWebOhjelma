@@ -7,6 +7,7 @@ const { upload, deleteFile } = require('../utils/AWS_s3');
 module.exports.uusiMatkakohde = async (req, res, next) => {
   try {
     const { kohdenimi, maa, paikkakunta, kuvateksti } = req.body;
+
     if (!req.file) ErrorHandler(400, 'Kuvatiedosto puuttuu');
 
     const haveParams = reqParams(
@@ -73,7 +74,40 @@ module.exports.muokkaaMatkakohdetta = async (req, res, next) => {
   try {
     const { kohdenimi, maa, paikkakunta, id, kuvateksti } = req.body;
 
-    res.status(200).json({});
+    const haveParams = reqParams(
+      {
+        kohdenimi,
+        maa,
+        paikkakunta,
+        id,
+        kuvateksti,
+      },
+      req.body
+    );
+    if (!haveParams) ErrorHandler(400, 'Params puuttuu');
+
+    const matkakohde = await Matkakohde.findById(id);
+
+    if (matkakohde.kohdenimi !== kohdenimi) {
+      const exists = await Matkakohde.exists({ kohdenimi });
+      if (exists) ErrorHandler(400, 'Tämä matkakohde on jo olemassa');
+    }
+
+    if (req.file) {
+      await deleteFile([{ Key: matkakohde.kuva }]);
+      await upload(req.file);
+    }
+
+    const kuva = req.file ? req.file['filename'] : matkakohde.kuva;
+    matkakohde.kohdenimi = kohdenimi;
+    matkakohde.maa = maa;
+    matkakohde.paikkakunta = paikkakunta;
+    matkakohde.kuvateksti = kuvateksti;
+    matkakohde.kuva = kuva;
+
+    const paivitetty = await matkakohde.save();
+
+    res.status(200).json({ message: 'OK', matkakohde: paivitetty });
   } catch (error) {
     next(error);
   }

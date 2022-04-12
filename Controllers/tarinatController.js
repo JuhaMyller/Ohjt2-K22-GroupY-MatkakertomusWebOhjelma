@@ -70,6 +70,7 @@ module.exports.tarinaID = async (req, res, next) => {
     const tarina = await Tarina.findById(id)
       .select('otsikko teksti createdAt kuva lukukertoja ')
       .populate('matkaaja', 'etunimi sukunimi kuva')
+      .populate('matkakohde', 'kohdenimi')
       .exec();
 
     if (!tarina) return ErrorHandler(400, 'Virheellinen id');
