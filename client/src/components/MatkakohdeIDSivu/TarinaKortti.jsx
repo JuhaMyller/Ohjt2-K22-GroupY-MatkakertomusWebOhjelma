@@ -4,6 +4,7 @@ import './TarinaKortti.css';
 import { AiOutlineRead } from 'react-icons/ai';
 import { MdDateRange } from 'react-icons/md';
 import { AiOutlineUser } from 'react-icons/ai';
+import capitalizeString from '../../utils/capitalizeString';
 
 const TarinaKortti = ({
   matkaaja,
@@ -46,13 +47,13 @@ const TarinaKortti = ({
       <div style={{ backgroundColor: color() }} className='korttipohja'>
         <div className='divotsikko'>
           <h1>
-            {otsikko.slice(0, 25)}
+            {capitalizeString(otsikko.slice(0, 25))}
             {otsikko.length > 20 && ' ...'}
           </h1>
         </div>
         <div className='divteksti'>
           <p>
-            {teksti.slice(0, 150)}
+            {capitalizeString(teksti.slice(0, 150))}
             {teksti.length > 150 && ' ...'}
           </p>
         </div>

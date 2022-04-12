@@ -21,7 +21,10 @@ const OmatTarinatSivu = () => {
   }, []);
   return (
     <>
-      <div className="divlista">
+      <div className='otsikko'>
+        <h1>Omat Tarinat</h1>
+      </div>
+      <div className='divlista'>
         {omatTarinat.map((tarina, index) => (
           <TarinaKortti
             numero={index}

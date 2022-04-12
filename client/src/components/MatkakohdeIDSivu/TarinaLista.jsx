@@ -5,6 +5,7 @@ import axios from '../../api/Axios';
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 import formatedDate from '../../utils/formatedDate';
 import serverUrl from '../../utils/serverUrl';
+import capitalizeString from '../../utils/capitalizeString';
 
 const TarinaLista = ({ id }) => {
   const [tarinat, setTarinat] = useState([]);
@@ -46,10 +47,10 @@ const TarinaLista = ({ id }) => {
     <>
       {loadingMK ? null : (
         <div className='divmatkakohde'>
-          <h1>{matkakohde.kohdenimi}</h1>
+          <h1>{capitalizeString(matkakohde.kohdenimi)}</h1>
           <h2>
-            {matkakohde.paikkakunta}
-            {`, ${matkakohde.maa}`}
+            {capitalizeString(matkakohde.paikkakunta)}
+            {`, ${capitalizeString(matkakohde.maa)}`}
           </h2>
           <div className='divkuva'>
             <img
