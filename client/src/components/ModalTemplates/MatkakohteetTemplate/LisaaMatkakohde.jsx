@@ -7,6 +7,8 @@ import Input from '../../ResuableComponents/Input';
 import { toast } from 'react-toastify';
 import { postMatkakohde } from '../../../Redux/Actions/matkakohdeActions';
 import { useDispatch, useSelector } from 'react-redux';
+import Loading from '../Loading/Loading';
+import RequestTime from '../../../utils/getRequestTime';
 
 const LisaaMatkakohde = () => {
   const [kuvat, setKuvat] = useState([]);
@@ -34,65 +36,74 @@ const LisaaMatkakohde = () => {
         { kuvat, matkakohde, maa, paikkakunta, matkanKuvaus },
         toast,
         axios,
-        resetForm
+        resetForm,
+        RequestTime
       )
     );
   };
 
   return (
     <Wrapper>
-      <form onSubmit={handleSubmit}>
-        <div className="input">
-          <Input
-            placeholder="Matkakohde"
-            value={matkakohde}
-            onChange={setMatkakohde}
-            id="matkannimiinput"
-          />
-        </div>
-        <div className="input-50-container">
-          <div className="input-50">
+      {fetching ? (
+        <Loading />
+      ) : (
+        <form onSubmit={handleSubmit}>
+          <div className="input">
             <Input
-              placeholder="Paikkakunta"
-              value={paikkakunta}
-              onChange={setPaikkakunta}
-              id="paikkakuntainput"
+              placeholder="Matkakohde"
+              value={matkakohde}
+              onChange={setMatkakohde}
+              id="matkannimiinput"
             />
           </div>
-          <div className="input-50">
-            <Input
-              placeholder="Maa"
-              value={maa}
-              onChange={setMaa}
-              id="maainput"
+          <div className="input-50-container">
+            <div className="input-50">
+              <Input
+                placeholder="Paikkakunta"
+                value={paikkakunta}
+                onChange={setPaikkakunta}
+                id="paikkakuntainput"
+              />
+            </div>
+            <div className="input-50">
+              <Input
+                placeholder="Maa"
+                value={maa}
+                onChange={setMaa}
+                id="maainput"
+              />
+            </div>
+          </div>
+          <div className="input">
+            <textarea
+              placeholder="Matkakohteen kuvaus"
+              value={matkanKuvaus}
+              onChange={(e) => setKuvaus(e.target.value)}
+              id="matkankuvausinput"
             />
           </div>
-        </div>
-        <div className="input">
-          <textarea
-            placeholder="Matkakohteen kuvaus"
-            value={matkanKuvaus}
-            onChange={(e) => setKuvaus(e.target.value)}
-            id="matkankuvausinput"
-          />
-        </div>
-        <div className="bottom-input-container">
-          <label className="file-label">
-            <input
-              type="file"
-              onChange={(e) => setKuvat(e.target.files)}
-              accept=".jpg, .jpeg, .png"
-            />
-            Lisää kuva
-          </label>
-          <h3>{kuvat[0]?.name}</h3>
-        </div>
-        <div className="tallennaBtnContainer">
-          <Button disabled={fetching} type="submit" styles={{ width: '100%' }}>
-            Lisää
-          </Button>
-        </div>
-      </form>
+          <div className="bottom-input-container">
+            <label className="file-label">
+              <input
+                type="file"
+                onChange={(e) => setKuvat(e.target.files)}
+                accept=".jpg, .jpeg, .png"
+              />
+              Lisää kuva
+            </label>
+            <h3>{kuvat[0]?.name}</h3>
+          </div>
+          <div className="tallennaBtnContainer">
+            <Button
+              disabled={fetching}
+              type="submit"
+              styles={{ width: '100%' }}
+            >
+              Lisää
+            </Button>
+          </div>
+        </form>
+      )}
     </Wrapper>
   );
 };

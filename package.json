@@ -18,6 +18,7 @@
   },
   "scripts": {
     "start": "npm run build && node server.js",
+    "server": "nodemon server.js",
     "build": "npm --prefix ./client run build",
     "dev": "node startScript.js",
     "install": "npm install npm --prefix ./client install"
