@@ -122,3 +122,24 @@ module.exports.omatTarinat = async (req, res, next) => {
     next(error);
   }
 };
+
+module.exports.kayttajanTarinat = async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    const tarinat = await Tarina.find({
+      matkaaja: id,
+      yksityinen: false,
+    })
+      .populate('matkaaja', 'nimimerkki')
+      .select('otsikko teksti alkupvm loppupvm createdAt lukukertoja')
+      .exec();
+
+    const suosituimmat = tarinat.sort(
+      (a, b) => b.lukukertoja.length - a.lukukertoja.length
+    );
+
+    res.status(200).json({ tarinat: suosituimmat.slice(0, 5) });
+  } catch (error) {
+    next(error);
+  }
+};

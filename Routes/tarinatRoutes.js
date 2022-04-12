@@ -20,6 +20,8 @@ router.get(
 );
 //palauttaa omat tarinat käyttäjälle
 router.get('/omattarinat', tarinatController.omatTarinat);
+//palauttaa tarinat tietylle käyttäjälle
+router.get('/kayttajantarinat/:id', tarinatController.kayttajanTarinat);
 
 // <---->
 
