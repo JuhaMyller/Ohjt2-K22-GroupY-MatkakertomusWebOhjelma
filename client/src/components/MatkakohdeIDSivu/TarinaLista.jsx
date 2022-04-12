@@ -1,7 +1,7 @@
 import './TarinaKortti.css';
 import React, { useEffect, useState } from 'react';
 import TarinaKortti from './TarinaKortti';
-import axios from '../../api/Axios';
+
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 import formatedDate from '../../utils/formatedDate';
 import serverUrl from '../../utils/serverUrl';
