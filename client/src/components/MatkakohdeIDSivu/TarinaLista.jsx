@@ -1,7 +1,7 @@
 import './TarinaKortti.css';
 import React, { useEffect, useState } from 'react';
 import TarinaKortti from './TarinaKortti';
-import axios from '../../api/Axios';
+
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 import formatedDate from '../../utils/formatedDate';
 import serverUrl from '../../utils/serverUrl';
@@ -54,9 +54,13 @@ const TarinaLista = ({ id }) => {
           </h2>
           <div className='divkuva'>
             <img
+              className='kuva'
               src={`${serverUrl}/img/${matkakohde.kuva}`}
               alt={`Matkakohteen ${matkakohde.kohdenimi} kuva`}
             />
+            <div className='kuvateksti'>
+              <h3>{matkakohde.kuvateksti}</h3>
+            </div>
           </div>
         </div>
       )}
