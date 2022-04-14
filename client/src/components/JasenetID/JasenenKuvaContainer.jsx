@@ -7,12 +7,12 @@ import { useSelector } from 'react-redux';
 
 import ProfiiliSubmenu from './ProfiiliSubmenu';
 
-const JasenenKuvaContainer = ({ tarinoita, createdAt, nimi, kuva }) => {
+const JasenenKuvaContainer = ({ tarinoita, createdAt, nimi, kuva, id }) => {
   const [openSubmenu, setOpenSubmenu] = useState(false);
   const omaProfiili = useSelector((state) => state.auth.kayttaja.id);
   return (
     <Wrapper>
-      {omaProfiili && (
+      {omaProfiili === id && (
         <div className="reactIcons">
           <div className="icon">
             <BsThreeDotsVertical

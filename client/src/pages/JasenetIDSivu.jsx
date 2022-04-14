@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import useAxiosPrivate from '../hooks/useAxiosPrivate';
-import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useParams, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 import SERVER_URL from '../utils/serverUrl';
 
@@ -12,7 +12,6 @@ import JasenenTiedotContainer from '../components/JasenetID/JasenenTiedotContain
 import JasenenTarinatContainer from '../components/JasenetID/JasenenTarinatContainer';
 
 const JasenetIDSivu = () => {
-  const { id } = useParams();
   const [loading, setLoading] = useState(false);
   const [profiili, setProfiili] = useState({});
 
@@ -20,9 +19,9 @@ const JasenetIDSivu = () => {
     ? `${SERVER_URL}/img/${profiili.kuva}`
     : noProfile;
 
-  const omaProfiili = useSelector((state) => state.auth.kayttaja);
-
   const axios = useAxiosPrivate();
+  const { id } = useParams();
+  const navigate = useNavigate();
 
   const getUser = async () => {
     setLoading(true);
@@ -32,13 +31,18 @@ const JasenetIDSivu = () => {
         setProfiili({ ...response.data.profiili });
         setLoading(false);
       }
-    } catch (error) {}
+    } catch (error) {
+      navigate('/jasenet', { replace: true });
+      toast.error('Käyttäjää ei löytynyt', {
+        position: 'top-center',
+        duration: 1500,
+      });
+    }
   };
 
   useEffect(() => {
-    if (omaProfiili.id !== id) return getUser();
-    setProfiili({ ...omaProfiili });
-  }, [omaProfiili]);
+    getUser();
+  }, [id]);
 
   return (
     <Wrapper>
@@ -47,6 +51,7 @@ const JasenetIDSivu = () => {
       ) : (
         <div className="leftWrapper">
           <JasenenKuvaContainer
+            id={id}
             nimi={`${profiili.etunimi} ${profiili.sukunimi}`}
             createdAt={profiili.createdAt || '2022-01-01'}
             tarinoita={profiili.tarinoita}
