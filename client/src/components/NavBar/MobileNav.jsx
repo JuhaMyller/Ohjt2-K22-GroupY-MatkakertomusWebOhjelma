@@ -15,30 +15,35 @@ const MobileNav = ({ closeNav, navRef, display }) => {
       }}
     >
       <div ref={navRef} className={`mobileNavContainer animateIN`}>
-        <div onClick={closeNav} className="helper"></div>
-        <div className="links">
+        <div onClick={closeNav} className='helper'></div>
+        <div className='links'>
           <ul>
-            <div className="user">
-              <img src={profileImg} alt="profiilikuva" />
+            <div className='user'>
+              <img src={profileImg} alt='profiilikuva' />
               <h2>Marek</h2>
             </div>
             <li>
-              <Link to="/">
+              <Link to='/'>
                 <button onClick={closeNav}>Etusivu</button>
               </Link>
             </li>
             <li>
-              <Link to="matkakohteet">
+              <Link to='matkakohteet'>
                 <button onClick={closeNav}>Matkakohteet</button>
               </Link>
             </li>
             <li>
-              <Link to="tarinat">
+              <Link to='tarinat'>
                 <button onClick={() => closeNav(false)}>Porukan Tarinat</button>
               </Link>
             </li>
             <li>
-              <Link to="omattarinat">
+              <Link to='lisaatarina'>
+                <button onClick={closeNav}>Lisää tarina</button>
+              </Link>
+            </li>
+            <li>
+              <Link to='omattarinat'>
                 <button onClick={closeNav}>Omat tarinat</button>
               </Link>
             </li>
@@ -48,13 +53,13 @@ const MobileNav = ({ closeNav, navRef, display }) => {
               </Link>
             </li>
             <li>
-              <Link to="jasenet">
+              <Link to='jasenet'>
                 <button onClick={closeNav}>Jäsenet</button>
               </Link>
             </li>
           </ul>
-          <button onClick={closeNav} className="logout">
-            <Link to="kirjauduulos">Kirjaudu ulos</Link>
+          <button onClick={closeNav} className='logout'>
+            <Link to='kirjauduulos'>Kirjaudu ulos</Link>
           </button>
         </div>
       </div>

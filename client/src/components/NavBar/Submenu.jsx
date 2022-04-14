@@ -13,16 +13,19 @@ const Submenu = ({ setShow, submenu, show }) => {
     >
       <ul>
         <li>
-          <Link to="omattarinat">Omat matkat</Link>
+          <Link to='lisaatarina'>Lisää tarina</Link>
+        </li>
+        <li>
+          <Link to='omattarinat'>Omat matkat</Link>
         </li>
         <li>
           <Link to={`jasenet/${userID}`}>Omat tiedot</Link>
         </li>
         <li>
-          <Link to="jasenet">Jäsenet</Link>
+          <Link to='jasenet'>Jäsenet</Link>
         </li>
         <li>
-          <Link to="kirjauduulos">Kirjaudu ulos</Link>
+          <Link to='kirjauduulos'>Kirjaudu ulos</Link>
         </li>
       </ul>
     </div>
