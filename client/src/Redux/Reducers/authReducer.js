@@ -1,4 +1,5 @@
 import * as actions from '../Actions/authActions';
+import { LISAA_TARINA_KAYTTAJALLE } from '../Actions/tarinatActions';
 
 const initialState = {
   kayttaja: null,
@@ -51,6 +52,14 @@ export default function authRecucer(state = initialState, action) {
         ...state,
         kayttaja: { ...state.kayttaja, kuva: undefined },
       };
+    case actions.MUOKKAA_TIETOJA_ONNISTUNEESTI:
+      return {
+        ...state,
+        kayttaja: { ...state.kayttaja, ...action.payload },
+      };
+    case LISAA_TARINA_KAYTTAJALLE:
+      const tarinoita = state.kayttaja.tarinoita + 1;
+      return { ...state, kayttaja: { ...state.kayttaja, tarinoita } };
   }
 
   return state;

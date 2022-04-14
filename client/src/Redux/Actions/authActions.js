@@ -9,6 +9,7 @@ export const REKISTEROIDY_ALOITUS = 'RA';
 export const REKISTEROIDY_LOPETUS = 'RL';
 export const MUOKKAA_KUVAA_ONNISTUI = 'MKO';
 export const POISTA_KUVA_ONNISTUNEESTI = 'PKO';
+export const MUOKKAA_TIETOJA_ONNISTUNEESTI = 'MTO';
 
 export const KirjauduRefreshToken = () => {
   return async (dispatch) => {

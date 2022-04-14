@@ -4,6 +4,7 @@ export const TARINAT_REQUEST_BEGIN = 'TARINAT_REQUEST_BEGIN';
 export const POST_TARINA_SUCCESS = 'POST_TARINA_SUCCESS';
 export const POST_TARINA_ERROR = 'POST_TARINA_ERROR';
 export const GET_TARINAT_SUCCESS = 'GET_TARINAT_SUCCESS';
+export const LISAA_TARINA_KAYTTAJALLE = 'LTK';
 
 export function postTarina(payload, axios, toast, navigate) {
   const {
@@ -39,6 +40,7 @@ export function postTarina(payload, axios, toast, navigate) {
             type: POST_TARINA_SUCCESS,
             payload: response.data.savedTarina,
           });
+          dispatch({ type: LISAA_TARINA_KAYTTAJALLE });
           toast.success('Tarina lisätty', {
             position: 'top-center',
             duration: 1500,
