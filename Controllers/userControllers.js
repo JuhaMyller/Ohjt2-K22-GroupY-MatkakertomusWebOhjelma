@@ -127,7 +127,9 @@ module.exports.login = async (req, res, next) => {
       secure: true,
     });
 
-    const tarinoita = await Tarina.countDocuments({ id: user._id }).exec();
+    const tarinoita = await Tarina.countDocuments({
+      matkaaja: user.id,
+    }).exec();
 
     res.status(200).json({
       message: 'OK',
@@ -442,7 +444,9 @@ module.exports.refreshToken = async (req, res, next) => {
           process.env.ACCESS_TOKEN_KEY,
           { expiresIn: '15m' }
         );
-        const tarinoita = await Tarina.countDocuments({ id: user._id }).exec();
+        const tarinoita = await Tarina.countDocuments({
+          matkaaja: user.id,
+        }).exec();
         res.status(200).json({
           message: 'OK',
           user: {
