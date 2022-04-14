@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useModalContext } from '../ResuableComponents/Modal/ModalContext';
-import MuokkaaProfiilia from '../ModalTemplates/MuokkaaProfiilia/MuokkaaProfiilia';
-import MuokkaaKuvaa from '../ModalTemplates/MuokkaaProfiilia/MuokkaaKuvaa';
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 import { POISTA_KUVA_ONNISTUNEESTI } from '../../Redux/Actions/authActions';
+
+import MuokkaaProfiilia from '../ModalTemplates/MuokkaaProfiilia/MuokkaaProfiilia';
+import MuokkaaKuvaa from '../ModalTemplates/MuokkaaProfiilia/MuokkaaKuvaa';
+import VaihdaSalasana from '../ModalTemplates/MuokkaaProfiilia/VaihdaSalasana';
 
 const ProfiiliSubmenu = ({ open, setOpen }) => {
   const [fetching, setFetching] = useState(false);
@@ -43,12 +45,13 @@ const ProfiiliSubmenu = ({ open, setOpen }) => {
   return (
     <Wrapper
       onMouseLeave={() => setOpen(false)}
-      style={{ height: open ? '123px' : '0px' }}
+      style={{ height: open ? '165px' : '0px' }}
     >
       <p onClick={(e) => handleClick(e, <MuokkaaProfiilia />)}>
         Muokkaa profiilia
       </p>
       <p onClick={(e) => handleClick(e, <MuokkaaKuvaa />)}>Vaihda kuva</p>
+      <p onClick={(e) => handleClick(e, <VaihdaSalasana />)}>Vaihda salasana</p>
       <p onClick={handlePoistaProfiilikuva}>Poista profiilikuva</p>
     </Wrapper>
   );
