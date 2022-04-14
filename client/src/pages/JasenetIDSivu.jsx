@@ -5,6 +5,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import SERVER_URL from '../utils/serverUrl';
+import { useSelector } from 'react-redux';
 
 import noProfile from '../assets/lataus.png';
 import JasenenKuvaContainer from '../components/JasenetID/JasenenKuvaContainer';
@@ -14,6 +15,8 @@ import JasenenTarinatContainer from '../components/JasenetID/JasenenTarinatConta
 const JasenetIDSivu = () => {
   const [loading, setLoading] = useState(false);
   const [profiili, setProfiili] = useState({});
+
+  const omaProfiili = useSelector((state) => state.auth.kayttaja);
 
   const profiilikuva = profiili.kuva
     ? `${SERVER_URL}/img/${profiili.kuva}`
@@ -41,8 +44,9 @@ const JasenetIDSivu = () => {
   };
 
   useEffect(() => {
+    if (id === omaProfiili.id) return setProfiili(omaProfiili);
     getUser();
-  }, [id]);
+  }, [id, omaProfiili]);
 
   return (
     <Wrapper>
