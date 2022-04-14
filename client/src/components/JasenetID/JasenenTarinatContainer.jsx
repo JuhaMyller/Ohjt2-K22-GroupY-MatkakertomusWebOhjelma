@@ -45,7 +45,6 @@ const JasenenTarinatContainer = () => {
           <h2>Käyttäjälle ei ole vielä tarinoita</h2>
         ) : (
           tarinat.map((tarina, index) => {
-            console.log(tarina.lukukertoja.length);
             return (
               <div key={tarina._id} className="tarina">
                 <TarinaKortti
