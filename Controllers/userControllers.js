@@ -127,6 +127,8 @@ module.exports.login = async (req, res, next) => {
       secure: true,
     });
 
+    const tarinoita = await Tarina.countDocuments({ id: user._id }).exec();
+
     res.status(200).json({
       message: 'OK',
       user: {
@@ -138,6 +140,7 @@ module.exports.login = async (req, res, next) => {
         kuva: user.kuva,
         esittely: user.esittely,
         paikkakunta: user.paikkakunta,
+        tarinoita,
       },
       accessToken,
     });
@@ -439,7 +442,7 @@ module.exports.refreshToken = async (req, res, next) => {
           process.env.ACCESS_TOKEN_KEY,
           { expiresIn: '15m' }
         );
-
+        const tarinoita = await Tarina.countDocuments({ id: user._id }).exec();
         res.status(200).json({
           message: 'OK',
           user: {
@@ -451,6 +454,7 @@ module.exports.refreshToken = async (req, res, next) => {
             kuva: user.kuva,
             esittely: user.esittely,
             paikkakunta: user.paikkakunta,
+            tarinoita,
           },
           accessToken,
         });

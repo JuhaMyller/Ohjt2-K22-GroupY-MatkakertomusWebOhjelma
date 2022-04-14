@@ -38,7 +38,7 @@ router.put(
   userController.resetPasswordToken
 );
 
-router.post(
+router.put(
   '/setprofilepic',
   requireAuth,
   multer.single('kuva'),
@@ -53,6 +53,6 @@ router.delete(
 router.post('/logout', requireAuth, userController.logout);
 router.get('/refreshAccessToken', userController.refreshToken);
 
-router.get('/profiili/:id', userController.profiiliIDlla);
+router.get('/profiili/:id', requireAuth, userController.profiiliIDlla);
 
 module.exports = router;
