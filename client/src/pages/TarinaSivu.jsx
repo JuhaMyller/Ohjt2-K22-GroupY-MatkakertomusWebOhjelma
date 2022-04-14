@@ -5,7 +5,7 @@ import { MdDateRange } from 'react-icons/md';
 import ImageContainer from '../components/ResuableComponents/ImageContainer';
 import img from '../assets/TarinaTestiKuva.png';
 import useAxiosPrivate from '../hooks/useAxiosPrivate';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import SERVER_URL from '../utils/serverUrl';
 import formatDate from '../utils/formatedDate';
 import Muokkaatarinaa from '../components/ModalTemplates/MuokkaatarinaaTemplate/MuokkaaTarinaa';
@@ -33,8 +33,6 @@ const TarinaSivu = () => {
   useEffect(() => {
     haeTarina();
   }, []);
-
-  console.log(tarina);
 
   return (
     <Wrapper>
@@ -74,7 +72,10 @@ const TarinaSivu = () => {
             />
           </div>
           <div className='kayttaja'>
-            <h3>{`${tarina?.matkaaja?.etunimi} ${tarina?.matkaaja?.sukunimi}`}</h3>
+            <Link to={'/jasenet/' + tarina._id}>
+              {' '}
+              <h3>{`${tarina?.matkaaja?.etunimi} ${tarina?.matkaaja?.sukunimi}`}</h3>
+            </Link>
           </div>
           <div className='tiedot'>
             <MdDateRange className='paivaIcon' />

@@ -4,34 +4,43 @@ import Button from '../../ResuableComponents/Button';
 import Input from '../../ResuableComponents/Input';
 import useAxiosPrivate from '../../../hooks/useAxiosPrivate';
 import ImageMuokkaus from '../../TarinaSivu/ImageMuokkaus';
+import { useParams } from 'react-router-dom';
 
 const MuokkaaTarinaa = (props) => {
-  const [matkakohde, setMatkakohde] = useState(
+  const [matkakohdeNimi, setMatkakohdeNimi] = useState(
     props.tarina.matkakohde.kohdenimi
   );
   const [edit, setEdit] = useState(false);
-  const [editId, seteditID] = useState([]);
   const [kuvat, setKuvat] = useState([]);
   const [otsikko, setOtsikko] = useState(props.tarina.otsikko);
   const [teksti, setTeksti] = useState(props.tarina.teksti);
-
+  const [kuvatOb, setKuvatOb] = useState([]);
   const axios = useAxiosPrivate();
+  const { id } = useParams();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const formData = new FormData();
+    formData.append('otsikko', otsikko);
+    formData.append('teksti', teksti);
+    formData.append('kohdenimi', matkakohdeNimi);
+    kuvat.map((kuva) => formData.append('kuva', kuva));
+    console.log(formData);
+    const response = await axios.put('api/tarina/tarina/' + id, formData);
+
     setEdit(false);
   };
 
   return (
     <Wrapper style={edit ? { margin: '10px' } : { padding: '20px' }}>
       <>
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className='input-50-container'>
             <div className='input'>
               <Input
                 placeholder='Matkakohde'
-                value={matkakohde}
-                onChange={setMatkakohde}
+                value={matkakohdeNimi}
+                onChange={setMatkakohdeNimi}
                 id='tarinaMatkakohdeInput'
               />
             </div>
@@ -55,6 +64,8 @@ const MuokkaaTarinaa = (props) => {
           </div>
           <div className='kuva-container'>
             <ImageMuokkaus
+              kuvatOb={kuvatOb}
+              setKuvatOb={setKuvatOb}
               imgUrls={props.imgUrls}
               setImgUrls={props.setImgUrls}
             />

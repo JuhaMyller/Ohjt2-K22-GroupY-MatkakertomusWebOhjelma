@@ -3,10 +3,11 @@ import styled from 'styled-components';
 import ImageContainer from '../ResuableComponents/ImageContainer';
 
 const ImageMuokkaus = (props) => {
+  const { kuvatOb, setKuvatOb } = props;
   const [imgUrls, setImgUrls] = useState(props.imgUrls);
 
   const onImgChange = (e) => {
-    setImgUrls((curr) => [...curr, ...e.target.files]);
+    setKuvatOb((curr) => [...curr, ...e.target.files]);
   };
 
   const deleteImg = (index) => {
@@ -16,6 +17,12 @@ const ImageMuokkaus = (props) => {
       return newArr;
     });
   };
+
+  useEffect(() => {
+    const newImageURLs = [...props.imgUrls];
+    kuvatOb.forEach((image) => newImageURLs.push(URL.createObjectURL(image)));
+    setImgUrls(newImageURLs);
+  }, [kuvatOb]);
 
   //poistaminen 2 arrayta, toisessa server img URL, toisessa object URL.
   //Kun käyttäjä poistaa niin katsotaan sisältääkö poistettava keyword blop.
