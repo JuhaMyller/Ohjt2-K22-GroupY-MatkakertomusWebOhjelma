@@ -487,7 +487,7 @@ module.exports.profiiliIDlla = async (req, res, next) => {
       });
     }
 
-    const tarinoita = await Tarina.countDocuments({ id: user._id }).exec();
+    const tarinoita = await Tarina.countDocuments({ matkaaja: user.id }).exec();
 
     res.status(200).json({
       message: 'OK',
