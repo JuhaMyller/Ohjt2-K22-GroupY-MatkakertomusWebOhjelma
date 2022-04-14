@@ -93,6 +93,10 @@
 .divkuva:hover .kuvateksti {
   opacity: 0;
 }
+.kuva {
+  object-fit: cover;
+  object-position: center;
+}
 .divkuva:hover .kuva {
   transition: all 0.6s ease-out;
   opacity: 1;
