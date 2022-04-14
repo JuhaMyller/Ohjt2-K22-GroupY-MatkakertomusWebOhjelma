@@ -1,12 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { FaCalendarAlt } from 'react-icons/fa';
-import { BsFillChatRightQuoteFill } from 'react-icons/bs';
+import { BsFillChatRightQuoteFill, BsThreeDotsVertical } from 'react-icons/bs';
 import formatDate from '../../utils/formatedDate';
+import { useSelector } from 'react-redux';
+
+import ProfiiliSubmenu from './ProfiiliSubmenu';
 
 const JasenenKuvaContainer = ({ tarinoita, createdAt, nimi, kuva }) => {
+  const [openSubmenu, setOpenSubmenu] = useState(false);
+  const omaProfiili = useSelector((state) => state.auth.kayttaja.id);
   return (
     <Wrapper>
+      {omaProfiili && (
+        <div className="reactIcons">
+          <div className="icon">
+            <BsThreeDotsVertical
+              onClick={() => setOpenSubmenu((b) => !b)}
+              size={20}
+            />
+          </div>
+          <ProfiiliSubmenu setOpen={setOpenSubmenu} open={openSubmenu} />
+        </div>
+      )}
       <div className="imgContainer">
         <img src={kuva} alt="" />
       </div>
@@ -29,6 +45,15 @@ const JasenenKuvaContainer = ({ tarinoita, createdAt, nimi, kuva }) => {
 
 const Wrapper = styled.div`
   margin-top: 50px;
+  .reactIcons {
+    width: fit-content;
+    margin: auto 10px auto auto;
+    cursor: pointer;
+    position: relative;
+    .icon:hover {
+      color: #fa7171;
+    }
+  }
   .kuvatiedot {
     text-align: center;
     width: fit-content;
@@ -61,6 +86,16 @@ const Wrapper = styled.div`
       object-position: center;
       border-radius: 50%;
       margin: auto;
+    }
+  }
+  @media only screen and (max-width: 600px) {
+    .reactIcons {
+      margin: 10px auto;
+      cursor: pointer;
+      position: relative;
+      :hover {
+        color: #fa7171;
+      }
     }
   }
 `;
