@@ -41,6 +41,16 @@ export default function authRecucer(state = initialState, action) {
       return { ...state, fetch: true };
     case actions.REKISTEROIDY_LOPETUS:
       return { ...state, fetch: false };
+    case actions.MUOKKAA_KUVAA_ONNISTUI:
+      return {
+        ...state,
+        kayttaja: { ...state.kayttaja, kuva: action.payload },
+      };
+    case actions.POISTA_KUVA_ONNISTUNEESTI:
+      return {
+        ...state,
+        kayttaja: { ...state.kayttaja, kuva: undefined },
+      };
   }
 
   return state;
