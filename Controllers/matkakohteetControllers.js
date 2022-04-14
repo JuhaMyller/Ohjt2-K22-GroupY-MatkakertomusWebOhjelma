@@ -88,8 +88,10 @@ module.exports.muokkaaMatkakohdetta = async (req, res, next) => {
 
     const matkakohde = await Matkakohde.findById(id);
 
-    if (matkakohde.kohdenimi !== kohdenimi) {
-      const exists = await Matkakohde.exists({ kohdenimi });
+    if (matkakohde.kohdenimi !== kohdenimi.toLowerCase()) {
+      const exists = await Matkakohde.exists({
+        kohdenimi: kohdenimi.toLowerCase(),
+      });
       if (exists) ErrorHandler(400, 'Tämä matkakohde on jo olemassa');
     }
 
@@ -99,7 +101,7 @@ module.exports.muokkaaMatkakohdetta = async (req, res, next) => {
     }
 
     const kuva = req.file ? req.file['filename'] : matkakohde.kuva;
-    matkakohde.kohdenimi = kohdenimi;
+    matkakohde.kohdenimi = kohdenimi.toLowerCase();
     matkakohde.maa = maa;
     matkakohde.paikkakunta = paikkakunta;
     matkakohde.kuvateksti = kuvateksti;
