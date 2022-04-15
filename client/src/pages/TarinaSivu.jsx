@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { AiOutlineRead } from 'react-icons/ai';
 import { MdDateRange } from 'react-icons/md';
 import ImageContainer from '../components/ResuableComponents/ImageContainer';
-import img from '../assets/TarinaTestiKuva.png';
 import useAxiosPrivate from '../hooks/useAxiosPrivate';
 import { Link, useParams } from 'react-router-dom';
 import SERVER_URL from '../utils/serverUrl';
@@ -11,6 +10,7 @@ import formatDate from '../utils/formatedDate';
 import Muokkaatarinaa from '../components/ModalTemplates/MuokkaatarinaaTemplate/MuokkaaTarinaa';
 import Button from '../components/ResuableComponents/Button';
 import { useModalContext } from '../components/ResuableComponents/Modal/ModalContext';
+import noImg from '../assets/lataus.png';
 
 const TarinaSivu = () => {
   const [imgUrls, setImgUrls] = useState([]);
@@ -66,13 +66,13 @@ const TarinaSivu = () => {
               src={
                 tarina?.matkaaja?.kuva
                   ? `${SERVER_URL}/img/${tarina.matkaaja.kuva}`
-                  : img
+                  : noImg
               }
               alt="Kuva ei toimi"
             />
           </div>
           <div className="kayttaja">
-            <Link to={'/jasenet/' + tarina._id}>
+            <Link to={'/jasenet/' + tarina.matkaaja?._id}>
               <h3>{`${tarina?.matkaaja?.etunimi} ${tarina?.matkaaja?.sukunimi}`}</h3>
             </Link>
           </div>
