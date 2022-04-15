@@ -36,7 +36,7 @@ const TarinaSivu = () => {
 
   return (
     <Wrapper>
-      <div className='muokkaaTarinaaButton'>
+      <div className="muokkaaTarinaaButton">
         <Button
           onClick={() =>
             openModal({
@@ -55,37 +55,36 @@ const TarinaSivu = () => {
           Muokkaa
         </Button>
       </div>
-      <div className='wrapper'>
-        <div className='kuva_kayttajaWrap'>
-          <div className='kuva-container'>
+      <div className="wrapper">
+        <div className="kuva_kayttajaWrap">
+          <div className="kuva-container">
             <ImageContainer imgUrls={imgUrls || []} />
           </div>
-          <div className='kayttajaKuvaContainer'>
+          <div className="kayttajaKuvaContainer">
             <img
-              className='kayttajaKuva'
+              className="kayttajaKuva"
               src={
                 tarina?.matkaaja?.kuva
                   ? `${SERVER_URL}/img/${tarina.matkaaja.kuva}`
                   : img
               }
-              alt='Kuva ei toimi'
+              alt="Kuva ei toimi"
             />
           </div>
-          <div className='kayttaja'>
+          <div className="kayttaja">
             <Link to={'/jasenet/' + tarina._id}>
-              {' '}
               <h3>{`${tarina?.matkaaja?.etunimi} ${tarina?.matkaaja?.sukunimi}`}</h3>
             </Link>
           </div>
-          <div className='tiedot'>
-            <MdDateRange className='paivaIcon' />
+          <div className="tiedot">
+            <MdDateRange className="paivaIcon" />
             <p>{formatDate(tarina?.createdAt)}</p>
-            <AiOutlineRead className='lukenutIcon' />
+            <AiOutlineRead className="lukenutIcon" />
             <p>{tarina?.lukukertoja?.length}</p>
           </div>
         </div>
-        <div className='tarina-container'>
-          <h1 className='otsikko'>{tarina?.otsikko}</h1>
+        <div className="tarina-container">
+          <h1 className="otsikko">{tarina?.otsikko}</h1>
           <p>{tarina?.teksti}</p>
         </div>
       </div>
@@ -149,9 +148,12 @@ const Wrapper = styled.form`
     margin: auto;
     border-radius: 50%;
     display: flex;
-    min-width: 150px;
     max-width: 150px;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    object-position: center;
   }
+
   .tiedot {
     width: fit-content;
     margin: auto;
