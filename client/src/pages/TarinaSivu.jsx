@@ -11,6 +11,7 @@ import Muokkaatarinaa from '../components/ModalTemplates/MuokkaatarinaaTemplate/
 import Button from '../components/ResuableComponents/Button';
 import { useModalContext } from '../components/ResuableComponents/Modal/ModalContext';
 import noImg from '../assets/lataus.png';
+import CommentContainer from '../components/Kommentit/CommentContainer';
 
 const TarinaSivu = () => {
   const [imgUrls, setImgUrls] = useState([]);
@@ -82,6 +83,7 @@ const TarinaSivu = () => {
             <AiOutlineRead className="lukenutIcon" />
             <p>{tarina?.lukukertoja?.length}</p>
           </div>
+          <CommentContainer />
         </div>
         <div className="tarina-container">
           <h1 className="otsikko">{tarina?.otsikko}</h1>
@@ -92,7 +94,7 @@ const TarinaSivu = () => {
   );
 };
 
-const Wrapper = styled.form`
+const Wrapper = styled.div`
   width: 100%;
   margin-bottom: 100px;
   .muokkaaTarinaaButton {
