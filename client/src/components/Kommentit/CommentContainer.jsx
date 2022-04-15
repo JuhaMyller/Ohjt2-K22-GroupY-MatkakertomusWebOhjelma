@@ -13,8 +13,6 @@ const CommentContainer = () => {
 
   const axios = useAxiosPrivate();
 
-  console.log(comments);
-
   const getComments = async () => {
     try {
       setFetching(true);
@@ -50,6 +48,7 @@ const CommentContainer = () => {
         comments.map((comment) => {
           return (
             <SingleComment
+              key={comment._id}
               createdAt={comment.createdAt}
               teksti={comment.teksti}
               kuva={comment.kirjoittaja.kuva}
