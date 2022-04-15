@@ -37,10 +37,9 @@ module.exports.tarinanKommentit = async (req, res, next) => {
     const haveParams = reqParams({ id }, req.params);
     if (!haveParams) ErrorHandler(400, 'ID puuttuu');
 
-    const kommentit = await Kommentti.find({ tarina: id }).populate(
-      'kirjoittaja',
-      'nimimerkki'
-    );
+    const kommentit = await Kommentti.find({ tarina: id })
+      .populate('kirjoittaja', 'nimimerkki kuva')
+      .populate();
 
     res.status(200).json({ message: 'OK', kommentit });
   } catch (error) {

@@ -52,7 +52,7 @@ const CommentContainer = () => {
             <SingleComment
               createdAt={comment.createdAt}
               teksti={comment.teksti}
-              kuva={comment.kuva}
+              kuva={comment.kirjoittaja.kuva}
               kirjoittaja={comment.kirjoittaja}
             />
           );

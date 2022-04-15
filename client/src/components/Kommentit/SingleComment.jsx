@@ -3,8 +3,11 @@ import styled from 'styled-components';
 import img from '../../assets/lataus.png';
 import { formatDateWithTime } from '../../utils/formatedDate';
 import { Link } from 'react-router-dom';
+import SERVER_URL from '../../utils/serverUrl';
 
 const SingleComment = ({ kuva, teksti, kirjoittaja, createdAt }) => {
+  const commentKuva = kuva ? `${SERVER_URL}/img/${kuva}` : img;
+
   return (
     <Wrapper>
       <div className="createdAt">
@@ -12,7 +15,7 @@ const SingleComment = ({ kuva, teksti, kirjoittaja, createdAt }) => {
       </div>
       <div className="commentWrapper">
         <div className="kuva">
-          <img src={kuva || img} alt="" />
+          <img src={commentKuva} alt="" />
         </div>
         <div className="comment">
           <p>
