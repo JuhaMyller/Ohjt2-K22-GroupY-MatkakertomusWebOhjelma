@@ -11,6 +11,7 @@ const ErrorHandler = require('./middleware/errorHandler');
 const userRoutes = require('./Routes/userRoutes');
 const matkakohdeRoutes = require('./Routes/matkakohteetRoutes');
 const tarinaRoutes = require('./Routes/tarinatRoutes');
+const kommentitRoutes = require('./Routes/kommentitRoutes');
 const sendImage = require('./middleware/sendImage');
 
 app.use(express.json());
@@ -24,6 +25,7 @@ app.use(express.static(path.join(__dirname, '/client/build')));
 app.use('/api/user', userRoutes);
 app.use('/api/tarina', requireAuth, tarinaRoutes);
 app.use('/api/matkakohde', matkakohdeRoutes);
+app.use('/api/kommentit', requireAuth, kommentitRoutes);
 
 //Lataa kuvan clientille
 app.get('/img/:key', sendImage);
