@@ -19,6 +19,8 @@ const TarinaKortti = ({
     let colorr;
     const number = numero % 5;
 
+    return '#fff';
+
     if (number === 0) {
       colorr = '#ffef9f';
     }
@@ -44,30 +46,30 @@ const TarinaKortti = ({
   console.log();
   return (
     <Link to={`/tarinat/${id}`}>
-      <div style={{ backgroundColor: color() }} className='korttipohja'>
-        <div className='divotsikko'>
+      <div style={{ backgroundColor: color() }} className="korttipohja">
+        <div className="divotsikko">
           <h1>
             {capitalizeString(otsikko.slice(0, 25))}
             {otsikko.length > 20 && ' ...'}
           </h1>
         </div>
-        <div className='divteksti'>
+        <div className="divteksti">
           <p>
             {capitalizeString(teksti.slice(0, 150))}
             {teksti.length > 150 && ' ...'}
           </p>
         </div>
-        <div className='divtietoja'>
-          <div className='divlukenut'>
+        <div className="divtietoja">
+          <div className="divlukenut">
             <AiOutlineRead />
             <h5>{lukukertoja.length}</h5>
-            <div className='pvmdiv'>
+            <div className="pvmdiv">
               <MdDateRange />
               <h5>{createdAt}</h5>
             </div>
           </div>
 
-          <div className='divhenkilo'>
+          <div className="divhenkilo">
             <AiOutlineUser />
             <h5>{matkaaja}</h5>
           </div>
