@@ -85,7 +85,7 @@ const LisaaTarinaSivu = () => {
 
   return (
     <Wrapper onSubmit={handleSubmit}>
-      <div className='lisaa-kuva-container'>
+      <div className="lisaa-kuva-container">
         <LisaaKuva imgArr={imgArr} setImgArr={setImgArr} />
         <DateTimespanPicker
           onDateChange={onDateChange}
@@ -93,7 +93,7 @@ const LisaaTarinaSivu = () => {
           endDate={lahtopaiva}
         />
       </div>
-      <div className='page-inputs-container'>
+      <div className="page-inputs-container">
         <PageInputsContainer
           otsikko={otsikko}
           setOtsikko={setOtsikko}
@@ -121,7 +121,6 @@ const Wrapper = styled.form`
   .lisaa-kuva-container {
     width: 40%;
     min-width: 270px;
-    padding-left: 20px;
   }
   .page-inputs-container {
     width: 60%;

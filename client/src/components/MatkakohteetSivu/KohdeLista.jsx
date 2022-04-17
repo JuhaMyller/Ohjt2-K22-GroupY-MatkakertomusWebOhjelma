@@ -39,33 +39,19 @@ const KohdeLista = () => {
   return (
     <div>
       <div>
-        <div className='buttonJaInput'>
-          <div className='input-container'>
-            <Input
-              className='etsi'
-              type='text'
-              id='etsi'
-              value={etsi}
-              onChange={setEtsi}
-              placeholder='Etsi'
-              styles={{
-                marginTop: '10px',
-                marginBottom: '10px',
-                float: 'left',
-                width: '50%',
-                marginLeft: '100px',
-              }}
-            />
-            <Button
-              styles={{
-                marginLeft: '2px',
-                float: 'left',
-                marginTop: '10px',
-                marginBottom: '10px',
-              }}
-              onClick={filter}
-              className='button'
-            >
+        <div className="buttonJaInput">
+          <div className="input-container">
+            <div className="input">
+              <Input
+                className="etsi"
+                type="text"
+                id="etsi"
+                value={etsi}
+                onChange={setEtsi}
+                placeholder="Etsi"
+              />
+            </div>
+            <Button onClick={filter} className="button">
               Etsi
             </Button>
           </div>
@@ -91,7 +77,7 @@ const KohdeLista = () => {
         </div>
       </div>
       <div>
-        <div className='kohdekortti_lista'>
+        <div className="kohdekortti_lista">
           {filteredData && filteredData.length > 0 ? (
             filteredData.map((matkakohde) => (
               <Link to={`/matkakohteet/${matkakohde._id}`} key={matkakohde._id}>

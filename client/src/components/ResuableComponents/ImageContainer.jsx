@@ -71,7 +71,7 @@ const Wrapper = styled.div`
     min-width: 250px;
     aspect-ratio: 1/1;
     overflow: hidden;
-    background-color: inherit;
+    background-color: #eae8ea;
     /* border: 2px solid #777; */
     border-radius: 5px;
     img {

@@ -42,7 +42,7 @@ const CommentContainer = () => {
         </div> */}
       </div>
 
-      {comments.length === 0 ? (
+      {!fetching && comments.length === 0 ? (
         <h5>Ei vielä kommenteja</h5>
       ) : (
         comments.map((comment) => {
@@ -74,12 +74,13 @@ const Wrapper = styled.div`
   }
   .banner {
     height: 50px;
-    background: #c7c5c7;
+    background: #fa7171;
     display: flex;
     align-items: center;
     justify-content: space-between;
     p {
       margin: 0 20px;
+      color: white;
     }
   }
   .kuvaJaNimi {

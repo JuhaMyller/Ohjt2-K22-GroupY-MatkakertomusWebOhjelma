@@ -9,7 +9,7 @@ const PageInputsContainer = (props) => {
   const matkakohteet = useSelector((state) => state.matkakohteet.Matkakohteet);
   return (
     <Wrapper>
-      <div className="input-container">
+      <div className="lisaatarina-input-container">
         <Input
           id="lisaaTarinaOtsikko"
           value={props.otsikko}
@@ -18,7 +18,7 @@ const PageInputsContainer = (props) => {
           styles={{ height: '50px' }}
         />
       </div>
-      <div className="input-container">
+      <div className="lisaatarina-input-container">
         <select
           value={props.matkakohde}
           onChange={(e) => props.setMatkakohde(e.target.value)}
@@ -45,7 +45,7 @@ const PageInputsContainer = (props) => {
           <span className="slider"></span>
         </label>
       </div>
-      <div className="input-container">
+      <div className="lisaatarina-input-container">
         <textarea
           id="lisaaTarinaTarina"
           value={props.tarina}
@@ -75,10 +75,10 @@ const Wrapper = styled.div`
   max-width: 750px;
   width: 90%;
   margin: auto;
-  .input-container:first-child {
+  .lisaatarina-input-container:first-child {
     margin-top: 0;
   }
-  .input-container {
+  .lisaatarina-input-container {
     margin-top: 20px;
     select {
       width: 100%;

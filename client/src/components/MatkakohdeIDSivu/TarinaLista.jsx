@@ -42,29 +42,28 @@ const TarinaLista = ({ id }) => {
     getMatkakohde();
     getTarinat();
   }, []);
-  console.log(tarinat);
   return (
     <>
       {loadingMK ? null : (
-        <div className='divmatkakohde'>
+        <div className="divmatkakohde">
           <h1>{capitalizeString(matkakohde.kohdenimi)}</h1>
           <h2>
             {capitalizeString(matkakohde.paikkakunta)}
             {`, ${capitalizeString(matkakohde.maa)}`}
           </h2>
-          <div className='divkuva'>
+          <div className="divkuva">
             <img
-              className='kuva'
+              className="kuva"
               src={`${serverUrl}/img/${matkakohde.kuva}`}
               alt={`Matkakohteen ${matkakohde.kohdenimi} kuva`}
             />
-            <div className='kuvateksti'>
+            <div className="kuvateksti">
               <h3>{matkakohde.kuvateksti}</h3>
             </div>
           </div>
         </div>
       )}
-      <div className='divlista'>
+      <div className="divlista">
         {tarinat.map((tarina, index) => (
           <TarinaKortti
             numero={index}

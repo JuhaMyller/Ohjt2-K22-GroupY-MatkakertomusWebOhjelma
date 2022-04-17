@@ -47,10 +47,20 @@
   width: 95%;
 }
 .input-container {
-  flex: 1;
-}
-.buttonJaInput {
+  flex: 1 0 250px;
   display: flex;
+  max-width: 500px;
+}
+.input {
+  width: 90%;
+  margin-right: 10px;
+}
+
+.buttonJaInput {
+  width: 90%;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
   padding: 20px 0;

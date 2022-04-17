@@ -7,6 +7,7 @@ import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 import { useSelector } from 'react-redux';
 const LeaveAComment = ({ id, getComments }) => {
   const [text, setText] = useState('');
+  const [fetching, setFetching] = useState(false);
 
   const axios = useAxiosPrivate();
 
@@ -18,6 +19,7 @@ const LeaveAComment = ({ id, getComments }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      setFetching(true);
       const response = await axios.post('/api/kommentit/uusi', {
         tarinaID: id,
         teksti: text,
@@ -25,12 +27,16 @@ const LeaveAComment = ({ id, getComments }) => {
       if (response.status === 201) {
         getComments();
         setText('');
+        setFetching(false);
       }
-    } catch (error) {}
+    } catch (error) {
+      setFetching(false);
+    }
   };
 
   return (
     <Wrapper onSubmit={handleSubmit}>
+      <div className="border"></div>
       <div className="wrapper">
         <div className="kuva">
           <img src={kuva} alt="" />
@@ -45,7 +51,11 @@ const LeaveAComment = ({ id, getComments }) => {
             placeholder="Jätä kommentti"
           />
         </div>
-        <button type="submit" style={{ visibility: text ? '' : 'hidden' }}>
+        <button
+          disabled={fetching}
+          type="submit"
+          style={{ visibility: text ? '' : 'hidden' }}
+        >
           Lähetä
         </button>
       </div>
@@ -54,15 +64,22 @@ const LeaveAComment = ({ id, getComments }) => {
 };
 
 const Wrapper = styled.form`
-  border-top: 2px solid #eae8ea;
   margin: 10px auto;
-
   width: 95%;
+
+  .border {
+    width: 95%;
+    height: 2px;
+    background: #fa7171;
+    margin: auto;
+    margin-bottom: 8px;
+  }
+
   .wrapper {
     width: 100%;
     display: flex;
     align-items: center;
-    margin: 10px auto;
+    margin: 5px auto 10px auto;
     background-color: #eae8ea;
     height: 40px;
     border-radius: 15px;
@@ -109,6 +126,10 @@ const Wrapper = styled.form`
     padding: 5px 10px;
     margin-right: 5px;
     cursor: pointer;
+    :hover {
+      color: white;
+      background: #5281a5;
+    }
   }
 `;
 
