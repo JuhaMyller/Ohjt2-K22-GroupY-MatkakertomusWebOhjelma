@@ -68,7 +68,7 @@ const Wrapper = styled.div`
   margin: 50px auto;
   border-radius: 5px;
   overflow: hidden;
-  box-shadow: 2px 2px 15px 2px #888888;
+  box-shadow: 1px 1px 2px 1px #888888;
   h5 {
     padding: 10px;
   }

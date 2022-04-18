@@ -60,6 +60,7 @@ const Wrapper = styled.div`
       font-size: 14px;
       font-weight: 700;
       margin-right: 5px;
+      color: #5281a5;
     }
   }
   .kuva {

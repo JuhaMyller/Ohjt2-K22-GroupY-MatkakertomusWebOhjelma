@@ -11,8 +11,7 @@
 }
 .kohdekortti_lista {
   width: 90%;
-  margin: auto;
-  margin-top: 50px;
+  margin: 50px auto;
   grid-template-columns: repeat(4, 1fr);
   display: grid;
   grid-gap: 25px;
@@ -44,7 +43,8 @@
   font-weight: 500;
 }
 .kohdekortti:hover {
-  width: 95%;
+  /* width: 95%; */
+  transform: scale(0.95);
 }
 .input-container {
   flex: 1 0 250px;
