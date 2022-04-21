@@ -160,11 +160,36 @@
   .divkuva {
     max-width: 575px;
   }
+  .kuvateksti {
+    font-size: 12px;
+    transition: 0s;
+  }
 }
 
 @media screen and (max-width: 398px) {
   .divtietoja {
     justify-content: center;
     flex-wrap: wrap;
+  }
+}
+
+@media screen and (max-width: 641px) {
+  .kuvateksti {
+    font-size: 10px;
+    transition: 0s;
+  }
+}
+
+@media screen and (max-width: 523px) {
+  .kuvateksti {
+    font-size: 8px;
+    transition: 0s;
+  }
+}
+
+@media screen and (max-width: 405px) {
+  .kuvateksti {
+    font-size: 6px;
+    transition: 0s;
   }
 }
