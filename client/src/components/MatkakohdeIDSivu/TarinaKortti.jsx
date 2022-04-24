@@ -15,61 +15,32 @@ const TarinaKortti = ({
   numero,
   lukukertoja,
 }) => {
-  const color = () => {
-    let colorr;
-    const number = numero % 5;
-
-    return '#fff';
-
-    if (number === 0) {
-      colorr = '#ffef9f';
-    }
-
-    if (number === 1) {
-      colorr = '#c1fba4';
-    }
-
-    if (number === 2) {
-      colorr = '#ffd6e0';
-    }
-
-    if (number === 3) {
-      colorr = '#7bf1a8';
-    }
-
-    if (number === 4) {
-      colorr = '#90f1ef';
-    }
-
-    return colorr;
-  };
-  console.log();
   return (
     <Link to={`/tarinat/${id}`}>
-      <div style={{ backgroundColor: color() }} className="korttipohja">
-        <div className="divotsikko">
+      <div style={{ backgroundColor: '#FFF' }} className='korttipohja'>
+        <div className='divotsikko'>
           <h1>
             {capitalizeString(otsikko.slice(0, 25))}
             {otsikko.length > 20 && ' ...'}
           </h1>
         </div>
-        <div className="divteksti">
+        <div className='divteksti'>
           <p>
             {capitalizeString(teksti.slice(0, 150))}
             {teksti.length > 150 && ' ...'}
           </p>
         </div>
-        <div className="divtietoja">
-          <div className="divlukenut">
+        <div className='divtietoja'>
+          <div className='divlukenut'>
             <AiOutlineRead />
             <h5>{lukukertoja.length}</h5>
-            <div className="pvmdiv">
+            <div className='pvmdiv'>
               <MdDateRange />
               <h5>{createdAt}</h5>
             </div>
           </div>
 
-          <div className="divhenkilo">
+          <div className='divhenkilo'>
             <AiOutlineUser />
             <h5>{matkaaja}</h5>
           </div>

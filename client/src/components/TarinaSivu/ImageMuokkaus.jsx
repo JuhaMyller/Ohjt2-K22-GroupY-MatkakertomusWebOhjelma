@@ -4,35 +4,32 @@ import ImageContainer from '../ResuableComponents/ImageContainer';
 
 const ImageMuokkaus = (props) => {
   const { kuvatOb, setKuvatOb } = props;
-  const [imgUrls, setImgUrls] = useState(props.imgUrls);
 
   const onImgChange = (e) => {
     setKuvatOb((curr) => [...curr, ...e.target.files]);
   };
 
   const deleteImg = (index) => {
-    setImgUrls((arr) => {
+    props.setImgUrls((arr) => {
       const newArr = [...arr];
       newArr.splice(index, 1);
       return newArr;
     });
   };
+  console.log(props.imgUrls);
 
   useEffect(() => {
     const newImageURLs = [...props.imgUrls];
     kuvatOb.forEach((image) => newImageURLs.push(URL.createObjectURL(image)));
-    setImgUrls(newImageURLs);
+    props.setImgUrls(newImageURLs);
   }, [kuvatOb]);
-
-  //poistaminen 2 arrayta, toisessa server img URL, toisessa object URL.
-  //Kun käyttäjä poistaa niin katsotaan sisältääkö poistettava keyword blop.
 
   return (
     <Wrapper>
       <ImageContainer
         deleteImg={deleteImg}
         canDelete={true}
-        imgUrls={imgUrls}
+        imgUrls={props.imgUrls}
       />
       <div className='lisaakuva-input-container'>
         <label className='file-label'>

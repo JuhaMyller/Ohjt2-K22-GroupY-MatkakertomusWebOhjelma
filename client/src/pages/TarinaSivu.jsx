@@ -4,7 +4,7 @@ import { AiOutlineRead } from 'react-icons/ai';
 import { MdDateRange } from 'react-icons/md';
 import ImageContainer from '../components/ResuableComponents/ImageContainer';
 import useAxiosPrivate from '../hooks/useAxiosPrivate';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import SERVER_URL from '../utils/serverUrl';
 import formatDate from '../utils/formatedDate';
 import Muokkaatarinaa from '../components/ModalTemplates/MuokkaatarinaaTemplate/MuokkaaTarinaa';
@@ -12,81 +12,112 @@ import Button from '../components/ResuableComponents/Button';
 import { useModalContext } from '../components/ResuableComponents/Modal/ModalContext';
 import noImg from '../assets/lataus.png';
 import CommentContainer from '../components/Kommentit/CommentContainer';
+import { toast } from 'react-toastify';
 
 const TarinaSivu = () => {
   const [imgUrls, setImgUrls] = useState([]);
-  const [tarina, setTarina] = useState([]);
+  const [tarina, setTarina] = useState({});
   const axios = useAxiosPrivate();
   const { id } = useParams();
   const { openModal } = useModalContext();
+  const navigate = useNavigate();
+
+  console.log(tarina);
+
+  const poistaTarina = async () => {
+    try {
+      const deleteResponse = await axios.delete('/api/tarina/tarina/' + id);
+      if (deleteResponse.status === 204) {
+        if (window.history.state && window.history.state.idx > 0) {
+          navigate(-1);
+        } else {
+          navigate('/matkakohteet', { replace: true });
+        }
+      }
+    } catch (error) {
+      toast.error(error.response.data.message, { position: 'top-center' });
+    }
+  };
 
   const haeTarina = async () => {
-    const responseTarina = await axios.get('/api/tarina/tarina/' + id);
+    try {
+      const responseTarina = await axios.get('/api/tarina/tarina/' + id);
 
-    setImgUrls(() => {
-      return responseTarina.data.tarina.kuva.map((t) => {
-        return SERVER_URL + '/img/' + t;
-      });
-    });
-
-    setTarina(responseTarina.data.tarina);
+      setTarina(responseTarina.data.tarina);
+    } catch (error) {}
   };
   useEffect(() => {
     haeTarina();
   }, []);
 
+  useEffect(() => {
+    if (!tarina.kuva) return;
+    console.log('useEffect');
+    setImgUrls(() => {
+      return tarina.kuva.map((t) => {
+        return SERVER_URL + '/img/' + t;
+      });
+    });
+  }, [tarina.kuva]);
   return (
     <Wrapper>
-      <div className="muokkaaTarinaaButton">
-        <Button
-          onClick={() =>
-            openModal({
-              template: (
-                <Muokkaatarinaa
-                  id={id}
-                  tarina={tarina}
-                  imgUrls={imgUrls}
-                  setImgUrls={setImgUrls}
-                />
-              ),
-              title: 'Muokkaa tarinaa',
-            })
-          }
-        >
-          Muokkaa
-        </Button>
+      <div className='buttonit'>
+        <div className='muokkaaButton'>
+          <Button
+            onClick={() =>
+              openModal({
+                template: (
+                  <Muokkaatarinaa
+                    id={id}
+                    tarina={tarina}
+                    setTarina={setTarina}
+                    imgUrls={imgUrls}
+                    setImgUrls={setImgUrls}
+                  />
+                ),
+                title: 'Muokkaa tarinaa',
+              })
+            }
+          >
+            Muokkaa
+          </Button>
+        </div>
+        <div className='poistaButton'>
+          <Button onClick={poistaTarina}>Poista Tarina</Button>
+        </div>
       </div>
-      <div className="wrapper">
-        <div className="kuva_kayttajaWrap">
-          <div className="kuva-container">
+
+      <div className='wrapper'>
+        <div className='kuva_kayttajaWrap'>
+          <div className='kuva-container'>
             <ImageContainer imgUrls={imgUrls || []} />
           </div>
-          <div className="kayttajaKuvaContainer">
+          <div className='kayttajaKuvaContainer'>
             <img
-              className="kayttajaKuva"
+              className='kayttajaKuva'
               src={
                 tarina?.matkaaja?.kuva
                   ? `${SERVER_URL}/img/${tarina.matkaaja.kuva}`
                   : noImg
               }
-              alt="Kuva ei toimi"
+              alt='Kuva ei toimi'
             />
           </div>
-          <div className="kayttaja">
+          <div className='kayttaja'>
             <Link to={'/jasenet/' + tarina.matkaaja?._id}>
               <h3>{`${tarina?.matkaaja?.etunimi} ${tarina?.matkaaja?.sukunimi}`}</h3>
             </Link>
           </div>
-          <div className="tiedot">
-            <MdDateRange className="paivaIcon" />
+          <div className='tiedot'>
+            <MdDateRange className='paivaIcon' />
             <p>{formatDate(tarina?.createdAt)}</p>
-            <AiOutlineRead className="lukenutIcon" />
+            <AiOutlineRead className='lukenutIcon' />
             <p>{tarina?.lukukertoja?.length}</p>
           </div>
           <CommentContainer />
         </div>
-        <div className="tarina-container">
-          <h1 className="otsikko">{tarina?.otsikko}</h1>
+        <div className='tarina-container'>
+          <h1 className='otsikko'>{tarina?.otsikko}</h1>
           <p>{tarina?.teksti}</p>
         </div>
       </div>
@@ -97,10 +128,13 @@ const TarinaSivu = () => {
 const Wrapper = styled.div`
   width: 100%;
   margin-bottom: 100px;
-  .muokkaaTarinaaButton {
+  .buttonit {
     display: flex;
     padding: 10px 20px;
     justify-content: end;
+  }
+  .muokkaaButton {
+    margin-right: 5px;
   }
   .kayttaja {
     text-align: center;
