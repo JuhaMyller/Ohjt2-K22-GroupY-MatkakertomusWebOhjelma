@@ -1,40 +1,24 @@
 import React from 'react';
 import styled from 'styled-components';
-import bg from '../assets/pagehero1.png'
+
+import TarinatContainer from '../components/Etusivu/TarinatContainer';
+import KayttajatContainer from '../components/Etusivu/KayttajatContainer';
+import MatkakohteetContainer from '../components/Etusivu/MatkakohteetContainer';
+import PageHero from '../components/Etusivu/PageHero';
 
 const Etusivu = () => {
   return (
     <Wrapper>
-      <h3 className='etusivutxt'>Katso parhaat matkakohteet ja tarinat</h3>
+      <PageHero />
+      <MatkakohteetContainer />
+      <KayttajatContainer />
+      <TarinatContainer />
     </Wrapper>
   );
 };
 
 const Wrapper = styled.div`
-background-image: url(${bg});
-background-size: cover;
-background-position: center top;
-width: 100vw;
-height: 92vh;
-
-
-/*  */
-.etusivutxt {
-  color: white;
-  display: flex;
-  justify-content: end;
-  padding-top: 30vh;
-  padding-right: 10vw;
-  font-size: 32px;
-}
-@media screen and (max-width: 600px) {
-  .etusivutxt {
-    text-align: center;
-    padding-top: 20vh;
-    font-size: 20px;
-  } 
-}
-
+  margin-bottom: 100px;
 `;
 
 export default Etusivu;
