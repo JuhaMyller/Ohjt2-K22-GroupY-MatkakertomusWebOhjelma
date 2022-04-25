@@ -3,32 +3,33 @@ import TarinaTestiKuva from '../../assets/TarinaTestiKuva.png';
 import styled from 'styled-components';
 import { MdDateRange } from 'react-icons/md';
 import { AiOutlineRead } from 'react-icons/ai';
+import Button from '../ResuableComponents/Button';
 
 const JasenKortti = () => {
   const esittely =
     'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod molestias totam eaque ratione atque? Fugiat id illo hic magni, culpa provident excepturi perspiciatis facilis nostrum ullam eaque facere, nemo eius.';
   return (
     <Wrapper>
-      <div className='Jasenkortti'>
-        <div className='kuvaDiv'>
+      <div className='Jasenkorttipohja'>
+        <div className='kuvadivi'>
+          <h5>@Ekipoko</h5>
           <img src={TarinaTestiKuva} alt='' />
+          <h4>Eero Niskanen</h4>
         </div>
-        <div className='JasenkorttiTiedot'>
-          <div className='nimet'>
-            <h6 className='nimi'>Marek Puurunendsad</h6>
-            <p className='nimiMerkki'>@ Remmel</p>
+        <div className='sisaltodivi'>
+          <p>{esittely.slice(0, 80) + '...'}</p>
+        </div>
+        <div className='sisaltobuttondivi'>
+          <Button>Profiili</Button>
+        </div>
+        <div className='alatiedot'>
+          <div className='jasenpvmtiedot'>
+            <MdDateRange size={15} />
+            <p>14.4.2022</p>
           </div>
-          <p className='esittely'>{esittely.slice(0, 80)}...</p>
-
-          <div className='JasenkorttiPvm'>
-            <div className='dateTarinat'>
-              <MdDateRange size={15} />
-              <p className='pvm'>21.04.2022</p>
-            </div>
-            <div className='dateTarinat'>
-              <AiOutlineRead size={15} />
-              <p>25</p>
-            </div>
+          <div className='jasentarinadivi'>
+            <AiOutlineRead size={15} />
+            <p>20</p>
           </div>
         </div>
       </div>
@@ -37,112 +38,65 @@ const JasenKortti = () => {
 };
 
 const Wrapper = styled.div`
-  margin: auto;
-  width: 100%;
-  .Jasenkortti {
-    :hover {
-      transform: scale(0.95);
-      .kuvaDiv img {
-        transform: scale(1.05);
-      }
-    }
-    color: #e8e2e2;
-    width: 90%;
-    display: flex;
-    max-width: 450px;
-    min-height: 150px;
-    flex-wrap: wrap;
-    margin: auto;
+  .Jasenkorttipohja {
+    box-shadow: 2px 1px 15px 2px #888888;
+    border-radius: 30px 30px 0 0;
+    max-height: 370px;
+    max-width: 300px;
   }
-  .kuvaDiv {
-    background-color: #fa7171;
-    border-radius: 50% 0 0 50%;
-    height: 150px;
-
-    img {
-      height: 100%;
-      aspect-ratio: 1/1;
-      border-radius: 50%;
-    }
-  }
-  .JasenkorttiTiedot {
-    height: 150px;
-    background-color: #fa7171;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    flex: 1 0 175px;
-  }
-  .kuva {
-    border-radius: 50%;
-    width: 100%;
-  }
-  .nimiMerkki,
-  .esittely {
-    font-size: 14px;
-  }
-  .esittely {
-    font-size: 12px;
-    font-weight: 100;
-    padding: 10px;
-    text-align: center;
-  }
-  .nimet {
+  .kuvadivi {
     padding-top: 10px;
     text-align: center;
-  }
-  .nimi {
-    font-weight: 500;
-    font-size: 20px;
-  }
-  .nimiMerkki {
-    font-weight: 500;
-    font-size: 14px;
-  }
-  .JasenkorttiPvm {
-    p {
-      font-weight: 400;
-      font-size: 14px;
+    img {
+      border-radius: 50%;
+      max-height: 120px;
     }
-    font-size: 15px;
-    display: flex;
-    width: fit-content;
-    align-items: center;
-    margin: auto;
+    h5 {
+      padding: 10px;
+      font-size: 18px;
+      font-weight: 500;
+    }
+    h4 {
+      font-size: 20px;
+    }
   }
-
-  .pvm {
-    margin-bottom: -1px;
-    margin-right: 20px;
-  }
-  .dateTarinat {
+  .sisaltodivi {
     p {
+      font-weight: 500;
+      font-size: 14px;
+      padding: 10px;
+      text-align: center;
+    }
+  }
+  .sisaltobuttondivi {
+    text-align: center;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  .alatiedot {
+    display: flex;
+    font-size: 14px;
+    justify-content: center;
+    padding-bottom: 10px;
+    background-color: #fa7171;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+    padding-top: 20px;
+    box-shadow: 2px 1px 15px 2px #888888;
+  }
+  .jasenpvmtiedot {
+    display: flex;
+    p {
+      margin-top: -1px;
       margin-left: 5px;
     }
-    display: flex;
-    align-items: center;
   }
-
-  @media (max-width: 440px) {
-    .Jasenkortti {
-      border-radius: 10px;
-      overflow: hidden;
-      height: fit-content;
-    }
-    .JasenkorttiPvm {
-      margin-bottom: 10px;
-    }
-    .kuvaDiv {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 10px;
-      box-sizing: content-box;
-      border-radius: 0;
-      width: 100%;
-      img {
-        border-radius: 50%;
-      }
+  .jasentarinadivi {
+    display: flex;
+    margin-left: 50px;
+    p {
+      margin-top: -1px;
+      margin-left: 5px;
     }
   }
 `;
