@@ -12,8 +12,7 @@ const JasenetLista = () => {
 
   const haeMatkaaja = async () => {
     const responseMatkaajat = await axios.get('/api/user/jasenet');
-    console.log(responseMatkaajat.data);
-    setJasenet(responseMatkaajat.data);
+    setJasenet(responseMatkaajat.data.jasenet);
   };
   useEffect(() => {
     haeMatkaaja();
@@ -21,12 +20,20 @@ const JasenetLista = () => {
   return (
     <Wrapper>
       <div className='Jasenlista'>
-        <JasenKortti />
-        <JasenKortti />
-        <JasenKortti />
-        <JasenKortti />
-        <JasenKortti />
-        <JasenKortti />
+        {jasenet.map((j) => {
+          return (
+            <JasenKortti
+              id={j._id}
+              key={j._id}
+              createdAt={j.createdAt}
+              etunimi={j.etunimi}
+              sukunimi={j.sukunimi}
+              nimimerkki={j.nimimerkki}
+              kuva={j.kuva}
+              esittely={j.esittely}
+            />
+          );
+        })}
       </div>
     </Wrapper>
   );
