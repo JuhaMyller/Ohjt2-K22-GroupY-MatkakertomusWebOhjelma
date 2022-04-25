@@ -2,68 +2,102 @@ import React, { useLayoutEffect, useRef } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-//kovakoodattu img
+import lataus from '../../assets/lataus.png';
+import SERVER_URL from '../../utils/serverUrl';
 
+//kovakoodattu img
 import profileImg from '../../assets/testimg.jpeg';
 
 const MobileNav = ({ closeNav, navRef, display }) => {
   const userID = useSelector((state) => state.auth.kayttaja?.id);
+  const user = useSelector((state) => state.auth.kayttaja);
+  const isLoading = useSelector((state) => state.auth.refreshTokenFetch);
+  const img = useSelector((state) => state.auth.kayttaja?.kuva);
+
+
+
+  const profiilikuva = img
+    ? `${SERVER_URL}/img/${img}`
+    : lataus;
+
+
+
+
   return (
+
     <Wrapper
       style={{
         display: display ? 'block' : 'none',
       }}
     >
-      <div ref={navRef} className={`mobileNavContainer animateIN`}>
-        <div onClick={closeNav} className='helper'></div>
-        <div className='links'>
-          <ul>
-            <div className='user'>
-              <img src={profileImg} alt='profiilikuva' />
-              <h2>Marek</h2>
-            </div>
-            <li>
-              <Link to='/'>
-                <button onClick={closeNav}>Etusivu</button>
-              </Link>
-            </li>
-            <li>
-              <Link to='matkakohteet'>
-                <button onClick={closeNav}>Matkakohteet</button>
-              </Link>
-            </li>
-            <li>
-              <Link to='tarinat'>
-                <button onClick={() => closeNav(false)}>Porukan Tarinat</button>
-              </Link>
-            </li>
-            <li>
-              <Link to='lisaatarina'>
-                <button onClick={closeNav}>Lisää tarina</button>
-              </Link>
-            </li>
-            <li>
-              <Link to='omattarinat'>
-                <button onClick={closeNav}>Omat tarinat</button>
-              </Link>
-            </li>
-            <li>
-              <Link to={`jasenet/${userID}`}>
-                <button onClick={closeNav}>Omat tiedot</button>
-              </Link>
-            </li>
-            <li>
-              <Link to='jasenet'>
-                <button onClick={closeNav}>Jäsenet</button>
-              </Link>
-            </li>
-          </ul>
-          <button onClick={closeNav} className='logout'>
-            <Link to='kirjauduulos'>Kirjaudu ulos</Link>
-          </button>
+      {!isLoading && (
+        <div ref={navRef} className={`mobileNavContainer animateIN`}>
+          <div onClick={closeNav} className='helper'></div>
+          <div className='links'>
+            <ul>
+              {user !== null && (
+                <div className='user'>
+                  <img src={profiilikuva} alt='Profiilikuva' />
+                  <h2>{user.etunimi}</h2>
+                </div>
+              )}
+              <li>
+                <Link to='/'>
+                  <button onClick={closeNav}>Etusivu</button>
+                </Link>
+              </li>
+              <li>
+                <Link to='matkakohteet'>
+                  <button onClick={closeNav}>Matkakohteet</button>
+                </Link>
+              </li>
+              {user && (
+                <div>
+                  <ul>
+                    <li>
+                      <Link to='tarinat'>
+                        <button onClick={() => closeNav(false)}>Porukan Tarinat</button>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to='lisaatarina'>
+                        <button onClick={closeNav}>Lisää tarina</button>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to='omattarinat'>
+                        <button onClick={closeNav}>Omat tarinat</button>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to={`jasenet/${userID}`}>
+                        <button onClick={closeNav}>Omat tiedot</button>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to='jasenet'>
+                        <button onClick={closeNav}>Jäsenet</button>
+                      </Link>
+                    </li>
+
+                  </ul>
+                  
+                  <button onClick={closeNav} className='logout'>
+                    <Link to='kirjauduulos'>Kirjaudu ulos</Link>
+                  </button>
+                </div>
+              )}
+              {!isLoading && !user && (
+                <button onClick={closeNav} className='login'>
+                  <Link to='kirjaudu'>Kirjaudu sisään</Link>
+                </button>
+              )}
+            </ul>
+          </div>
         </div>
-      </div>
+      )}
     </Wrapper>
+
   );
 };
 
@@ -134,7 +168,15 @@ const Wrapper = styled.section`
     padding: 10px 20px;
     width: 100%;
   }
+  .login {
+    position: relative;
+    top: 65vh;
+    background: red;
+    margin-bottom: 30px;
+  }
   .logout {
+    position: relative;
+    top: 20vh;
     background: red;
     margin-bottom: 30px;
   }

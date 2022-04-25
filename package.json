@@ -24,7 +24,8 @@
     "server": "nodemon server.js",
     "build": "npm --prefix ./client run build",
     "dev": "node startScript.js",
-    "install": "npm install npm --prefix ./client install"
+    "install": "npm install npm --prefix ./client install",
+    "test": "npm run test"
   },
   "name": "matkakertomusserveri",
   "description": "",
@@ -41,6 +42,7 @@
   },
   "homepage": "https://github.com/MarekPuu/MatkakertomusServeri#readme",
   "devDependencies": {
+    "@testing-library/react": "^13.1.1",
     "jest": "^27.5.1",
     "nodemon": "^2.0.15",
     "supertest": "^6.2.2"
