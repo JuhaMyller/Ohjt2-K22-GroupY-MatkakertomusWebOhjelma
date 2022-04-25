@@ -20,11 +20,12 @@ const KohdeLista = () => {
   const mkohteet = useSelector((state) => state.matkakohteet.Matkakohteet);
 
   useEffect(() => {
-    setLoading(false);
     setFilteredData(mkohteet);
+    setLoading(false);
   }, [mkohteet]);
 
   const filter = () => {
+    setLoading(true);
     if (etsi !== '') {
       const results = mkohteet.filter((matkakohde) => {
         return matkakohde.kohdenimi
@@ -93,9 +94,9 @@ const KohdeLista = () => {
               </Link>
             ))
           ) : loading ? (
-            <h2></h2>
-          ) : (
             <h2>Haulla ei löytynyt mitään</h2>
+          ) : (
+            <h2></h2>
           )}
         </div>
       </div>
