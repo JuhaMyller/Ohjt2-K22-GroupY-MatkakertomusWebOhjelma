@@ -4,28 +4,47 @@ import styled from 'styled-components';
 import { MdDateRange } from 'react-icons/md';
 import { AiOutlineRead } from 'react-icons/ai';
 import Button from '../ResuableComponents/Button';
+import formatedDate from '../../utils/formatedDate';
+import SERVER_URL from '../../utils/serverUrl';
+import userimage from '../../assets/lataus.png';
+import { Link } from 'react-router-dom';
 
-const JasenKortti = () => {
-  const esittely =
-    'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod molestias totam eaque ratione atque? Fugiat id illo hic magni, culpa provident excepturi perspiciatis facilis nostrum ullam eaque facere, nemo eius.';
+const JasenKortti = ({
+  etunimi,
+  sukunimi,
+  esittely,
+  kuva,
+  nimimerkki,
+  createdAt,
+  id,
+}) => {
+  const imag = SERVER_URL + '/img/' + kuva;
   return (
     <Wrapper>
       <div className='Jasenkorttipohja'>
         <div className='kuvadivi'>
-          <h5>@Ekipoko</h5>
-          <img src={TarinaTestiKuva} alt='' />
-          <h4>Eero Niskanen</h4>
+          <h5>@{nimimerkki}</h5>
+          <img src={kuva ? imag : userimage} alt='' />
+          <h4>
+            {etunimi} {sukunimi}
+          </h4>
         </div>
         <div className='sisaltodivi'>
-          <p>{esittely.slice(0, 80) + '...'}</p>
+          <p>
+            {esittely
+              ? esittely.slice(0, 50) + '...'
+              : 'Käyttäjällä ei ole esittelyä'}
+          </p>
         </div>
         <div className='sisaltobuttondivi'>
-          <Button>Profiili</Button>
+          <Link to={'/jasenet/' + id}>
+            <Button>Profiili</Button>
+          </Link>
         </div>
         <div className='alatiedot'>
           <div className='jasenpvmtiedot'>
             <MdDateRange size={15} />
-            <p>14.4.2022</p>
+            <p>{formatedDate(createdAt)}</p>
           </div>
           <div className='jasentarinadivi'>
             <AiOutlineRead size={15} />
@@ -40,7 +59,7 @@ const JasenKortti = () => {
 const Wrapper = styled.div`
   .Jasenkorttipohja {
     box-shadow: 2px 1px 15px 2px #888888;
-    border-radius: 30px 30px 0 0;
+    border-radius: 30px 30px 30px 30px;
     max-height: 370px;
     max-width: 300px;
   }
@@ -48,6 +67,9 @@ const Wrapper = styled.div`
     padding-top: 10px;
     text-align: center;
     img {
+      object-fit: cover;
+      object-position: center;
+      aspect-ratio: 1/1;
       border-radius: 50%;
       max-height: 120px;
     }

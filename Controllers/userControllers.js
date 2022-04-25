@@ -516,12 +516,6 @@ module.exports.profiiliIDlla = async (req, res, next) => {
 
 module.exports.kaikkiJasenet = async (req, res, next) => {
   try {
-    if (!id) {
-      return res.status(400).json({
-        message: 'Käyttäjän id puuttui',
-      });
-    }
-
     const jasenet = await Matkaaja.find({})
       .select(
         'etunimi sukunimi createdAt kuva nimimerkki paikkakunta esittely sposti'

@@ -7,24 +7,33 @@ import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 import styled from 'styled-components';
 
 const JasenetLista = () => {
-  //   const axios = useAxiosPrivate();
+  const [jasenet, setJasenet] = useState([]);
+  const axios = useAxiosPrivate();
 
-  //   const haeMatkaaja = async () => {
-  //     const responseMatkaajat = await axios.get('/api/user');
-  //     console.log(responseMatkaajat);
-  //   };
-  //   useEffect(() => {
-  //     haeMatkaaja();
-  //   }, []);
+  const haeMatkaaja = async () => {
+    const responseMatkaajat = await axios.get('/api/user/jasenet');
+    setJasenet(responseMatkaajat.data.jasenet);
+  };
+  useEffect(() => {
+    haeMatkaaja();
+  }, []);
   return (
     <Wrapper>
       <div className='Jasenlista'>
-        <JasenKortti />
-        <JasenKortti />
-        <JasenKortti />
-        <JasenKortti />
-        <JasenKortti />
-        <JasenKortti />
+        {jasenet.map((j) => {
+          return (
+            <JasenKortti
+              id={j._id}
+              key={j._id}
+              createdAt={j.createdAt}
+              etunimi={j.etunimi}
+              sukunimi={j.sukunimi}
+              nimimerkki={j.nimimerkki}
+              kuva={j.kuva}
+              esittely={j.esittely}
+            />
+          );
+        })}
       </div>
     </Wrapper>
   );
