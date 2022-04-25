@@ -9,7 +9,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
 import * as actions from '../Redux/Actions/authActions';
 import { toast } from 'react-toastify';
-import { FaBeer } from 'react-icons/fa';
 
 const Kirjaudu = () => {
   const [username, setUsername] = useState('');
@@ -93,6 +92,7 @@ const Kirjaudu = () => {
             type='submit'
             className='Kirjaudu'
             styles={{ background: '#fa7171' }}
+            data-testid="KirjauduBtn"
           >
             Kirjaudu
           </Button>

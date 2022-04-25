@@ -20,6 +20,7 @@ import useRefreshToken from './hooks/useRefreshToken';
 import RequireAuth from './components/requireAuth';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import FooterTemplate from './components/FooterTemplate';
 
 function App() {
   const user = useSelector((state) => state.auth.kayttaja);
@@ -35,21 +36,23 @@ function App() {
       <Navbar />
       {!user && userLoading ? null : (
         <Routes>
-          <Route index element={<Etusivu />} />
-          <Route exact path='matkakohteet' element={<MatkakohteetSivu />} />
-          <Route exact path='kirjaudu' element={<Kirjaudu />} />
-          <Route exact path='rekisteroidy' element={<Rekisteröidy />} />
+          <Route exact path="kirjaudu" element={<Kirjaudu />} />
+          <Route exact path="rekisteroidy" element={<Rekisteröidy />} />
+          <Route element={<FooterTemplate />}>
+            <Route index element={<Etusivu />} />
+            <Route exact path="matkakohteet" element={<MatkakohteetSivu />} />
 
-          <Route element={<RequireAuth />}>
-            <Route path='jasenet' element={<JasenetSivu />} />
-            <Route path='jasenet/:id' element={<JasenetIDSivu />} />
-            <Route path='matkakohteet/:id' element={<MatkakohdeIDSivu />} />
-            <Route exact path='lisaatarina' element={<LisaaTarinaSivu />} />
-            <Route path='tarinat/:id' element={<TarinaSivu />} />
-            <Route path='tarinat' element={<KaikkiTarinat />} />
-            <Route path='omattarinat' element={<OmatTarinatSivu />} />
+            <Route element={<RequireAuth />}>
+              <Route path="jasenet" element={<JasenetSivu />} />
+              <Route path="jasenet/:id" element={<JasenetIDSivu />} />
+              <Route path="matkakohteet/:id" element={<MatkakohdeIDSivu />} />
+              <Route exact path="lisaatarina" element={<LisaaTarinaSivu />} />
+              <Route path="tarinat/:id" element={<TarinaSivu />} />
+              <Route path="tarinat" element={<KaikkiTarinat />} />
+              <Route path="omattarinat" element={<OmatTarinatSivu />} />
+            </Route>
           </Route>
-          <Route exact path='kirjauduulos' element={<KirjauduUlos />} />
+          <Route exact path="kirjauduulos" element={<KirjauduUlos />} />
         </Routes>
       )}
       <ToastContainer />
