@@ -4,7 +4,7 @@ import bg from '../assets/pagehero1.png'
 
 const Etusivu = () => {
   return (
-    <Wrapper>
+    <Wrapper data-testid="bg">
       <h3 className='etusivutxt'>Katso parhaat matkakohteet ja tarinat</h3>
     </Wrapper>
   );
@@ -15,7 +15,7 @@ background-image: url(${bg});
 background-size: cover;
 background-position: center top;
 width: 100vw;
-height: 92vh;
+height: calc(100vh - 70px);
 
 
 /*  */

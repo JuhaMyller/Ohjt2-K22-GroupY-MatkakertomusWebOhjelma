@@ -55,11 +55,11 @@ const Navbar = () => {
   }, [width]);
 
   return (
-    <Wrapper onClick={handleNavClick} onMouseLeave={() => setShow(false)}>
+    <Wrapper onClick={handleNavClick} onMouseLeave={() => setShow(false)} data-testid="NavContainer">
       <div className="NavContainer">
-        <div className="logoContainer">
+        <div className="logoContainer" data-testid="navlogocontainer">
           <Link to="/">
-            <img src={navlogo}></img>
+            <img src={navlogo} data-testid="navlogo"></img>
           </Link>
         </div>
         {width > 675 ? (
