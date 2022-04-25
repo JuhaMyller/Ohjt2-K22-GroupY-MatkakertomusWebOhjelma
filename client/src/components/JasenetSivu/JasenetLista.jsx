@@ -7,15 +7,17 @@ import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 import styled from 'styled-components';
 
 const JasenetLista = () => {
-  //   const axios = useAxiosPrivate();
+  const [jasenet, setJasenet] = useState([]);
+  const axios = useAxiosPrivate();
 
-  //   const haeMatkaaja = async () => {
-  //     const responseMatkaajat = await axios.get('/api/user');
-  //     console.log(responseMatkaajat);
-  //   };
-  //   useEffect(() => {
-  //     haeMatkaaja();
-  //   }, []);
+  const haeMatkaaja = async () => {
+    const responseMatkaajat = await axios.get('/api/user/jasenet');
+    console.log(responseMatkaajat.data);
+    setJasenet(responseMatkaajat.data);
+  };
+  useEffect(() => {
+    haeMatkaaja();
+  }, []);
   return (
     <Wrapper>
       <div className='Jasenlista'>
