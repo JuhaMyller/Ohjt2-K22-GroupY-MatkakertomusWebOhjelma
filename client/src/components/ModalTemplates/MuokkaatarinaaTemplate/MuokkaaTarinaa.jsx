@@ -1,44 +1,69 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Button from '../../ResuableComponents/Button';
 import Input from '../../ResuableComponents/Input';
 import useAxiosPrivate from '../../../hooks/useAxiosPrivate';
 import ImageMuokkaus from '../../TarinaSivu/ImageMuokkaus';
-import { useParams } from 'react-router-dom';
+import SERVER_URL from '../../../utils/serverUrl';
+import { useModalContext } from '../../ResuableComponents/Modal/ModalContext';
 
 const MuokkaaTarinaa = (props) => {
   const [matkakohdeNimi, setMatkakohdeNimi] = useState(
     props.tarina.matkakohde.kohdenimi
   );
-  const [edit, setEdit] = useState(false);
+  const [fetch, setfetch] = useState(false);
   const [kuvat, setKuvat] = useState([]);
+  const [imgUrls, setImgUrls] = useState(props.imgUrls);
   const [otsikko, setOtsikko] = useState(props.tarina.otsikko);
   const [teksti, setTeksti] = useState(props.tarina.teksti);
   const [kuvatOb, setKuvatOb] = useState([]);
   const axios = useAxiosPrivate();
-  const { id } = useParams();
+  const { closeModal } = useModalContext();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const formData = new FormData();
-    formData.append('otsikko', otsikko);
-    formData.append('teksti', teksti);
-    formData.append('kohdenimi', matkakohdeNimi);
-    kuvat.map((kuva) => formData.append('kuva', kuva));
-    console.log(formData);
-    const response = await axios.put('api/tarina/tarina/' + id, formData);
+    setfetch(true);
+    try {
+      const vanhatKuvat = imgUrls.map((k) => {
+        return k.replace(SERVER_URL + '/img/', '');
+      });
 
-    setEdit(false);
+      const formData = new FormData();
+      formData.append('otsikko', otsikko);
+      formData.append('teksti', teksti);
+      formData.append('vanhatkuvat', vanhatKuvat);
+      kuvatOb.map((kuva) => formData.append('kuva', kuva));
+
+      const response = await axios.put(
+        'api/tarina/tarina/' + props.id,
+        formData
+      );
+
+      if (response.status === 200) {
+        props.setTarina((prev) => {
+          return {
+            ...response.data.tarina,
+            matkaaja: { ...prev.matkaaja },
+            matkakohde: { ...prev.matkakohde },
+          };
+        });
+        closeModal();
+        setfetch(false);
+      }
+    } catch (error) {
+      console.log(error.response.data);
+      setfetch(false);
+    }
   };
 
   return (
-    <Wrapper style={edit ? { margin: '10px' } : { padding: '20px' }}>
+    <Wrapper style={{ padding: '20px' }}>
       <>
         <form onSubmit={handleSubmit}>
           <div className='input-50-container'>
             <div className='input'>
               <Input
-                placeholder='Matkakohde'
+                readOnly={true}
                 value={matkakohdeNimi}
                 onChange={setMatkakohdeNimi}
                 id='tarinaMatkakohdeInput'
@@ -66,8 +91,8 @@ const MuokkaaTarinaa = (props) => {
             <ImageMuokkaus
               kuvatOb={kuvatOb}
               setKuvatOb={setKuvatOb}
-              imgUrls={props.imgUrls}
-              setImgUrls={props.setImgUrls}
+              imgUrls={imgUrls}
+              setImgUrls={setImgUrls}
             />
           </div>
           <div className='bottom-input-container'>
@@ -76,6 +101,7 @@ const MuokkaaTarinaa = (props) => {
           <div className='tallennaBtnContainer'>
             <Button
               type='submit'
+              disabled={fetch}
               styles={{
                 width: '100%',
                 background: '#3d5a80',

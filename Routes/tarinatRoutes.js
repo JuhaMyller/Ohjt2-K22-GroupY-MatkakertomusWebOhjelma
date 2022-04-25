@@ -22,6 +22,14 @@ router.get(
 router.get('/omattarinat', tarinatController.omatTarinat);
 //palauttaa tarinat tietylle käyttäjälle
 router.get('/kayttajantarinat/:id', tarinatController.kayttajanTarinat);
+//poistaa tarinan id:n perusteella
+router.delete('/tarina/:id', tarinatController.poistaTarina);
+// Muokkaa tarinaa
+router.put(
+  '/tarina/:id',
+  multer.array('kuva', 12),
+  tarinatController.muokkaaTarina
+);
 
 // <---->
 

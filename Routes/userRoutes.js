@@ -53,6 +53,7 @@ router.delete(
 router.post('/logout', requireAuth, userController.logout);
 router.get('/refreshAccessToken', userController.refreshToken);
 
+router.get('/jasenet', requireAuth, userController.kaikkiJasenet);
 router.get('/profiili/:id', requireAuth, userController.profiiliIDlla);
 
 module.exports = router;
