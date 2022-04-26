@@ -20,6 +20,11 @@ const OmatTarinatSivu = () => {
   useEffect(() => {
     getOmatTarinat();
   }, []);
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+    });
+  }, []);
   return (
     <Wrapper>
       <div className="otsikko">
