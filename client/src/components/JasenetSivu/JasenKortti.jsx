@@ -60,8 +60,11 @@ const Wrapper = styled.div`
   .Jasenkorttipohja {
     box-shadow: 2px 1px 15px 2px #888888;
     border-radius: 30px 30px 30px 30px;
-    max-height: 370px;
     max-width: 300px;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
   .kuvadivi {
     padding-top: 10px;
