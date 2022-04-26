@@ -9,6 +9,7 @@ const { validationResult } = require('express-validator');
 const crypto = require('crypto');
 const sendEmail = require('../utils/sendEmail');
 const { deleteFile, upload } = require('../utils/AWS_s3');
+const tarina = require('../models/tarina');
 
 module.exports.register = async (req, res, next) => {
   try {
@@ -516,39 +517,7 @@ module.exports.profiiliIDlla = async (req, res, next) => {
 
 module.exports.kaikkiJasenet = async (req, res, next) => {
   try {
-    // haetaan kaikki käyttäjät,
-    // groupataan matkaajan _id:n perusteella,
-    // "joinataan" matkaajasta ne käyttäjät joilla on eniten tarinoita
-    const jasenet = await Tarina.aggregate([
-      {
-        $lookup: {
-          from: 'matkaajas',
-          let: {
-            nimimerkki: 'nimimerkki',
-            etunimi: 'etunimi',
-            sukunimi: 'sukunimi',
-            esittely: 'esittely',
-            kuva: 'kuva',
-            createdAt: 'createdAt',
-          },
-          pipeline: [
-            {
-              $project: {
-                _id: 1,
-                nimimerkki: 1,
-                etunimi: 1,
-                sukunimi: 1,
-                esittely: 1,
-                kuva: 1,
-                createdAt: 1,
-              },
-            },
-          ],
-          localField: 'matkaaja',
-          foreignField: '_id',
-          as: 'matkaaja',
-        },
-      },
+    const tarinat = await Tarina.aggregate([
       {
         $group: {
           _id: '$matkaaja',
@@ -562,7 +531,21 @@ module.exports.kaikkiJasenet = async (req, res, next) => {
       },
     ]);
 
-    res.status(200).json({ message: 'OK', jasenet });
+    const jasenet = await Matkaaja.find({})
+      .select(
+        'etunimi sukunimi createdAt kuva nimimerkki paikkakunta esittely sposti'
+      )
+      .exec();
+
+    const jasenetTarinoilla = jasenet.map((jasen) => {
+      const onTarinoita = tarinat.filter(
+        (tarina) => tarina._id.toString() === jasen.id
+      );
+
+      return { ...jasen._doc, count: onTarinoita[0]?.count || 0 };
+    });
+
+    res.status(200).json({ message: 'OK', jasenet: jasenetTarinoilla });
   } catch (error) {
     next(error);
   }

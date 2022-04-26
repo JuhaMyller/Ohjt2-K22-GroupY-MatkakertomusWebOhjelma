@@ -19,18 +19,18 @@ const JasenetLista = () => {
   }, []);
   return (
     <Wrapper>
-      <div className='Jasenlista'>
+      <div className="Jasenlista">
         {jasenet.map((j) => {
           return (
             <JasenKortti
-              id={j._id[0]._id}
-              key={j._id[0]._id}
-              createdAt={j._id[0].createdAt}
-              etunimi={j._id[0].etunimi}
-              sukunimi={j._id[0].sukunimi}
-              nimimerkki={j._id[0].nimimerkki}
-              kuva={j._id[0].kuva}
-              esittely={j._id[0].esittely}
+              id={j._id}
+              key={j._id}
+              createdAt={j.createdAt}
+              etunimi={j.etunimi}
+              sukunimi={j.sukunimi}
+              nimimerkki={j.nimimerkki}
+              kuva={j.kuva}
+              esittely={j.esittely}
               tarinat={j.count}
             />
           );
