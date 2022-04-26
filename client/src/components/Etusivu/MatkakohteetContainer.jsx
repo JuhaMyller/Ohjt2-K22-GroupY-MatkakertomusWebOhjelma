@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Kohdekortti from '../MatkakohteetSivu/Kohdekortti';
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 import SERVER_URL from '../../utils/serverUrl';
+import { Link } from 'react-router-dom';
 
 const MatkakohteetContainer = () => {
   const [matkakohteet, setMatkakohteet] = useState([]);
@@ -37,12 +38,14 @@ const MatkakohteetContainer = () => {
         {matkakohteet.map((matkakohde) => {
           return (
             <div key={matkakohde._id} className="cell">
-              <Kohdekortti
-                kuva={`${SERVER_URL}/img/${matkakohde.kuva}`}
-                maa={matkakohde.maa}
-                kohdenimi={matkakohde.kohdenimi}
-                tarinat={matkakohde.tarinat}
-              />
+              <Link to={`/matkakohteet/${matkakohde._id}`} key={matkakohde._id}>
+                <Kohdekortti
+                  kuva={`${SERVER_URL}/img/${matkakohde.kuva}`}
+                  maa={matkakohde.maa}
+                  kohdenimi={matkakohde.kohdenimi}
+                  tarinat={matkakohde.tarinat}
+                />
+              </Link>
             </div>
           );
         })}
