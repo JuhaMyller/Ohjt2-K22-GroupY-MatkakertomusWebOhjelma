@@ -46,10 +46,10 @@ const JasenKortti = ({
             <MdDateRange size={15} />
             <p>{formatedDate(createdAt)}</p>
           </div>
-          <div className='jasentarinadivi'>
+          {/* <div className='jasentarinadivi'>
             <AiOutlineRead size={15} />
             <p>20</p>
-          </div>
+          </div> */}
         </div>
       </div>
     </Wrapper>

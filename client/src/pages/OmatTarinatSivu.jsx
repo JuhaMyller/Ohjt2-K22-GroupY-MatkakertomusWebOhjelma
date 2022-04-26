@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import TarinaKortti from '../components/MatkakohdeIDSivu/TarinaKortti';
 import useAxiosPrivate from '../hooks/useAxiosPrivate';
 import formatDate from '../utils/formatedDate';
+import styled from 'styled-components';
 
 const OmatTarinatSivu = () => {
   const axios = useAxiosPrivate();
@@ -20,7 +21,7 @@ const OmatTarinatSivu = () => {
     getOmatTarinat();
   }, []);
   return (
-    <>
+    <Wrapper>
       <div className='otsikko'>
         <h1>Omat Tarinat</h1>
       </div>
@@ -39,8 +40,11 @@ const OmatTarinatSivu = () => {
           />
         ))}
       </div>
-    </>
+    </Wrapper>
   );
 };
+const Wrapper = styled.div`
+  min-height: calc(100vh - 418px);
+`;
 
 export default OmatTarinatSivu;
