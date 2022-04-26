@@ -21,13 +21,18 @@ const KaikkiTarinat = () => {
   useEffect(() => {
     getTarinat();
   }, []);
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+    });
+  }, []);
 
   return (
     <>
-      <div className='otsikko'>
+      <div className="otsikko">
         <h1>Porukan Tarinat</h1>
       </div>
-      <div className='divlista'>
+      <div className="divlista">
         {tarinat.map((tarina, index) => (
           <TarinaKortti
             numero={index}

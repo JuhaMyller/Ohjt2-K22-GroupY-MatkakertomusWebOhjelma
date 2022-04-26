@@ -82,6 +82,11 @@ const LisaaTarinaSivu = () => {
       )
     );
   };
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+    });
+  }, []);
 
   return (
     <Wrapper onSubmit={handleSubmit}>
