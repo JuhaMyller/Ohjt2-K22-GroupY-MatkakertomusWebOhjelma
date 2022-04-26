@@ -17,39 +17,40 @@ const JasenKortti = ({
   nimimerkki,
   createdAt,
   id,
+  tarinat,
 }) => {
   const imag = SERVER_URL + '/img/' + kuva;
   return (
     <Wrapper>
-      <div className="Jasenkorttipohja">
-        <div className="kuvadivi">
+      <div className='Jasenkorttipohja'>
+        <div className='kuvadivi'>
           <h5>@{nimimerkki}</h5>
-          <img src={kuva ? imag : userimage} alt="" />
+          <img src={kuva ? imag : userimage} alt='' />
           <h4>
             {etunimi} {sukunimi}
           </h4>
         </div>
-        <div className="sisaltodivi">
+        <div className='sisaltodivi'>
           <p>
             {esittely
               ? esittely.slice(0, 50) + '...'
               : 'Käyttäjällä ei ole esittelyä'}
           </p>
         </div>
-        <div className="sisaltobuttondivi">
+        <div className='sisaltobuttondivi'>
           <Link to={'/jasenet/' + id}>
             <Button>Profiili</Button>
           </Link>
         </div>
-        <div className="alatiedot">
-          <div className="jasenpvmtiedot">
+        <div className='alatiedot'>
+          <div className='jasenpvmtiedot'>
             <MdDateRange size={15} />
             <p>{formatedDate(createdAt)}</p>
           </div>
-          {/* <div className='jasentarinadivi'>
+          <div className='jasentarinadivi'>
             <AiOutlineRead size={15} />
-            <p>20</p>
-          </div> */}
+            <p>{tarinat}</p>
+          </div>
         </div>
       </div>
     </Wrapper>
