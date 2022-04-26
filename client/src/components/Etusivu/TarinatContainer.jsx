@@ -1,52 +1,56 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import TarinaKortti from '../MatkakohdeIDSivu/TarinaKortti';
+import { useSelector } from 'react-redux';
+import useAxiosPrivate from '../../hooks/useAxiosPrivate';
+import formatDate from '../../utils/formatedDate';
 
 const TarinatContainer = () => {
+  const [tarinat, setTarinat] = useState([]);
+  const user = useSelector((state) => state.auth.kayttaja);
+
+  const axios = useAxiosPrivate();
+
+  const handleFetch = async () => {
+    try {
+      const response = await axios.get('/api/tarina/suosituimmattarinat');
+      if (response.status === 200) {
+        setTarinat(response.data.tarinat);
+      }
+    } catch (error) {
+      console.log(error.respose.data);
+    }
+  };
+
+  useEffect(() => {
+    if (user) handleFetch();
+  }, []);
+
   return (
-    <Wrapper>
-      <div className="title">
-        <h1>Suosituimmat tarinat</h1>
-      </div>
-      <div className="tarinatGrid">
-        <TarinaKortti
-          matkaaja="Marek"
-          createdAt="2020-02-02T13:30:30"
-          teksti="asdasdsad"
-          id="10"
-          otsikko="TERVE"
-          numero="10"
-          lukukertoja={[]}
-        />
-        <TarinaKortti
-          matkaaja="Marek"
-          createdAt="2020-02-02T13:30:30"
-          teksti="asdasdsad"
-          id="10"
-          otsikko="TERVE"
-          numero="10"
-          lukukertoja={[]}
-        />
-        <TarinaKortti
-          matkaaja="Marek"
-          createdAt="2020-02-02T13:30:30"
-          teksti="asdasdsad"
-          id="10"
-          otsikko="TERVE"
-          numero="10"
-          lukukertoja={[]}
-        />
-        <TarinaKortti
-          matkaaja="Marek"
-          createdAt="2020-02-02T13:30:30"
-          teksti="asdasdsad"
-          id="10"
-          otsikko="TERVE"
-          numero="10"
-          lukukertoja={[]}
-        />
-      </div>
-    </Wrapper>
+    <>
+      {user && (
+        <Wrapper>
+          <div className="title">
+            <h1>Suosituimmat tarinat</h1>
+          </div>
+          <div className="tarinatGrid">
+            {tarinat.map((tarina) => {
+              return (
+                <TarinaKortti
+                  key={tarina._id}
+                  matkaaja={tarina.matkaaja[0].nimimerkki}
+                  createdAt={formatDate(tarina.createdAt)}
+                  teksti={tarina.teksti}
+                  id={tarina._id}
+                  otsikko={tarina.otsikko}
+                  lukukertoja={tarina.lukukertoja}
+                />
+              );
+            })}
+          </div>
+        </Wrapper>
+      )}
+    </>
   );
 };
 
