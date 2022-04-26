@@ -49,6 +49,11 @@ const TarinaSivu = () => {
   useEffect(() => {
     haeTarina();
   }, []);
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+    });
+  }, []);
 
   useEffect(() => {
     if (!tarina.kuva) return;
@@ -61,8 +66,8 @@ const TarinaSivu = () => {
   }, [tarina.kuva]);
   return (
     <Wrapper>
-      <div className='buttonit'>
-        <div className='muokkaaButton'>
+      <div className="buttonit">
+        <div className="muokkaaButton">
           <Button
             onClick={() =>
               openModal({
@@ -82,42 +87,42 @@ const TarinaSivu = () => {
             Muokkaa
           </Button>
         </div>
-        <div className='poistaButton'>
+        <div className="poistaButton">
           <Button onClick={poistaTarina}>Poista Tarina</Button>
         </div>
       </div>
 
-      <div className='wrapper'>
-        <div className='kuva_kayttajaWrap'>
-          <div className='kuva-container'>
+      <div className="wrapper">
+        <div className="kuva_kayttajaWrap">
+          <div className="kuva-container">
             <ImageContainer imgUrls={imgUrls || []} />
           </div>
-          <div className='kayttajaKuvaContainer'>
+          <div className="kayttajaKuvaContainer">
             <img
-              className='kayttajaKuva'
+              className="kayttajaKuva"
               src={
                 tarina?.matkaaja?.kuva
                   ? `${SERVER_URL}/img/${tarina.matkaaja.kuva}`
                   : noImg
               }
-              alt='Kuva ei toimi'
+              alt="Kuva ei toimi"
             />
           </div>
-          <div className='kayttaja'>
+          <div className="kayttaja">
             <Link to={'/jasenet/' + tarina.matkaaja?._id}>
               <h3>{`${tarina?.matkaaja?.etunimi} ${tarina?.matkaaja?.sukunimi}`}</h3>
             </Link>
           </div>
-          <div className='tiedot'>
-            <MdDateRange className='paivaIcon' />
+          <div className="tiedot">
+            <MdDateRange className="paivaIcon" />
             <p>{formatDate(tarina?.createdAt)}</p>
-            <AiOutlineRead className='lukenutIcon' />
+            <AiOutlineRead className="lukenutIcon" />
             <p>{tarina?.lukukertoja?.length}</p>
           </div>
           <CommentContainer />
         </div>
-        <div className='tarina-container'>
-          <h1 className='otsikko'>{tarina?.otsikko}</h1>
+        <div className="tarina-container">
+          <h1 className="otsikko">{tarina?.otsikko}</h1>
           <p>{tarina?.teksti}</p>
         </div>
       </div>

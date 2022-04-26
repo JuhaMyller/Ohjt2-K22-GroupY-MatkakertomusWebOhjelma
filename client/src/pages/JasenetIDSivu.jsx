@@ -47,6 +47,11 @@ const JasenetIDSivu = () => {
     if (id === omaProfiili.id) return setProfiili(omaProfiili);
     getUser();
   }, [id, omaProfiili]);
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+    });
+  }, []);
 
   return (
     <Wrapper>

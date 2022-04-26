@@ -16,6 +16,12 @@ const MatkakohteetSivu = () => {
     handleGetMatkakohteet();
   }, []);
 
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+    });
+  }, []);
+
   return (
     <div>
       <KohdeLista />

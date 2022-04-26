@@ -6,6 +6,11 @@ import useAxiosPrivate from '../hooks/useAxiosPrivate';
 
 const MatkakohdeIDSivu = () => {
   const { id } = useParams();
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+    });
+  }, []);
 
   return (
     <div>

@@ -20,12 +20,17 @@ const OmatTarinatSivu = () => {
   useEffect(() => {
     getOmatTarinat();
   }, []);
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+    });
+  }, []);
   return (
     <Wrapper>
-      <div className='otsikko'>
+      <div className="otsikko">
         <h1>Omat Tarinat</h1>
       </div>
-      <div className='divlista'>
+      <div className="divlista">
         {omatTarinat.map((tarina, index) => (
           <TarinaKortti
             numero={index}
