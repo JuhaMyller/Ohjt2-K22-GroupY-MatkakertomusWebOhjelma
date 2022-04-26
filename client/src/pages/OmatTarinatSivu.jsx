@@ -27,10 +27,15 @@ const OmatTarinatSivu = () => {
   }, []);
   return (
     <Wrapper>
-      <div className="otsikko">
+      <div className='otsikko'>
         <h1>Omat Tarinat</h1>
       </div>
-      <div className="divlista">
+      <div>
+        <p style={{ textAlign: 'center', marginTop: 30 }}>
+          {omatTarinat.length === 0 ? 'Käyttäjällä ei ole vielä tarinoita' : ''}
+        </p>
+      </div>
+      <div className='divlista'>
         {omatTarinat.map((tarina, index) => (
           <TarinaKortti
             numero={index}

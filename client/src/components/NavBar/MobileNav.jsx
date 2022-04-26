@@ -14,17 +14,9 @@ const MobileNav = ({ closeNav, navRef, display }) => {
   const isLoading = useSelector((state) => state.auth.refreshTokenFetch);
   const img = useSelector((state) => state.auth.kayttaja?.kuva);
 
-
-
-  const profiilikuva = img
-    ? `${SERVER_URL}/img/${img}`
-    : lataus;
-
-
-
+  const profiilikuva = img ? `${SERVER_URL}/img/${img}` : lataus;
 
   return (
-
     <Wrapper
       style={{
         display: display ? 'block' : 'none',
@@ -56,7 +48,9 @@ const MobileNav = ({ closeNav, navRef, display }) => {
                   <ul>
                     <li>
                       <Link to='tarinat'>
-                        <button onClick={() => closeNav(false)}>Porukan Tarinat</button>
+                        <button onClick={() => closeNav(false)}>
+                          Porukan Tarinat
+                        </button>
                       </Link>
                     </li>
                     <li>
@@ -79,9 +73,8 @@ const MobileNav = ({ closeNav, navRef, display }) => {
                         <button onClick={closeNav}>Jäsenet</button>
                       </Link>
                     </li>
-
                   </ul>
-                  
+
                   <button onClick={closeNav} className='logout'>
                     <Link to='kirjauduulos'>Kirjaudu ulos</Link>
                   </button>
@@ -97,7 +90,6 @@ const MobileNav = ({ closeNav, navRef, display }) => {
         </div>
       )}
     </Wrapper>
-
   );
 };
 
@@ -169,14 +161,10 @@ const Wrapper = styled.section`
     width: 100%;
   }
   .login {
-    position: relative;
-    top: 65vh;
     background: red;
     margin-bottom: 30px;
   }
   .logout {
-    position: relative;
-    top: 20vh;
     background: red;
     margin-bottom: 30px;
   }
