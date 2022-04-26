@@ -21,28 +21,28 @@ const JasenKortti = ({
   const imag = SERVER_URL + '/img/' + kuva;
   return (
     <Wrapper>
-      <div className='Jasenkorttipohja'>
-        <div className='kuvadivi'>
+      <div className="Jasenkorttipohja">
+        <div className="kuvadivi">
           <h5>@{nimimerkki}</h5>
-          <img src={kuva ? imag : userimage} alt='' />
+          <img src={kuva ? imag : userimage} alt="" />
           <h4>
             {etunimi} {sukunimi}
           </h4>
         </div>
-        <div className='sisaltodivi'>
+        <div className="sisaltodivi">
           <p>
             {esittely
               ? esittely.slice(0, 50) + '...'
               : 'Käyttäjällä ei ole esittelyä'}
           </p>
         </div>
-        <div className='sisaltobuttondivi'>
+        <div className="sisaltobuttondivi">
           <Link to={'/jasenet/' + id}>
             <Button>Profiili</Button>
           </Link>
         </div>
-        <div className='alatiedot'>
-          <div className='jasenpvmtiedot'>
+        <div className="alatiedot">
+          <div className="jasenpvmtiedot">
             <MdDateRange size={15} />
             <p>{formatedDate(createdAt)}</p>
           </div>
@@ -62,9 +62,11 @@ const Wrapper = styled.div`
     border-radius: 30px 30px 30px 30px;
     max-width: 300px;
     min-height: 400px;
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    margin: auto;
   }
   .kuvadivi {
     padding-top: 10px;

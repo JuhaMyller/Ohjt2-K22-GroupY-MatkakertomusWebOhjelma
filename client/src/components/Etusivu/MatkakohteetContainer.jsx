@@ -1,24 +1,51 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Kohdekortti from '../MatkakohteetSivu/Kohdekortti';
-import bg from '../../assets/pagehero1.png';
+import useAxiosPrivate from '../../hooks/useAxiosPrivate';
+import SERVER_URL from '../../utils/serverUrl';
 
 const MatkakohteetContainer = () => {
+  const [matkakohteet, setMatkakohteet] = useState([]);
+  const [fetching, setFetching] = useState(false);
+
+  const axios = useAxiosPrivate();
+
+  const fetchMatkakohteet = async () => {
+    try {
+      setFetching(true);
+      const response = await axios.get('api/matkakohde/suosituimmat');
+      if (response.status === 200) {
+        setMatkakohteet(response.data.matkakohde);
+        setFetching(false);
+      }
+    } catch (error) {
+      console.log(error.response.data);
+      setFetching(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchMatkakohteet();
+  }, []);
+
   return (
     <Wrapper>
       <div className="title">
         <h1>Suosituimmat matkakohteet</h1>
       </div>
       <div className="gridWrapper">
-        <div className="cell">
-          <Kohdekortti kuva={bg} maa="suomi" kohdenimi="perr" tarinat={10} />
-        </div>
-        <div className="cell">
-          <Kohdekortti kuva={bg} maa="suomi" kohdenimi="perr" tarinat={10} />
-        </div>
-        <div className="cell">
-          <Kohdekortti kuva={bg} maa="suomi" kohdenimi="perr" tarinat={10} />
-        </div>
+        {matkakohteet.map((matkakohde) => {
+          return (
+            <div key={matkakohde._id} className="cell">
+              <Kohdekortti
+                kuva={`${SERVER_URL}/img/${matkakohde.kuva}`}
+                maa={matkakohde.maa}
+                kohdenimi={matkakohde.kohdenimi}
+                tarinat={matkakohde.tarinat}
+              />
+            </div>
+          );
+        })}
       </div>
       <div className="banner"></div>
     </Wrapper>

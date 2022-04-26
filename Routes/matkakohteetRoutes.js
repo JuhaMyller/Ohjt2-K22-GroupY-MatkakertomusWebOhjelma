@@ -33,5 +33,5 @@ router.delete(
   requireAuth,
   matkakohteetControllers.poistaMatkakohde
 );
-
+router.get('/suosituimmat', matkakohteetControllers.suosituimmatMatkakohteet);
 module.exports = router;

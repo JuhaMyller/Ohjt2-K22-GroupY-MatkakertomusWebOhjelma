@@ -214,3 +214,37 @@ module.exports.muokkaaTarina = async (req, res, next) => {
     next(error);
   }
 };
+
+module.exports.suosituimmatTarinat = async (req, res, next) => {
+  try {
+    const suosituimmat = await Tarina.aggregate([
+      { $match: { yksityinen: false } },
+      {
+        $lookup: {
+          from: 'matkaajas',
+          let: { nimimerkki: 'nimimerkki' },
+          pipeline: [{ $project: { _id: 1, nimimerkki: 1 } }],
+          localField: 'matkaaja',
+          foreignField: '_id',
+          as: 'matkaaja',
+        },
+      },
+      {
+        $project: {
+          matkaaja: 1,
+          lukukertoja: 1,
+          teksti: 1,
+          otsikko: 1,
+          createdAt: 1,
+          length: { $size: '$lukukertoja' },
+        },
+      },
+      { $sort: { length: -1 } },
+      { $limit: 4 },
+    ]);
+
+    return res.status(200).json({ message: 'OK', tarinat: suosituimmat });
+  } catch (error) {
+    next(error);
+  }
+};

@@ -131,6 +131,7 @@ const Wrapper = styled.footer`
       margin: auto;
       .links-wrapper {
         display: flex;
+        flex-wrap: wrap;
         ul {
           margin-right: 10px;
         }

@@ -30,6 +30,7 @@ router.put(
   multer.array('kuva', 12),
   tarinatController.muokkaaTarina
 );
+router.get('/suosituimmattarinat', tarinatController.suosituimmatTarinat);
 
 // <---->
 

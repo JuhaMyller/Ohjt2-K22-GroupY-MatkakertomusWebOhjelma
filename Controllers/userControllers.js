@@ -527,3 +527,58 @@ module.exports.kaikkiJasenet = async (req, res, next) => {
     next(error);
   }
 };
+
+module.exports.aktiivisimmatKayttajat = async (req, res, next) => {
+  try {
+    // haetaan kaikki käyttäjät,
+    // groupataan matkaajan _id:n perusteella,
+    // "joinataan" matkaajasta ne käyttäjät joilla on eniten tarinoita
+
+    const tarinat = await Tarina.aggregate([
+      {
+        $lookup: {
+          from: 'matkaajas',
+          let: {
+            nimimerkki: 'nimimerkki',
+            etunimi: 'etunimi',
+            sukunimi: 'sukunimi',
+            esittely: 'esittely',
+            kuva: 'kuva',
+            createdAt: 'createdAt',
+          },
+          pipeline: [
+            {
+              $project: {
+                _id: 1,
+                nimimerkki: 1,
+                etunimi: 1,
+                sukunimi: 1,
+                esittely: 1,
+                kuva: 1,
+                createdAt: 1,
+              },
+            },
+          ],
+          localField: 'matkaaja',
+          foreignField: '_id',
+          as: 'matkaaja',
+        },
+      },
+      {
+        $group: {
+          _id: '$matkaaja',
+          count: { $sum: 1 },
+        },
+      },
+      {
+        $project: {
+          count: 1,
+        },
+      },
+      { $sort: { count: -1 } },
+      { $limit: 3 },
+    ]);
+
+    res.status(200).json({ message: 'OK', kayttajat: tarinat });
+  } catch (error) {}
+};

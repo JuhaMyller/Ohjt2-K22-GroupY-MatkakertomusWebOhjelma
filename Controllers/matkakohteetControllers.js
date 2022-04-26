@@ -135,3 +135,16 @@ module.exports.poistaMatkakohde = async (req, res, next) => {
     next(error);
   }
 };
+module.exports.suosituimmatMatkakohteet = async (req, res, next) => {
+  try {
+    const matkakohde = await Matkakohde.find();
+
+    const suosituimmat = matkakohde
+      .sort((a, b) => b.tarinat.length - a.tarinat.length)
+      .slice(0, 3);
+
+    res.status(200).json({ message: 'OK', matkakohde: suosituimmat });
+  } catch (error) {
+    next(error);
+  }
+};

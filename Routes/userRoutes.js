@@ -56,4 +56,10 @@ router.get('/refreshAccessToken', userController.refreshToken);
 router.get('/jasenet', requireAuth, userController.kaikkiJasenet);
 router.get('/profiili/:id', requireAuth, userController.profiiliIDlla);
 
+router.get(
+  '/aktiivisimmatkayttajat',
+  requireAuth,
+  userController.aktiivisimmatKayttajat
+);
+
 module.exports = router;
