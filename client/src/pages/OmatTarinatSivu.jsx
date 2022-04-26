@@ -7,13 +7,17 @@ import styled from 'styled-components';
 const OmatTarinatSivu = () => {
   const axios = useAxiosPrivate();
   const [omatTarinat, setOmatTarinat] = useState([]);
+  const [fetch, setFetch] = useState(false);
 
   const getOmatTarinat = async () => {
     try {
+      setFetch(true);
       const response = await axios.get('/api/tarina/omattarinat');
       setOmatTarinat(response.data.tarinat);
     } catch (error) {
       console.error(error);
+    } finally {
+      setFetch(false);
     }
   };
 
@@ -30,26 +34,32 @@ const OmatTarinatSivu = () => {
       <div className='otsikko'>
         <h1>Omat Tarinat</h1>
       </div>
-      <div>
-        <p style={{ textAlign: 'center', marginTop: 30 }}>
-          {omatTarinat.length === 0 ? 'Käyttäjällä ei ole vielä tarinoita' : ''}
-        </p>
-      </div>
-      <div className='divlista'>
-        {omatTarinat.map((tarina, index) => (
-          <TarinaKortti
-            numero={index}
-            teksti={tarina.teksti}
-            alkupvm={formatDate(tarina.alkupvm)}
-            otsikko={tarina.otsikko}
-            id={tarina._id}
-            key={tarina._id}
-            matkaaja={tarina.matkaaja.nimimerkki}
-            lukukertoja={tarina.lukukertoja}
-            createdAt={formatDate(tarina.createdAt)}
-          />
-        ))}
-      </div>
+
+      {omatTarinat.length > 0 ? (
+        <div className='divlista'>
+          {omatTarinat.map((tarina, index) => (
+            <TarinaKortti
+              numero={index}
+              teksti={tarina.teksti}
+              alkupvm={formatDate(tarina.alkupvm)}
+              otsikko={tarina.otsikko}
+              id={tarina._id}
+              key={tarina._id}
+              matkaaja={tarina.matkaaja.nimimerkki}
+              lukukertoja={tarina.lukukertoja}
+              createdAt={formatDate(tarina.createdAt)}
+            />
+          ))}
+        </div>
+      ) : !fetch ? (
+        <div>
+          <p style={{ textAlign: 'center', marginTop: 30 }}>
+            Käyttäjällä ei ole vielä tarinoita
+          </p>
+        </div>
+      ) : (
+        <p></p>
+      )}
     </Wrapper>
   );
 };
