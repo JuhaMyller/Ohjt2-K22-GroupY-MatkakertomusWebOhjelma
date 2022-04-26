@@ -28,6 +28,7 @@ app.use(express.static(path.join(__dirname, '/client/build')));
 app.use(mongoSanitize());
 app.use(helmet());
 app.use(helmet.crossOriginResourcePolicy({ policy: 'cross-origin' }));
+//Rajaa api pyyntöjä ip osoitteen perusteella 100/minuutti
 app.use(rateLimit);
 
 //http://localhost:4000/
