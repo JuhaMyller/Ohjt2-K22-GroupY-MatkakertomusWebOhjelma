@@ -42,6 +42,7 @@ const KayttajatContainer = () => {
                     esittely={kayttaja._id[0].esittely}
                     kuva={kayttaja._id[0].kuva}
                     id={kayttaja._id[0]._id}
+                    tarinat={kayttaja.count}
                   />
                 );
               })}
