@@ -32,7 +32,6 @@ const KayttajatContainer = () => {
             <h1>Aktiivisimmat käyttäjät</h1>
             <div className="jasenGrid">
               {kayttajat.map((kayttaja) => {
-                console.log(kayttaja._id[0].etunimi);
                 return (
                   <JasenKortti
                     key={kayttaja._id[0]._id}
