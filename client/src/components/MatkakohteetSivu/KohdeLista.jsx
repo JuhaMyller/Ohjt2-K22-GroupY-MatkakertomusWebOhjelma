@@ -14,15 +14,18 @@ const KohdeLista = () => {
   const [etsi, setEtsi] = useState('');
   const [filteredData, setFilteredData] = useState([]);
   const { openModal } = useModalContext();
+  const [loading, setLoading] = useState(true);
 
   const user = useSelector((state) => state.auth.kayttaja);
   const mkohteet = useSelector((state) => state.matkakohteet.Matkakohteet);
 
   useEffect(() => {
     setFilteredData(mkohteet);
+    setLoading(false);
   }, [mkohteet]);
 
   const filter = () => {
+    setLoading(true);
     if (etsi !== '') {
       const results = mkohteet.filter((matkakohde) => {
         return matkakohde.kohdenimi
@@ -39,19 +42,19 @@ const KohdeLista = () => {
   return (
     <div>
       <div>
-        <div className="buttonJaInput">
-          <div className="input-container">
-            <div className="input">
+        <div className='buttonJaInput'>
+          <div className='input-container'>
+            <div className='input'>
               <Input
-                className="etsi"
-                type="text"
-                id="etsi"
+                className='etsi'
+                type='text'
+                id='etsi'
                 value={etsi}
                 onChange={setEtsi}
-                placeholder="Etsi"
+                placeholder='Etsi'
               />
             </div>
-            <Button onClick={filter} className="button">
+            <Button onClick={filter} className='button'>
               Etsi
             </Button>
           </div>
@@ -77,7 +80,7 @@ const KohdeLista = () => {
         </div>
       </div>
       <div>
-        <div className="kohdekortti_lista">
+        <div className='kohdekortti_lista'>
           {filteredData && filteredData.length > 0 ? (
             filteredData.map((matkakohde) => (
               <Link to={`/matkakohteet/${matkakohde._id}`} key={matkakohde._id}>
@@ -90,8 +93,10 @@ const KohdeLista = () => {
                 ></Kohdekortti>
               </Link>
             ))
-          ) : (
+          ) : loading ? (
             <h2>Haulla ei löytynyt mitään</h2>
+          ) : (
+            <h2></h2>
           )}
         </div>
       </div>
