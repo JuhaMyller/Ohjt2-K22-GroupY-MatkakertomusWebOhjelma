@@ -516,11 +516,51 @@ module.exports.profiiliIDlla = async (req, res, next) => {
 
 module.exports.kaikkiJasenet = async (req, res, next) => {
   try {
-    const jasenet = await Matkaaja.find({})
-      .select(
-        'etunimi sukunimi createdAt kuva nimimerkki paikkakunta esittely sposti'
-      )
-      .exec();
+    // haetaan kaikki käyttäjät,
+    // groupataan matkaajan _id:n perusteella,
+    // "joinataan" matkaajasta ne käyttäjät joilla on eniten tarinoita
+    const jasenet = await Tarina.aggregate([
+      {
+        $lookup: {
+          from: 'matkaajas',
+          let: {
+            nimimerkki: 'nimimerkki',
+            etunimi: 'etunimi',
+            sukunimi: 'sukunimi',
+            esittely: 'esittely',
+            kuva: 'kuva',
+            createdAt: 'createdAt',
+          },
+          pipeline: [
+            {
+              $project: {
+                _id: 1,
+                nimimerkki: 1,
+                etunimi: 1,
+                sukunimi: 1,
+                esittely: 1,
+                kuva: 1,
+                createdAt: 1,
+              },
+            },
+          ],
+          localField: 'matkaaja',
+          foreignField: '_id',
+          as: 'matkaaja',
+        },
+      },
+      {
+        $group: {
+          _id: '$matkaaja',
+          count: { $sum: 1 },
+        },
+      },
+      {
+        $project: {
+          count: 1,
+        },
+      },
+    ]);
 
     res.status(200).json({ message: 'OK', jasenet });
   } catch (error) {
