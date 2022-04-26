@@ -34,17 +34,16 @@ const KayttajatContainer = () => {
               {kayttajat.map((kayttaja) => {
                 console.log(kayttaja._id[0].etunimi);
                 return (
-                  <div key={kayttaja._id[0]._id} className="cell">
-                    <JasenKortti
-                      etunimi={kayttaja._id[0].etunimi}
-                      sukunimi={kayttaja._id[0].sukunimi}
-                      nimimerkki={kayttaja._id[0].nimimerkki}
-                      createdAt={kayttaja._id[0].createdAt}
-                      esittely={kayttaja._id[0].esittely}
-                      kuva={kayttaja._id[0].kuva}
-                      id={kayttaja._id[0]._id}
-                    />
-                  </div>
+                  <JasenKortti
+                    key={kayttaja._id[0]._id}
+                    etunimi={kayttaja._id[0].etunimi}
+                    sukunimi={kayttaja._id[0].sukunimi}
+                    nimimerkki={kayttaja._id[0].nimimerkki}
+                    createdAt={kayttaja._id[0].createdAt}
+                    esittely={kayttaja._id[0].esittely}
+                    kuva={kayttaja._id[0].kuva}
+                    id={kayttaja._id[0]._id}
+                  />
                 );
               })}
             </div>
@@ -76,10 +75,6 @@ const Wrapper = styled.div`
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     justify-content: center;
     gap: 20px;
-    .cell {
-      width: fit-content;
-      margin: 20px auto;
-    }
   }
   @media screen and (max-width: 600px) {
     .banner {
