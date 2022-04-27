@@ -31,18 +31,18 @@ const MatkakohteetContainer = () => {
 
   return (
     <Wrapper>
-      <div className="title">
+      <div className='title'>
         <h1>Suosituimmat matkakohteet</h1>
       </div>
-      <div className="gridWrapper">
+      <div className='gridWrapper'>
         {matkakohteet.map((matkakohde) => {
           return (
-            <div key={matkakohde._id} className="cell">
+            <div key={matkakohde._id} className='cell'>
               <Link to={`/matkakohteet/${matkakohde._id}`} key={matkakohde._id}>
                 <Kohdekortti
                   kuva={`${SERVER_URL}/img/${matkakohde.kuva}`}
                   maa={matkakohde.maa}
-                  kohdenimi={matkakohde.kohdenimi}
+                  kohdenimi={matkakohde.kohdenimi.toUpperCase()}
                   tarinat={matkakohde.tarinat}
                 />
               </Link>
@@ -50,7 +50,7 @@ const MatkakohteetContainer = () => {
           );
         })}
       </div>
-      <div className="banner"></div>
+      <div className='banner'></div>
     </Wrapper>
   );
 };
